@@ -1,5 +1,7 @@
+import { Base } from "@/components/Base/Base";
 import Image from "next/image";
-import styles from "./page.module.css";
+import { ChooseTheme } from "@/theme/components/ChooseTheme/ChooseTheme.client";
+import styles from "./page.module.scss";
 
 export const metadata = {
   title: "Home | trustpkg.dev",
@@ -11,14 +13,21 @@ export default function Home() {
       <main className={styles.main}>
         <Image
           className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
+          src="/trustpkg-coin.png"
+          alt="Trustpkg Coin"
+          width={500}
+          height={500}
           priority
         />
         <div className={styles.intro}>
           <h1>To get started, edit the page.tsx file.</h1>
+
+          <ChooseTheme />
+
+          <Base as="p">
+            This is a <code>Base</code> component with the <code>as</code> prop
+            set to <code>p</code>.
+          </Base>
           <p>
             Looking for a starting point or more instructions? Head over to{" "}
             <a
@@ -46,13 +55,6 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
             Deploy Now
           </a>
           <a

@@ -1,11 +1,11 @@
 {
   "background": {
-    "primary": "#0F1117",
-    "secondary": "#161A22",
+    "primary": "#161A22",
+    "secondary": "#0F1117",
 
     "surface": {
-      "primary": "#1B202A",
-      "secondary": "#232937",
+      "primary": "#232937",
+      "secondary": "#1B202A",
       "tertiary": "#2B3242"
     },
 

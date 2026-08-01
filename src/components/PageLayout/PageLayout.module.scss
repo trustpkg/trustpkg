@@ -1,0 +1,12 @@
+@use "../../styles/pxToRem.scss" as pxToRem;
+@use "../../styles/breakpoints.scss" as breakpoints;
+@use "../../theme/generated/colors.generated.variables.scss" as colors;
+
+.pageLayout {
+  display: flex;
+  flex-direction: column;
+  gap: pxToRem.pxToRem(16);
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: clip;
+}

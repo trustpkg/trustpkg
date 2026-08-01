@@ -1,0 +1,23 @@
+@use "../../styles/pxToRem.scss" as pxToRem;
+@use "../../styles/breakpoints.scss" as breakpoints;
+@use "../../theme/generated/colors.generated.variables.scss" as colors;
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: colors.$color-background-surface-primary;
+  padding: pxToRem.pxToRem(8) pxToRem.pxToRem(24);
+  border-bottom: pxToRem.pxToRem(1) solid colors.$color-border-primary;
+
+  &_logoContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: pxToRem.pxToRem(40);
+    height: pxToRem.pxToRem(40);
+    background: colors.$color-text-secondary;
+    border-radius: 50%;
+  }
+}

@@ -1,7 +1,7 @@
 {
   "background": {
-    "primary": "#FFFFFF",
-    "secondary": "#F8F9FB",
+    "primary": "#F8F9FB",
+    "secondary": "#FFFFFF",
     "surface": {
       "primary": "#FFFFFF",
       "secondary": "#F7F8FA",
@@ -36,13 +36,7 @@
     "info": "#93C5FD"
   },
   "gradients": {
-    "primary": [
-      "#4F8CFF",
-      "#7C3AED"
-    ],
-    "hero": [
-      "#EEF2FF",
-      "#FFFFFF"
-    ]
+    "primary": ["#4F8CFF", "#7C3AED"],
+    "hero": ["#EEF2FF", "#FFFFFF"]
   }
 }

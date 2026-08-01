@@ -1,9 +1,9 @@
 import "server-only";
 
-import { cookies } from "next/headers";
 import { primaryTheme } from "@/theme/generated/themes.generated.const";
 import type { CurrentTheme } from "@/theme/generated/themes.generated.types";
-import { apiClient, ApiClient } from "@/utils/api";
+import { ApiClient } from "@/utils/api";
+import { cookies } from "next/headers";
 
 function resolveDomainUrl(): string | null {
   const rawDomain = process.env.NEXT_PUBLIC_DOMAIN_URL?.trim();

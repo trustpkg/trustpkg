@@ -1,0 +1,14 @@
+name: workflow
+on:
+  pull_request:
+jobs:
+  code-checks:
+    uses: ./.github/workflows/code-checks.yml
+
+  build:
+    uses: ./.github/workflows/build.yml
+    needs: vulnerabilities-audit
+
+  vulnerabilities-audit:
+    uses: ./.github/workflows/vulnerabilities.yml
+    needs: code-checks

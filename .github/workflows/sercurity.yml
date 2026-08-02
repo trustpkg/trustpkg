@@ -34,9 +34,6 @@ jobs:
   codeql:
     name: CodeQL
     runs-on: ubuntu-26.04
-    permissions:
-      contents: read
-      security-events: write
 
     steps:
       - name: Gather repository

@@ -3,14 +3,12 @@ name: Security
 on:
   workflow_call:
 
-permissions:
-  contents: read
-  security-events: write
-
 jobs:
   secrets-scanning:
     name: Gitleaks
     runs-on: ubuntu-26.04
+    permissions:
+      contents: read
 
     steps:
       - name: Gather repository
@@ -36,6 +34,9 @@ jobs:
   codeql:
     name: CodeQL
     runs-on: ubuntu-26.04
+    permissions:
+      contents: read
+      security-events: write
 
     steps:
       - name: Gather repository

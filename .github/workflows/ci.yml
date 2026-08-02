@@ -7,8 +7,11 @@ jobs:
 
   build:
     uses: ./.github/workflows/build.yml
-    needs: vulnerabilities-audit
+    needs: code-checks
 
   vulnerabilities-audit:
     uses: ./.github/workflows/vulnerabilities.yml
     needs: code-checks
+
+  security:
+    uses: ./.github/workflows/sercurity.yml

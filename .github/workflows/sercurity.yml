@@ -1,0 +1,50 @@
+name: Security
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  secrets-scanning:
+    name: Gitleaks
+    runs-on: ubuntu-26.04
+
+    steps:
+      - name: Gather repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Secrets scanning
+        uses: gitleaks/gitleaks-action@v3
+        with:
+          category: secret-scanning
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Explain failure
+        if: failure()
+        run: |
+          echo "::error::Gitleaks detected one or more secrets in this repository."
+          echo "::error::Treat every exposed secret as compromised."
+          echo "::error::Rotate or revoke the affected credentials immediately."
+          echo "::error::Removing the secret from Git history does NOT make it safe to use again."
+
+  codeql:
+    name: CodeQL
+    runs-on: ubuntu-26.04
+
+    steps:
+      - name: Gather repository
+        uses: actions/checkout@v7
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: javascript
+
+      - name: Analyze CodeQL
+        uses: github/codeql-action/analyze@v4

@@ -2,6 +2,10 @@
 
 export const colors = {
   "background": {
+    "button": {
+      "primary": "var(--color-background-button-primary)",
+      "secondary": "var(--color-background-button-secondary)"
+    },
     "error": "var(--color-background-error)",
     "info": "var(--color-background-info)",
     "overlay": "var(--color-background-overlay)",

@@ -8,7 +8,7 @@
   align-items: center;
   width: 100%;
   background: colors.$color-background-surface-primary;
-  padding: pxToRem.pxToRem(8) pxToRem.pxToRem(24);
+  padding: pxToRem.pxToRem(8) pxToRem.pxToRem(16);
   border-bottom: pxToRem.pxToRem(1) solid colors.$color-border-primary;
 
   &_logoLink {
@@ -28,9 +28,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: pxToRem.pxToRem(40);
-    height: pxToRem.pxToRem(40);
+    width: pxToRem.pxToRem(32);
+    height: pxToRem.pxToRem(32);
     background: colors.$color-text-secondary;
     border-radius: 50%;
+  }
+
+  &_logoImage {
+    &[data-theme="light"] {
+      filter: invert(1);
+    }
   }
 }

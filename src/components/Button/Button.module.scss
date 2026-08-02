@@ -1,0 +1,39 @@
+@use "../../styles/pxToRem.scss" as pxToRem;
+@use "../../styles/breakpoints.scss" as breakpoints;
+@use "../../theme/generated/colors.generated.variables.scss" as colors;
+
+@mixin base {
+  width: fit-content;
+  height: pxToRem.pxToRem(32);
+  padding: 0 pxToRem.pxToRem(16);
+  background: colors.$color-background-button-primary;
+  border: none;
+  border-radius: pxToRem.pxToRem(8);
+}
+
+.button {
+  @include base;
+
+  &_iconWrapper {
+  }
+
+  &__small {
+  }
+
+  &__large {
+  }
+
+  &__outlined {
+  }
+
+  &__soft {
+  }
+}
+
+.iconButton {
+}
+
+.link {
+  &_iconWrapper {
+  }
+}

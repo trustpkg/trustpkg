@@ -2,52 +2,51 @@
   "background": {
     "primary": "#161A22",
     "secondary": "#0F1117",
-
     "surface": {
       "primary": "#232937",
       "secondary": "#1B202A",
       "tertiary": "#2B3242"
     },
-
     "success": "#0F2E1C",
     "warning": "#3A2B0A",
     "error": "#3A1618",
     "info": "#112A47",
-
-    "overlay": "rgba(0,0,0,0.65)"
+    "overlay": "rgba(0,0,0,0.65)",
+    "button": {
+      "primary": "#8B7CFF",
+      "secondary": "#5EA0FF"
+    }
   },
-
   "text": {
     "primary": "#F3F4F6",
     "secondary": "#D1D5DB",
     "tertiary": "#9CA3AF",
     "disabled": "#6B7280",
     "inverse": "#111827",
-
     "accent": "#8B7CFF",
-
     "success": "#4ADE80",
     "warning": "#FBBF24",
     "error": "#F87171",
     "info": "#60A5FA"
   },
-
   "border": {
     "primary": "#30384A",
     "secondary": "#3A4356",
     "tertiary": "#4A5568",
-
     "focus": "#8B7CFF",
-
     "success": "#166534",
     "warning": "#B45309",
     "error": "#B91C1C",
     "info": "#2563EB"
   },
-
   "gradients": {
-    "primary": ["#5EA0FF", "#8B5CF6"],
-
-    "hero": ["#1A2030", "#0F1117"]
+    "primary": [
+      "#5EA0FF",
+      "#8B5CF6"
+    ],
+    "hero": [
+      "#1A2030",
+      "#0F1117"
+    ]
   }
 }

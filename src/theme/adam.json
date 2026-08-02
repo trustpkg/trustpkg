@@ -1,0 +1,47 @@
+{
+  "background": {
+    "primary": "#F8F9FB",
+    "secondary": "#FFFFFF",
+    "surface": {
+      "primary": "#FFFFFF",
+      "secondary": "#F7F8FA",
+      "tertiary": "#F1F3F5"
+    },
+    "success": "#DCFCE7",
+    "warning": "#FEF3C7",
+    "error": "#FEE2E2",
+    "info": "#DBEAFE",
+    "overlay": "rgba(17,24,39,0.45)",
+
+    "button": {
+      "primary": "#7C3AED",
+      "secondary": "#4F8CFF"
+    }
+  },
+  "text": {
+    "primary": "#111827",
+    "secondary": "#4B5563",
+    "tertiary": "#6B7280",
+    "disabled": "#9CA3AF",
+    "inverse": "#FFFFFF",
+    "accent": "#5B5CEB",
+    "success": "#166534",
+    "warning": "#92400E",
+    "error": "#991B1B",
+    "info": "#1D4ED8"
+  },
+  "border": {
+    "primary": "#E5E7EB",
+    "secondary": "#CBD5E1",
+    "tertiary": "#F1F5F9",
+    "focus": "#7C3AED",
+    "success": "#86EFAC",
+    "warning": "#FCD34D",
+    "error": "#FCA5A5",
+    "info": "#93C5FD"
+  },
+  "gradients": {
+    "primary": ["#4F8CFF", "#7C3AED"],
+    "hero": ["#EEF2FF", "#FFFFFF"]
+  }
+}

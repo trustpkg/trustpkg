@@ -93,12 +93,6 @@ a.secondary {
   border-color: var(--button-secondary-border);
 }
 
-[data-theme="dark"] {
-  .logo {
-    filter: invert(1);
-  }
-}
-
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   a.primary:hover {

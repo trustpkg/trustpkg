@@ -12,9 +12,3 @@ jobs:
   vulnerabilities-audit:
     uses: ./.github/workflows/vulnerabilities.yml
     needs: code-checks
-
-  security:
-    uses: ./.github/workflows/sercurity.yml
-    permissions:
-      contents: read
-      security-events: write

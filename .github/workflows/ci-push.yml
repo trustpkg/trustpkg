@@ -1,0 +1,11 @@
+name: workflow
+on:
+  push:
+    branches:
+      - main
+jobs:
+  security:
+    uses: ./.github/workflows/security.yml
+    permissions:
+      contents: read
+      security-events: write

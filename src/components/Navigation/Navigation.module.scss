@@ -11,6 +11,19 @@
   padding: pxToRem.pxToRem(8) pxToRem.pxToRem(24);
   border-bottom: pxToRem.pxToRem(1) solid colors.$color-border-primary;
 
+  &_logoLink {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: pxToRem.pxToRem(8);
+  }
+
+  &_logoText {
+    &Suffix {
+      color: colors.$color-text-accent;
+    }
+  }
+
   &_logoContainer {
     display: flex;
     justify-content: center;

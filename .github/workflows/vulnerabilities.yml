@@ -15,4 +15,4 @@ jobs:
 
       - name: audit vulnerabilities
         shell: bash
-        run: pnpm audit
+        run: pnpm audit --audit-level=high

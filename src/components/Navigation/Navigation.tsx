@@ -15,16 +15,16 @@ export async function NavigationRoot() {
 
   return (
     <nav className={styles.navigation}>
-      <Link href="/">
-        <React.Suspense>
+      <Link href="/" className={styles.navigation_logoLink}>
+        <React.Suspense fallback={<span>loading theme ....</span>}>
           <div className={styles.navigation_logoContainer}>
-            <Image
-              src={logoSrcByTheme[theme]}
-              alt="trustpkg logo"
-              width={40}
-              height={40}
-            />
+            <Image src={logoSrcByTheme[theme]} alt="" width={40} height={40} />
           </div>
+
+          <span className={styles.navigation_logoText}>
+            trustpkg
+            <span className={styles.navigation_logoTextSuffix}>.dev</span>
+          </span>
         </React.Suspense>
       </Link>
 

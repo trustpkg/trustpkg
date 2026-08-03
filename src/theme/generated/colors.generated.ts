@@ -2,6 +2,10 @@
 
 export const colors = {
   "background": {
+    "button": {
+      "primary": "var(--color-background-button-primary)",
+      "secondary": "var(--color-background-button-secondary)"
+    },
     "error": "var(--color-background-error)",
     "info": "var(--color-background-info)",
     "overlay": "var(--color-background-overlay)",
@@ -26,11 +30,19 @@ export const colors = {
     "warning": "var(--color-border-warning)"
   },
   "gradients": {
+    "button": {
+      "primary": "var(--color-gradients-button-primary)",
+      "secondary": "var(--color-gradients-button-secondary)"
+    },
     "hero": "var(--color-gradients-hero)",
     "primary": "var(--color-gradients-primary)"
   },
   "text": {
     "accent": "var(--color-text-accent)",
+    "button": {
+      "primary": "var(--color-text-button-primary)",
+      "secondary": "var(--color-text-button-secondary)"
+    },
     "disabled": "var(--color-text-disabled)",
     "error": "var(--color-text-error)",
     "info": "var(--color-text-info)",

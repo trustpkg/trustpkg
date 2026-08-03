@@ -18,7 +18,14 @@ export async function NavigationRoot() {
       <Link href="/" className={styles.navigation_logoLink}>
         <React.Suspense fallback={<span>loading theme ....</span>}>
           <div className={styles.navigation_logoContainer}>
-            <Image src={logoSrcByTheme[theme]} alt="" width={40} height={40} />
+            <Image
+              data-theme={theme}
+              className={styles.navigation_logoImage}
+              src={logoSrcByTheme[theme]}
+              alt=""
+              width={36}
+              height={36}
+            />
           </div>
 
           <span className={styles.navigation_logoText}>

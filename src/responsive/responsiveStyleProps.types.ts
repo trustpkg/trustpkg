@@ -12,7 +12,9 @@ type StyleAliasProps = {
   textWrap?: CSSProperties["textWrap"];
 };
 
-export type ResponsiveStyleProps = WithResponsiveValues<CSSProperties & StyleAliasProps>;
+export type ResponsiveStyleProps = WithResponsiveValues<
+  CSSProperties & StyleAliasProps
+>;
 
 export type BaseDisplayProps = Pick<
   ResponsiveStyleProps,

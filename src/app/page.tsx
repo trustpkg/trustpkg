@@ -1,5 +1,5 @@
-import PageLayout from "@/components/PageLayout";
 import Navigation from "@/components/Navigation";
+import PageLayout from "@/components/PageLayout";
 
 export const metadata = {
   title: "Home | trustpkg.dev",

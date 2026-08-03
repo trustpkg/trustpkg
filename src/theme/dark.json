@@ -13,8 +13,8 @@
     "info": "#112A47",
     "overlay": "rgba(0,0,0,0.65)",
     "button": {
-      "primary": "#8B7CFF",
-      "secondary": "#5EA0FF"
+      "primary": "#8B5CF6",
+      "secondary": "#4C6EF5"
     }
   },
   "text": {
@@ -27,7 +27,11 @@
     "success": "#4ADE80",
     "warning": "#FBBF24",
     "error": "#F87171",
-    "info": "#60A5FA"
+    "info": "#60A5FA",
+    "button": {
+      "primary": "#F8FAFC",
+      "secondary": "#E8F0FF"
+    }
   },
   "border": {
     "primary": "#30384A",
@@ -40,13 +44,11 @@
     "info": "#2563EB"
   },
   "gradients": {
-    "primary": [
-      "#5EA0FF",
-      "#8B5CF6"
-    ],
-    "hero": [
-      "#1A2030",
-      "#0F1117"
-    ]
+    "primary": ["#5EA0FF", "#8B5CF6"],
+    "button": {
+      "primary": ["#8B5CF6", "#C4B5FD"],
+      "secondary": ["#4C6EF5", "#364FC7"]
+    },
+    "hero": ["#1A2030", "#0F1117"]
   }
 }

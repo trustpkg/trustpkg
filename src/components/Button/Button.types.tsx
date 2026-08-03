@@ -37,6 +37,8 @@ interface ButtonCommonProps {
   EndIconSlot?: React.ReactNode;
   size?: ValueOf<typeof BUTTON_SIZES>;
   variant?: ValueOf<typeof BUTTON_VARIANTS>;
+  disabled?: boolean;
+  isPending?: boolean;
 }
 
 interface ButtonProps
@@ -46,6 +48,8 @@ interface IconButtonCommonProps {
   label: string;
   size?: ValueOf<typeof ICON_BUTTON_SIZES>;
   variant?: ValueOf<typeof ICON_BUTTON_VARIANTS>;
+  disabled?: boolean;
+  isPending?: boolean;
 }
 
 interface IconButtonProps
@@ -55,6 +59,8 @@ interface LinkCommonProps {
   StartIconSlot?: React.ReactNode;
   EndIconSlot?: React.ReactNode;
   isInherited?: boolean;
+  disabled?: boolean;
+  isPending?: boolean;
 }
 
 export interface ButtonAsButtonProps extends ButtonProps, ButtonOmittedProps {}

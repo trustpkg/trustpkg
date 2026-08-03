@@ -27,7 +27,11 @@
     "success": "#15803D",
     "warning": "#C2410C",
     "error": "#B91C1C",
-    "info": "#16A34A"
+    "info": "#16A34A",
+    "button": {
+      "primary": "#FFFFFF",
+      "secondary": "#FFFFFF"
+    }
   },
   "border": {
     "primary": "#E5E7EB",
@@ -40,13 +44,11 @@
     "info": "#86EFAC"
   },
   "gradients": {
-    "primary": [
-      "#22C55E",
-      "#F97316"
-    ],
-    "hero": [
-      "#F4FFF8",
-      "#FFFFFF"
-    ]
+    "primary": ["#22C55E", "#F97316"],
+    "button": {
+      "primary": ["#22C55E", "#15803D"],
+      "secondary": ["#F97316", "#C2410C"]
+    },
+    "hero": ["#F4FFF8", "#FFFFFF"]
   }
 }

@@ -7,7 +7,6 @@ export const BUTTON_SIZES = {
 export const BUTTON_VARIANTS = {
   FILLED: "filled",
   OUTLINED: "outlined",
-  SOFT: "soft",
 } as const;
 
 export const ICON_BUTTON_SIZES = BUTTON_SIZES;

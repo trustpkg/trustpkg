@@ -8,7 +8,6 @@ import React from "react";
 const logoSrcByTheme = {
   light: "/trustpkg-coin.png",
   dark: "/trustpkg-coin-light.png",
-  adam: "/trustpkg-coin-light.png",
 };
 
 export async function NavigationRoot() {
@@ -24,8 +23,8 @@ export async function NavigationRoot() {
               className={styles.navigation_logoImage}
               src={logoSrcByTheme[theme]}
               alt=""
-              width={32}
-              height={32}
+              width={36}
+              height={36}
             />
           </div>
 

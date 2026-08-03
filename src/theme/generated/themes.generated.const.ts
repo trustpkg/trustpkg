@@ -3,7 +3,6 @@
 import type { CurrentTheme } from "./themes.generated.types";
 
 export const themeDefinitions = [
-  { theme: "adam" as CurrentTheme, isDefault: false },
   { theme: "dark" as CurrentTheme, isDefault: false },
   { theme: "light" as CurrentTheme, isDefault: true },
 ] as const;

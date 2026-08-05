@@ -67,9 +67,6 @@
   border: none;
   border-radius: 0;
   color: colors.$color-background-button-primary;
-  text-decoration: underline;
-  text-decoration-color: currentColor;
-  text-underline-offset: pxToRem.pxToRem(2);
   transition: color 160ms ease;
 }
 

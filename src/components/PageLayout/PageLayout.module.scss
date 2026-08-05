@@ -5,8 +5,63 @@
 .pageLayout {
   display: flex;
   flex-direction: column;
-  gap: pxToRem.pxToRem(16);
   width: 100%;
   min-height: 100vh;
   overflow-x: clip;
+
+  &_menuContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: pxToRem.pxToRem(8) pxToRem.pxToRem(16);
+    background: colors.$color-background-surface-primary;
+    border-bottom: pxToRem.pxToRem(1) solid colors.$color-border-primary;
+
+    @include breakpoints.md {
+      padding: pxToRem.pxToRem(8) pxToRem.pxToRem(32);
+    }
+  }
+
+  &_menuInnerContainer {
+    width: 100%;
+    max-width: pxToRem.pxToRem(1800);
+  }
+
+  &_contentContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    flex: 1 0 auto;
+    padding: pxToRem.pxToRem(16);
+
+    @include breakpoints.md {
+      padding: pxToRem.pxToRem(32);
+    }
+  }
+
+  &_contentInnerContainer {
+    width: 100%;
+    max-width: pxToRem.pxToRem(1800);
+  }
+
+  &_footerContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: pxToRem.pxToRem(16) pxToRem.pxToRem(16);
+    background: colors.$color-background-surface-primary;
+    border-top: pxToRem.pxToRem(1) solid colors.$color-border-primary;
+
+    @include breakpoints.md {
+      padding: pxToRem.pxToRem(16) pxToRem.pxToRem(32);
+    }
+  }
+
+  &_footerInnerContainer {
+    display: flex;
+    justify-content: center;
+    gap: pxToRem.pxToRem(8);
+    width: 100%;
+    max-width: pxToRem.pxToRem(1800);
+  }
 }

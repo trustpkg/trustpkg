@@ -10,6 +10,7 @@ import { SVGComponent } from "@/types/svg";
 import { Menu } from "@ark-ui/react";
 import React from "react";
 import styles from "./ChooseTheme.module.scss";
+import { IconButton } from "@/components/Button";
 
 const ThemeIcons: Record<CurrentTheme, SVGComponent> = {
   light: SunIcon,
@@ -31,10 +32,11 @@ export function ChooseTheme() {
         closeOnSelect
         onSelect={(value) => context.setTheme(value.value as CurrentTheme)}
       >
-        <Menu.Trigger className={styles.chooseThemeTrigger}>
-          <Hidden>Current theme mode: {context.theme}</Hidden>
+        <Menu.Trigger className={styles.chooseThemeTrigger} asChild>
           <Menu.Indicator className={styles.chooseThemeTrigger_indicator}>
-            <CurrentThemeIcon className={styles.chooseThemeTrigger_icon} />
+            <IconButton.AsButton label={`Current theme mode: ${context.theme}`}>
+              <CurrentThemeIcon className={styles.chooseThemeTrigger_icon} />
+            </IconButton.AsButton>
           </Menu.Indicator>
         </Menu.Trigger>
         <Menu.Positioner>

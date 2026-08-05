@@ -1,0 +1,320 @@
+@use "../../../styles/pxToRem.scss" as pxToRem;
+@use "../../../theme/generated/colors.generated.variables.scss" as colors;
+
+@keyframes drawerFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes drawerFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes drawerSlideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes drawerSlideOut {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes accordionContentOpen {
+  from {
+    height: 0;
+    opacity: 0;
+    transform: translateY(pxToRem.pxToRem(-4));
+  }
+
+  to {
+    height: var(--height);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes accordionContentClose {
+  from {
+    height: var(--height);
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    height: 0;
+    opacity: 0;
+    transform: translateY(pxToRem.pxToRem(-4));
+  }
+}
+
+.drawer {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: flex-end;
+  pointer-events: none;
+
+  &[data-state="open"] {
+    visibility: visible;
+  }
+
+  &[data-state="closed"] {
+    visibility: hidden;
+  }
+
+  &_backdrop {
+    position: fixed;
+    inset: 0;
+    background: color-mix(
+      in srgb,
+      colors.$color-background-overlay 86%,
+      transparent
+    );
+    backdrop-filter: blur(pxToRem.pxToRem(2));
+    animation-duration: 220ms;
+    animation-timing-function: ease;
+    animation-fill-mode: both;
+
+    &[data-state="open"] {
+      animation-name: drawerFadeIn;
+    }
+
+    &[data-state="closed"] {
+      animation-name: drawerFadeOut;
+      pointer-events: none;
+    }
+  }
+
+  &_content {
+    display: flex;
+    flex-direction: column;
+    gap: pxToRem.pxToRem(12);
+    width: 100%;
+    height: 100dvh;
+    pointer-events: auto;
+    background: colors.$color-background-surface-secondary;
+    border-left: pxToRem.pxToRem(1) solid colors.$color-border-primary;
+    box-shadow: 0 0 pxToRem.pxToRem(28)
+      color-mix(in srgb, black 24%, transparent);
+    animation-duration: 260ms;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    animation-fill-mode: both;
+
+    &[data-state="open"] {
+      animation-name: drawerSlideIn;
+    }
+
+    &[data-state="closed"] {
+      animation-name: drawerSlideOut;
+    }
+  }
+
+  &_headerContainer {
+    display: flex;
+    justify-content: center;
+    padding: pxToRem.pxToRem(8) pxToRem.pxToRem(16);
+    background: colors.$color-background-surface-primary;
+    border-bottom: pxToRem.pxToRem(1) solid colors.$color-border-primary;
+    width: 100%;
+  }
+
+  &_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: pxToRem.pxToRem(1800);
+  }
+
+  &_logoContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: pxToRem.pxToRem(36);
+    height: pxToRem.pxToRem(36);
+    background: colors.$color-text-secondary;
+    border-radius: 50%;
+  }
+
+  &_logoImage {
+    &[data-theme="light"] {
+      filter: invert(1);
+    }
+  }
+
+  &_logoLink {
+    display: flex;
+    align-items: center;
+    gap: pxToRem.pxToRem(8);
+  }
+
+  &_logoTextSuffix {
+    color: colors.$color-text-accent;
+  }
+
+  &_title {
+    margin: 0;
+    color: colors.$color-text-primary;
+    font-size: pxToRem.pxToRem(18);
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  &_actions {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: pxToRem.pxToRem(8);
+    padding-top: pxToRem.pxToRem(12);
+    border-top: pxToRem.pxToRem(1) solid colors.$color-border-tertiary;
+  }
+
+  &_navigationList {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    list-style: none;
+  }
+
+  &_navigationListItem {
+    width: 100%;
+    border-bottom: pxToRem.pxToRem(1) solid colors.$color-border-primary;
+  }
+
+  &_navigationListLinkWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  &_navigationListLink {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: pxToRem.pxToRem(16) pxToRem.pxToRem(16);
+  }
+
+  &_accordionItem {
+    width: 100%;
+    padding: pxToRem.pxToRem(8) 0;
+  }
+
+  &_accordionTrigger {
+    color: colors.$color-text-primary !important;
+  }
+
+  &_accordionTriggerButton {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: pxToRem.pxToRem(8) pxToRem.pxToRem(16);
+    background: transparent;
+    border: none;
+    color: colors.$color-text-primary;
+    font: inherit;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    transition:
+      color 160ms ease,
+      background-color 160ms ease;
+
+    &:hover {
+      background: color-mix(
+        in srgb,
+        colors.$color-background-button-primary 8%,
+        transparent
+      );
+    }
+
+    &:focus-visible {
+      outline: none;
+      background: color-mix(
+        in srgb,
+        colors.$color-background-button-primary 14%,
+        transparent
+      );
+    }
+  }
+
+  &_accordionIndicator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+    transform-origin: center;
+
+    &[data-state="open"] {
+      transform: rotate(180deg);
+    }
+
+    & > svg {
+      width: pxToRem.pxToRem(18);
+      height: pxToRem.pxToRem(18);
+    }
+  }
+
+  &_accordionTriggerButton[data-state="open"] .drawer_accordionIndicator {
+    transform: rotate(180deg);
+  }
+
+  &_accordionContent {
+    overflow: hidden;
+    animation-duration: 220ms;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    animation-fill-mode: both;
+
+    &[data-state="open"] {
+      animation-name: accordionContentOpen;
+    }
+
+    &[data-state="closed"] {
+      animation-name: accordionContentClose;
+    }
+  }
+
+  &_accordionContentInner {
+    padding: 0 pxToRem.pxToRem(16) pxToRem.pxToRem(12);
+  }
+
+  &_subList {
+    list-style: none;
+
+    &Item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: pxToRem.pxToRem(8) pxToRem.pxToRem(16);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drawer_backdrop,
+  .drawer_content {
+    animation-duration: 1ms;
+  }
+}

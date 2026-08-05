@@ -13,19 +13,16 @@ import type { ICON_BUTTON_VARIANTS } from "./Button.constants";
 import React from "react";
 import Link from "next/link";
 
-type NextLinkOmittedProps = Omit<
-  React.ComponentProps<typeof Link>,
-  "style" | "className"
->;
+type NextLinkOmittedProps = Omit<React.ComponentProps<typeof Link>, "style">;
 
 type ButtonOmittedProps = Omit<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
-  "style" | "className"
+  "style"
 >;
 
 type AnchorOmittedProps = Omit<
   React.AnchorHTMLAttributes<HTMLAnchorElement>,
-  "style" | "className"
+  "style"
 >;
 
 type ButtonStylesProps = Pick<BaseSizeProps, "width"> &

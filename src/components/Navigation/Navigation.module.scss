@@ -6,10 +6,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: pxToRem.pxToRem(32);
   width: 100%;
-  background: colors.$color-background-surface-primary;
-  padding: pxToRem.pxToRem(8) pxToRem.pxToRem(16);
-  border-bottom: pxToRem.pxToRem(1) solid colors.$color-border-primary;
 
   &_logoLink {
     display: flex;
@@ -37,6 +35,26 @@
   &_logoImage {
     &[data-theme="light"] {
       filter: invert(1);
+    }
+  }
+
+  &_actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: pxToRem.pxToRem(8);
+    list-style: none;
+
+    &_item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  &_actionsItem {
+    &:empty {
+      display: none;
     }
   }
 }

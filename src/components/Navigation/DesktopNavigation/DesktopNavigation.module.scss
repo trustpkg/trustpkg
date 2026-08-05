@@ -1,0 +1,65 @@
+@use "../../../styles/pxToRem.scss" as pxToRem;
+@use "../../../styles/breakpoints.scss" as breakpoints;
+@use "../../../theme/generated/colors.generated.variables.scss" as colors;
+
+.desktopNavigation {
+  display: flex;
+  justify-content: center;
+  gap: pxToRem.pxToRem(16);
+  list-style: none;
+  width: 100%;
+  flex: 1;
+
+  &_item {
+    display: flex;
+    justify-content: space-between;
+    gap: pxToRem.pxToRem(16);
+  }
+
+  &_hoverCardContent {
+    &List {
+      display: flex;
+      flex-direction: column;
+      gap: pxToRem.pxToRem(8);
+      min-width: pxToRem.pxToRem(160);
+      padding: pxToRem.pxToRem(8);
+      background: colors.$color-background-surface-primary;
+      border-radius: pxToRem.pxToRem(8);
+      border: solid pxToRem.pxToRem(1) colors.$color-border-tertiary;
+      list-style: none;
+    }
+
+    &Item {
+      border-radius: pxToRem.pxToRem(6);
+
+      &:focus-within {
+        background: color-mix(
+          in srgb,
+          colors.$color-background-button-primary 5%,
+          transparent
+        );
+      }
+    }
+  }
+
+  &_hoverCardLink {
+    display: flex;
+    width: 100%;
+    padding: pxToRem.pxToRem(8);
+    border-radius: pxToRem.pxToRem(6);
+    transition:
+      color 140ms ease,
+      background-color 140ms ease;
+
+    &:hover,
+    &:focus-visible {
+      background: color-mix(
+        in srgb,
+        colors.$color-background-button-primary 5%,
+        transparent
+      );
+      color: colors.$color-background-button-secondary;
+      outline: none;
+    }
+  }
+}

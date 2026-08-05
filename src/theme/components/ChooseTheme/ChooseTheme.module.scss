@@ -28,7 +28,7 @@
 }
 
 .chooseThemeContent {
-  width: pxToRem.pxToRem(32);
+  width: pxToRem.pxToRem(48);
   background: colors.$color-background-surface-primary;
   border: solid pxToRem.pxToRem(1) colors.$color-border-primary;
   border-radius: pxToRem.pxToRem(8);
@@ -39,6 +39,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    height: pxToRem.pxToRem(48);
     padding: pxToRem.pxToRem(4) pxToRem.pxToRem(8);
 
     &:hover {

@@ -25,6 +25,7 @@ export function ButtonAsButtonComponent(props: ButtonAsButtonProps) {
     children,
     StartIconSlot,
     EndIconSlot,
+    className,
     size = BUTTON_SIZES.MEDIUM,
     variant = BUTTON_VARIANTS.FILLED,
     disabled = false,
@@ -37,7 +38,7 @@ export function ButtonAsButtonComponent(props: ButtonAsButtonProps) {
       <button
         {...restOfRest}
         disabled={disabled || isPending}
-        className={clsx(styles.button, {
+        className={clsx(styles.button, className, {
           [styles.button__small]: size === BUTTON_SIZES.SMALL,
           [styles.button__large]: size === BUTTON_SIZES.LARGE,
           [styles.button__outlined]: variant === BUTTON_VARIANTS.OUTLINED,
@@ -72,6 +73,7 @@ export function ButtonAsAnchorComponent(props: ButtonAsAnchorProps) {
     children,
     StartIconSlot,
     EndIconSlot,
+    className,
     size = BUTTON_SIZES.MEDIUM,
     variant = BUTTON_VARIANTS.FILLED,
     isPending = false,
@@ -82,7 +84,7 @@ export function ButtonAsAnchorComponent(props: ButtonAsAnchorProps) {
     <Base {...stylesProps} asChild>
       <a
         {...restOfRest}
-        className={clsx(styles.button, {
+        className={clsx(styles.button, className, {
           [styles.button__small]: size === BUTTON_SIZES.SMALL,
           [styles.button__large]: size === BUTTON_SIZES.LARGE,
           [styles.button__outlined]: variant === BUTTON_VARIANTS.OUTLINED,
@@ -116,6 +118,7 @@ export function ButtonAsNextLinkComponent(props: ButtonAsNextLinkProps) {
     children,
     StartIconSlot,
     EndIconSlot,
+    className,
     size = BUTTON_SIZES.MEDIUM,
     variant = BUTTON_VARIANTS.FILLED,
     isPending = false,
@@ -126,7 +129,7 @@ export function ButtonAsNextLinkComponent(props: ButtonAsNextLinkProps) {
     <Base {...stylesProps} asChild>
       <Link
         {...restOfRest}
-        className={clsx(styles.button, {
+        className={clsx(styles.button, className, {
           [styles.button__small]: size === BUTTON_SIZES.SMALL,
           [styles.button__large]: size === BUTTON_SIZES.LARGE,
           [styles.button__outlined]: variant === BUTTON_VARIANTS.OUTLINED,
@@ -158,6 +161,7 @@ export function IconButtonAsButtonComponent(props: IconButtonAsButtonProps) {
   const { stylesProps, rest } = resolveProps(props);
   const {
     children,
+    className,
     size = BUTTON_SIZES.SMALL,
     variant = BUTTON_VARIANTS.OUTLINED,
     disabled = false,
@@ -170,11 +174,11 @@ export function IconButtonAsButtonComponent(props: IconButtonAsButtonProps) {
       <button
         {...restOfRest}
         disabled={disabled || isPending}
-        className={clsx(styles.iconButton, {
+        className={clsx(styles.iconButton, className, {
           [styles.iconButton__small]: size === BUTTON_SIZES.SMALL,
           [styles.iconButton__large]: size === BUTTON_SIZES.LARGE,
           [styles.button__outlined]: variant === BUTTON_VARIANTS.OUTLINED,
-          [styles.button__disabled]: disabled || isPending,
+          [styles.iconButton__disabled]: disabled || isPending,
         })}
       >
         {isPending ? (
@@ -197,6 +201,7 @@ export function IconButtonAsAnchorComponent(props: IconButtonAsAnchorProps) {
   const { stylesProps, rest } = resolveProps(props);
   const {
     children,
+    className,
     size = BUTTON_SIZES.SMALL,
     variant = BUTTON_VARIANTS.OUTLINED,
     disabled = false,
@@ -208,7 +213,7 @@ export function IconButtonAsAnchorComponent(props: IconButtonAsAnchorProps) {
     <Base {...stylesProps} asChild>
       <a
         {...restOfRest}
-        className={clsx(styles.iconButton, {
+        className={clsx(styles.iconButton, className, {
           [styles.iconButton__small]: size === BUTTON_SIZES.SMALL,
           [styles.iconButton__large]: size === BUTTON_SIZES.LARGE,
           [styles.button__outlined]: variant === BUTTON_VARIANTS.OUTLINED,
@@ -237,6 +242,7 @@ export function IconButtonAsNextLinkComponent(
   const { stylesProps, rest } = resolveProps(props);
   const {
     children,
+    className,
     size = BUTTON_SIZES.SMALL,
     variant = BUTTON_VARIANTS.OUTLINED,
     disabled = false,
@@ -248,11 +254,11 @@ export function IconButtonAsNextLinkComponent(
     <Base {...stylesProps} asChild>
       <Link
         {...restOfRest}
-        className={clsx(styles.iconButton, {
+        className={clsx(styles.iconButton, className, {
           [styles.iconButton__small]: size === BUTTON_SIZES.SMALL,
           [styles.iconButton__large]: size === BUTTON_SIZES.LARGE,
           [styles.button__outlined]: variant === BUTTON_VARIANTS.OUTLINED,
-          [styles.button__disabled]: disabled || isPending,
+          [styles.iconButton__disabled]: disabled || isPending,
         })}
       >
         {isPending ? (
@@ -275,6 +281,7 @@ export function LinkAsButtonComponent(props: LinkAsButtonProps) {
   const { stylesProps, rest } = resolveProps(props);
   const {
     children,
+    className,
     isInherited,
     StartIconSlot,
     EndIconSlot,
@@ -286,7 +293,7 @@ export function LinkAsButtonComponent(props: LinkAsButtonProps) {
     <Base {...stylesProps} asChild>
       <button
         {...restOfRest}
-        className={clsx(styles.link, {
+        className={clsx(styles.link, className, {
           [styles.link__inherited]: isInherited,
         })}
       >
@@ -316,6 +323,7 @@ export function LinkAsAnchorComponent(props: LinkAsAnchorProps) {
   const { stylesProps, rest } = resolveProps(props);
   const {
     children,
+    className,
     isInherited,
     StartIconSlot,
     EndIconSlot,
@@ -327,7 +335,7 @@ export function LinkAsAnchorComponent(props: LinkAsAnchorProps) {
     <Base {...stylesProps} asChild>
       <a
         {...restOfRest}
-        className={clsx(styles.link, {
+        className={clsx(styles.link, className, {
           [styles.link__inherited]: isInherited,
         })}
       >
@@ -357,6 +365,7 @@ export function LinkAsNextLinkComponent(props: LinkAsNextLinkProps) {
   const { stylesProps, rest } = resolveProps(props);
   const {
     children,
+    className,
     isInherited,
     StartIconSlot,
     EndIconSlot,
@@ -368,7 +377,7 @@ export function LinkAsNextLinkComponent(props: LinkAsNextLinkProps) {
     <Base {...stylesProps} asChild>
       <Link
         {...restOfRest}
-        className={clsx(styles.link, {
+        className={clsx(styles.link, className, {
           [styles.link__inherited]: isInherited,
         })}
       >

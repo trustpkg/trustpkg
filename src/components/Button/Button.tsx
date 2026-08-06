@@ -18,6 +18,7 @@ import type {
   LinkAsNextLinkProps,
 } from "./Button.types";
 import ProgressIcon from "@/assets/loader.svg";
+import Hidden from "../Hidden";
 
 export function ButtonAsButtonComponent(props: ButtonAsButtonProps) {
   const { stylesProps, rest } = resolveProps(props);
@@ -166,6 +167,7 @@ export function IconButtonAsButtonComponent(props: IconButtonAsButtonProps) {
     variant = BUTTON_VARIANTS.OUTLINED,
     disabled = false,
     isPending = false,
+    label,
     ...restOfRest
   } = rest;
 
@@ -192,6 +194,7 @@ export function IconButtonAsButtonComponent(props: IconButtonAsButtonProps) {
             {children}
           </Base>
         )}
+        <Hidden>{label}</Hidden>
       </button>
     </Base>
   );
@@ -206,6 +209,7 @@ export function IconButtonAsAnchorComponent(props: IconButtonAsAnchorProps) {
     variant = BUTTON_VARIANTS.OUTLINED,
     disabled = false,
     isPending = false,
+    label,
     ...restOfRest
   } = rest;
 
@@ -231,6 +235,7 @@ export function IconButtonAsAnchorComponent(props: IconButtonAsAnchorProps) {
             {children}
           </Base>
         )}
+        <Hidden>{label}</Hidden>
       </a>
     </Base>
   );
@@ -247,6 +252,7 @@ export function IconButtonAsNextLinkComponent(
     variant = BUTTON_VARIANTS.OUTLINED,
     disabled = false,
     isPending = false,
+    label,
     ...restOfRest
   } = rest;
 
@@ -272,6 +278,7 @@ export function IconButtonAsNextLinkComponent(
             {children}
           </Base>
         )}
+        <Hidden>{label}</Hidden>
       </Link>
     </Base>
   );

@@ -19,15 +19,6 @@ export const navigationDefaultConfig: NavigationItem[] = [
     ],
   },
   {
-    title: "API",
-    items: [
-      {
-        label: "API Reference",
-        href: "/api",
-      },
-    ],
-  },
-  {
     title: "Images / github actions",
     items: [
       {
@@ -56,5 +47,9 @@ export const navigationDefaultConfig: NavigationItem[] = [
         shouldOpenInNewTab: true,
       },
     ],
+  },
+  {
+    label: "API",
+    href: "/api",
   },
 ];

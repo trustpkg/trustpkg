@@ -16,6 +16,10 @@
     gap: pxToRem.pxToRem(16);
   }
 
+  &_hoverCardPositioner {
+    z-index: 1000;
+  }
+
   &_hoverCardContent {
     &List {
       display: flex;

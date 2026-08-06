@@ -1,6 +1,6 @@
-import { PageLayoutOverview } from "./PageLayoutOverview/PageLayoutOverview";
-import { PageLayoutList } from "./PageLayoutList/PageLayoutList";
 import { PageLayoutRoot } from "./PageLayout";
+import { PageLayoutList } from "./PageLayoutList/PageLayoutList";
+import PageLayoutOverview from "./PageLayoutOverview";
 
 interface PageLayoutSubcomponents {
   Overview: typeof PageLayoutOverview;

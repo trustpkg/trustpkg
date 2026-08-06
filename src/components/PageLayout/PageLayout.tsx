@@ -34,3 +34,5 @@ export function PageLayoutRoot(props: PageLayoutProps) {
     </div>
   );
 }
+
+export function PageLayoutHero() {}

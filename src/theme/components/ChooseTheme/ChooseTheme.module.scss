@@ -33,6 +33,7 @@
   border: solid pxToRem.pxToRem(1) colors.$color-border-primary;
   border-radius: pxToRem.pxToRem(8);
   overflow: clip;
+  z-index: 100;
 
   &_item {
     display: flex;

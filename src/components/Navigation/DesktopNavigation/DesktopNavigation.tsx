@@ -4,7 +4,7 @@ import { useResponsiveProp } from "@/responsive/hooks/useResponsive";
 import { useCallback, useRef, useState } from "react";
 import { NavigationItem, NavigationLinkItem } from "../Navigation.types";
 import styles from "./DesktopNavigation.module.scss";
-import { HoverCard } from "@ark-ui/react";
+import { HoverCard, Portal } from "@ark-ui/react";
 import { Link } from "@/components/Button";
 import { Base } from "@/components/Base/Base";
 import { pxToRem } from "@/utils/pxToRem";
@@ -140,92 +140,98 @@ function DesktopNavigationGroupItem(props: DesktopNavigationGroupItemProps) {
           </Link.AsButton>
         </HoverCard.Trigger>
 
-        <HoverCard.Positioner>
-          <HoverCard.Content
-            ref={contentRef}
-            onFocusCapture={() => {
-              setIsOpen(true);
-            }}
-            onBlurCapture={(event) => {
-              const nextFocusedElement = event.relatedTarget as Node | null;
-
-              if (
-                nextFocusedElement &&
-                (event.currentTarget.contains(nextFocusedElement) ||
-                  triggerElementRef.current === nextFocusedElement)
-              ) {
-                return;
-              }
-
-              setIsOpen(false);
-            }}
-            onKeyDown={(event) => {
-              if (event.key === "ArrowDown") {
-                event.preventDefault();
-                focusInContent(event.currentTarget, "next");
-              }
-
-              if (event.key === "ArrowUp") {
-                event.preventDefault();
-                focusInContent(event.currentTarget, "previous");
-              }
-
-              if (event.key === "Escape") {
-                event.preventDefault();
-                setIsOpen(false);
-                triggerElementRef.current?.focus();
-              }
-            }}
+        <Portal>
+          <HoverCard.Positioner
+            className={styles.desktopNavigation_hoverCardPositioner}
           >
-            <HoverCard.Arrow>
-              <HoverCard.ArrowTip />
-            </HoverCard.Arrow>
+            <HoverCard.Content
+              ref={contentRef}
+              onFocusCapture={() => {
+                setIsOpen(true);
+              }}
+              onBlurCapture={(event) => {
+                const nextFocusedElement = event.relatedTarget as Node | null;
 
-            <ul className={styles.desktopNavigation_hoverCardContentList}>
-              {items.map((subItem) => {
-                const {
-                  label,
-                  href,
-                  shouldOpenInNewTab,
-                  isExternal,
-                  StartIconSlot,
-                  EndIconSlot,
-                } = subItem;
+                if (
+                  nextFocusedElement &&
+                  (event.currentTarget.contains(nextFocusedElement) ||
+                    triggerElementRef.current === nextFocusedElement)
+                ) {
+                  return;
+                }
 
-                return (
-                  <li
-                    key={label}
-                    className={styles.desktopNavigation_hoverCardContentItem}
-                  >
-                    {isExternal ? (
-                      <Link.AsAnchor
-                        className={styles.desktopNavigation_hoverCardLink}
-                        href={href}
-                        target={shouldOpenInNewTab ? "_blank" : undefined}
-                        StartIconSlot={StartIconSlot}
-                        EndIconSlot={EndIconSlot}
-                        rel={
-                          shouldOpenInNewTab ? "noopener noreferrer" : undefined
-                        }
-                      >
-                        {label}
-                      </Link.AsAnchor>
-                    ) : (
-                      <Link.AsNextLink
-                        className={styles.desktopNavigation_hoverCardLink}
-                        href={href}
-                        StartIconSlot={StartIconSlot}
-                        EndIconSlot={EndIconSlot}
-                      >
-                        {label}
-                      </Link.AsNextLink>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
-          </HoverCard.Content>
-        </HoverCard.Positioner>
+                setIsOpen(false);
+              }}
+              onKeyDown={(event) => {
+                if (event.key === "ArrowDown") {
+                  event.preventDefault();
+                  focusInContent(event.currentTarget, "next");
+                }
+
+                if (event.key === "ArrowUp") {
+                  event.preventDefault();
+                  focusInContent(event.currentTarget, "previous");
+                }
+
+                if (event.key === "Escape") {
+                  event.preventDefault();
+                  setIsOpen(false);
+                  triggerElementRef.current?.focus();
+                }
+              }}
+            >
+              <HoverCard.Arrow>
+                <HoverCard.ArrowTip />
+              </HoverCard.Arrow>
+
+              <ul className={styles.desktopNavigation_hoverCardContentList}>
+                {items.map((subItem) => {
+                  const {
+                    label,
+                    href,
+                    shouldOpenInNewTab,
+                    isExternal,
+                    StartIconSlot,
+                    EndIconSlot,
+                  } = subItem;
+
+                  return (
+                    <li
+                      key={label}
+                      className={styles.desktopNavigation_hoverCardContentItem}
+                    >
+                      {isExternal ? (
+                        <Link.AsAnchor
+                          className={styles.desktopNavigation_hoverCardLink}
+                          href={href}
+                          target={shouldOpenInNewTab ? "_blank" : undefined}
+                          StartIconSlot={StartIconSlot}
+                          EndIconSlot={EndIconSlot}
+                          rel={
+                            shouldOpenInNewTab
+                              ? "noopener noreferrer"
+                              : undefined
+                          }
+                        >
+                          {label}
+                        </Link.AsAnchor>
+                      ) : (
+                        <Link.AsNextLink
+                          className={styles.desktopNavigation_hoverCardLink}
+                          href={href}
+                          StartIconSlot={StartIconSlot}
+                          EndIconSlot={EndIconSlot}
+                        >
+                          {label}
+                        </Link.AsNextLink>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            </HoverCard.Content>
+          </HoverCard.Positioner>
+        </Portal>
       </HoverCard.Root>
 
       {shouldDisplayDivider && (

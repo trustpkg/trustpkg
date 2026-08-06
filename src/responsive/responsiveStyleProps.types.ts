@@ -117,7 +117,6 @@ export type BaseSizeProps = Pick<
   | "width"
   | "minWidth"
   | "maxWidth"
-  | "maxInlineSize"
   | "height"
   | "minHeight"
   | "maxHeight"
@@ -142,6 +141,9 @@ export type BasePositionProps = Pick<
   | "insetX"
   | "insetY"
   | "zIndex"
+  | "transform"
+  | "transition"
+  | "transformOrigin"
 >;
 
 export type BaseTypographyProps = Pick<
@@ -162,6 +164,7 @@ export type BaseTypographyProps = Pick<
   | "wordWrap"
   | "overflowWrap"
   | "color"
+  | "maxInlineSize"
 >;
 
 export type BaseBackgroundProps = Pick<

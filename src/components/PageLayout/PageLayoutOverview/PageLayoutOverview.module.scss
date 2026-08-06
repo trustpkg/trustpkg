@@ -1,0 +1,132 @@
+@use "../../../styles/pxToRem.scss" as pxToRem;
+@use "../../../styles/breakpoints.scss" as breakpoints;
+@use "../../../theme/generated/colors.generated.variables.scss" as colors;
+
+.pageOverview {
+  display: flex;
+  flex-direction: column;
+  gap: pxToRem.pxToRem(16);
+  width: 100%;
+
+  @include breakpoints.lg {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+  }
+
+  &_mainColumn {
+    display: flex;
+    flex-direction: column;
+    gap: pxToRem.pxToRem(16);
+  }
+
+  &_sideColumn {
+    display: flex;
+    flex-direction: column;
+    gap: pxToRem.pxToRem(16);
+  }
+
+  &_hero {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: pxToRem.pxToRem(16);
+    width: 100%;
+
+    &Image {
+      width: pxToRem.pxToRem(300);
+      height: pxToRem.pxToRem(300);
+      object-fit: cover;
+    }
+
+    @include breakpoints.rwd(400px) {
+      align-items: center;
+    }
+
+    @include breakpoints.rwd(550px) {
+      gap: pxToRem.pxToRem(32);
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    @include breakpoints.rwd(800px) {
+      justify-content: center;
+    }
+  }
+
+  &_heroContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: pxToRem.pxToRem(16);
+
+    @include breakpoints.rwd(550px) {
+      max-width: pxToRem.pxToRem(240);
+      align-items: flex-start;
+    }
+
+    @include breakpoints.md {
+      max-width: initial;
+    }
+  }
+
+  &_container,
+  &_innerContainer,
+  &_innerSecondContainer {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: pxToRem.pxToRem(1) solid colors.$color-border-focus;
+    border-radius: 50%;
+
+    &Skeleton {
+      position: absolute;
+      inset: 50%;
+      margin-left: pxToRem.pxToRem(-4);
+      transform-origin: top center;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      width: pxToRem.pxToRem(8);
+      height: pxToRem.pxToRem(225);
+    }
+
+    &Bullet {
+      display: block;
+      width: pxToRem.pxToRem(8);
+      height: pxToRem.pxToRem(8);
+      background-color: colors.$color-border-focus;
+      border-radius: 50%;
+    }
+  }
+
+  &_container {
+    flex-shrink: 0;
+    width: pxToRem.pxToRem(450);
+    height: pxToRem.pxToRem(450);
+
+    &Skeleton {
+      min-height: pxToRem.pxToRem(225);
+    }
+  }
+
+  &_innerContainer {
+    width: pxToRem.pxToRem(400);
+    height: pxToRem.pxToRem(400);
+
+    &Skeleton {
+      height: pxToRem.pxToRem(200);
+    }
+  }
+
+  &_innerSecondContainer {
+    width: pxToRem.pxToRem(350);
+    height: pxToRem.pxToRem(350);
+
+    &Skeleton {
+      height: pxToRem.pxToRem(175);
+    }
+  }
+}

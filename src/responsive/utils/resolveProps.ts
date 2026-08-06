@@ -129,6 +129,9 @@ const STYLE_PROP_KEYS = new Set<string>([
   "outlineStyle",
   "outlineWidth",
   "boxShadow",
+  "transform",
+  "transition",
+  "transformOrigin",
 ]);
 
 type SplitResolvedProps<T extends object> = {
@@ -136,7 +139,9 @@ type SplitResolvedProps<T extends object> = {
   stylesProps: Partial<ResponsiveStyleProps>;
 };
 
-export function resolveProps<T extends object>(props: T): SplitResolvedProps<T> {
+export function resolveProps<T extends object>(
+  props: T,
+): SplitResolvedProps<T> {
   const stylesProps: Partial<ResponsiveStyleProps> = {};
   const rest: Record<string, unknown> = {};
 

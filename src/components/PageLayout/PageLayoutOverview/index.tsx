@@ -1,14 +1,16 @@
 import {
-  PageLayoutOverviewRoot,
+  PageLayoutOverviewCommonSection,
   PageLayoutOverviewHero,
-  PageLayoutOverviewSideColumn,
   PageLayoutOverviewMainColumn,
+  PageLayoutOverviewRoot,
+  PageLayoutOverviewSideColumn,
 } from "./PageLayoutOverview";
 
 interface PageLayoutOverviewComponent {
   Hero: typeof PageLayoutOverviewHero;
   SideColumn: typeof PageLayoutOverviewSideColumn;
   MainColumn: typeof PageLayoutOverviewMainColumn;
+  CommonSection: typeof PageLayoutOverviewCommonSection;
 }
 
 const PageLayoutOverview =
@@ -18,5 +20,6 @@ const PageLayoutOverview =
 PageLayoutOverview.Hero = PageLayoutOverviewHero;
 PageLayoutOverview.SideColumn = PageLayoutOverviewSideColumn;
 PageLayoutOverview.MainColumn = PageLayoutOverviewMainColumn;
+PageLayoutOverview.CommonSection = PageLayoutOverviewCommonSection;
 
 export default PageLayoutOverview;

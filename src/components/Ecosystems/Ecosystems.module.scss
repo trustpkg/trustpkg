@@ -1,0 +1,123 @@
+@use "../../styles/pxToRem.scss" as pxToRem;
+@use "../../styles/breakpoints.scss" as breakpoints;
+@use "../../theme/generated/colors.generated.variables.scss" as colors;
+
+@mixin IconBase {
+  width: pxToRem.pxToRem(36);
+  height: pxToRem.pxToRem(36);
+}
+
+.ecosystems {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: pxToRem.pxToRem(8);
+  width: 100%;
+  padding: pxToRem.pxToRem(8);
+  list-style: none;
+
+  &_filter {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    inset: 0;
+    background-color: colors.$color-text-primary;
+    opacity: 0.1;
+  }
+
+  &_item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: pxToRem.pxToRem(32);
+    border: solid pxToRem.pxToRem(1) colors.$color-border-primary;
+    border-radius: pxToRem.pxToRem(8);
+
+    &Npm {
+      @include IconBase;
+
+      fill: #b50505;
+    }
+
+    &Go {
+      @include IconBase;
+
+      width: pxToRem.pxToRem(48);
+      height: pxToRem.pxToRem(48);
+      fill: #1eeffe;
+    }
+
+    &Pypi {
+      @include IconBase;
+
+      fill: #dec404;
+    }
+
+    &Docker {
+      @include IconBase;
+
+      fill: #2496ed;
+    }
+  }
+
+  &_tooltipTrigger {
+    position: absolute;
+    right: pxToRem.pxToRem(8);
+    top: pxToRem.pxToRem(8);
+    z-index: 2;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: pxToRem.pxToRem(20);
+    height: pxToRem.pxToRem(20);
+    border: 0;
+    border-radius: 50%;
+    background-color: colors.$color-background-surface-primary;
+    color: colors.$color-text-secondary;
+    transition:
+      color 0.2s ease,
+      background-color 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      cursor: pointer;
+      color: colors.$color-text-primary;
+      background-color: rgb(
+        from colors.$color-background-surface-primary r g b / 8%
+      );
+      outline: none;
+    }
+  }
+
+  &_tooltipTriggerIcon {
+    width: pxToRem.pxToRem(16);
+    height: pxToRem.pxToRem(16);
+  }
+
+  &_tooltipPositioner {
+    z-index: 20;
+  }
+
+  &_tooltipContent {
+    max-width: min(pxToRem.pxToRem(320), calc(100vw - #{pxToRem.pxToRem(24)}));
+    padding: pxToRem.pxToRem(10) pxToRem.pxToRem(12);
+    border: solid pxToRem.pxToRem(1) colors.$color-border-primary;
+    border-radius: pxToRem.pxToRem(8);
+    background-color: colors.$color-background-primary;
+    color: colors.$color-text-primary;
+    box-shadow: 0 pxToRem.pxToRem(8) pxToRem.pxToRem(20)
+      rgb(from colors.$color-text-primary r g b / 10%);
+    line-height: 1.45;
+    z-index: 50;
+  }
+
+  &_tooltipArrow,
+  &_tooltipArrowTip {
+    --arrow-size: #{pxToRem.pxToRem(10)};
+    background-color: colors.$color-background-primary;
+    border-top: solid pxToRem.pxToRem(1) colors.$color-border-primary;
+    border-left: solid pxToRem.pxToRem(1) colors.$color-border-primary;
+  }
+}

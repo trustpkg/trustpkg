@@ -13,8 +13,8 @@ export const navigationDefaultConfig: NavigationItem[] = [
         href: "/#security-signals",
       },
       {
-        label: "Vulnerability History",
-        href: "/#vulnerability-history",
+        label: "Understanding package security",
+        href: "/#understanding-package-security",
       },
     ],
   },

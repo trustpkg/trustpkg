@@ -5,28 +5,32 @@
 .pageOverview {
   display: flex;
   flex-direction: column;
-  gap: pxToRem.pxToRem(16);
+  gap: pxToRem.pxToRem(32);
   width: 100%;
 
-  @include breakpoints.lg {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-  }
-
   @include breakpoints.xl {
+    display: grid;
     grid-template-columns: 4fr 1fr;
   }
 
   &_mainColumn {
     display: flex;
     flex-direction: column;
-    gap: pxToRem.pxToRem(16);
+    gap: pxToRem.pxToRem(32);
+
+    @include breakpoints.lg {
+      gap: pxToRem.pxToRem(64);
+    }
   }
 
   &_sideColumn {
     display: flex;
     flex-direction: column;
-    gap: pxToRem.pxToRem(16);
+    gap: pxToRem.pxToRem(32);
+
+    @include breakpoints.xl {
+      gap: pxToRem.pxToRem(16);
+    }
   }
 
   &_hero {
@@ -46,7 +50,7 @@
       align-items: center;
     }
 
-    @include breakpoints.rwd(550px) {
+    @include breakpoints.sm {
       gap: pxToRem.pxToRem(32);
       flex-direction: row;
       justify-content: flex-start;
@@ -62,11 +66,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
     gap: pxToRem.pxToRem(16);
+    width: 100%;
+    text-align: center;
 
-    @include breakpoints.rwd(550px) {
+    @include breakpoints.sm {
       max-width: pxToRem.pxToRem(240);
+      width: initial;
       align-items: flex-start;
     }
 
@@ -131,6 +137,32 @@
 
     &Skeleton {
       height: pxToRem.pxToRem(175);
+    }
+  }
+
+  &_commonSection {
+    display: flex;
+    flex-direction: column;
+    gap: pxToRem.pxToRem(24);
+    width: 100%;
+    padding: pxToRem.pxToRem(32);
+    border: transparent pxToRem.pxToRem(1) solid;
+    border-radius: pxToRem.pxToRem(8);
+
+    @include breakpoints.lg {
+      padding: pxToRem.pxToRem(48);
+    }
+
+    &__outline {
+      border-color: colors.$color-border-primary;
+    }
+
+    &__smallPadding {
+      padding: pxToRem.pxToRem(16);
+
+      @include breakpoints.lg {
+        padding: pxToRem.pxToRem(32);
+      }
     }
   }
 }

@@ -36,7 +36,7 @@ export default async function RootLayout({
       <body>
         <ThemeProvider theme={theme}>
           <ResponsiveProvider ssrBreakpoint={ssrBreakpoint}>
-            {children}
+            <main>{children}</main>
           </ResponsiveProvider>
         </ThemeProvider>
       </body>

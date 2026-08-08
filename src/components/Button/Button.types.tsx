@@ -2,6 +2,8 @@ import {
   BasePaddingProps,
   BaseSizeProps,
   BaseMarginProps,
+  BasePositionProps,
+  BaseDisplayProps,
 } from "@/responsive/responsiveStyleProps.types";
 import type { ValueOf } from "@/types/valueOf";
 import {
@@ -27,7 +29,12 @@ type AnchorOmittedProps = Omit<
 
 type ButtonStylesProps = Pick<BaseSizeProps, "width"> &
   BasePaddingProps &
-  BaseMarginProps;
+  BaseMarginProps &
+  Pick<
+    BasePositionProps,
+    "position" | "top" | "right" | "bottom" | "left" | "transform" | "zIndex"
+  > &
+  Pick<BaseDisplayProps, "display">;
 
 interface ButtonCommonProps {
   StartIconSlot?: React.ReactNode;

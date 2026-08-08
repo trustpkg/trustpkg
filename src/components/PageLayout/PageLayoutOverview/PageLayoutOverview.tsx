@@ -1,11 +1,21 @@
-import Image from "next/image";
-import React from "react";
-import styles from "./PageLayoutOverview.module.scss";
-import { Base } from "../../Base/Base";
+import ChevronDoubleDownIcon from "@/assets/chevronDoubleDown.svg";
+import { IconButton } from "@/components/Button";
 import { pxToRem } from "@/utils/pxToRem";
-import { Combobox } from "@ark-ui/react";
-
-interface PageLayoutOverviewProps extends React.PropsWithChildren {}
+import clsx from "clsx";
+import Image from "next/image";
+import { Base } from "../../Base/Base";
+import {
+  PAGE_LAYOUT_OVERVIEW_COMMON_SECTION_BORDER_VARIANT,
+  PAGE_LAYOUT_OVERVIEW_COMMON_SECTION_PADDING_VARIANT,
+} from "./PageLayoutOverview.constants";
+import styles from "./PageLayoutOverview.module.scss";
+import type {
+  PageLayoutOverviewCommonSectionProps,
+  PageLayoutOverviewHeroProps,
+  PageLayoutOverviewMainColumnProps,
+  PageLayoutOverviewProps,
+  PageLayoutOverviewSideColumnProps,
+} from "./PageLayoutOverview.types";
 
 export function PageLayoutOverviewRoot(props: PageLayoutOverviewProps) {
   const { children } = props;
@@ -13,17 +23,13 @@ export function PageLayoutOverviewRoot(props: PageLayoutOverviewProps) {
   return <div className={styles.pageOverview}>{children}</div>;
 }
 
-interface PageLayoutOverviewHeroProps extends React.PropsWithChildren {}
-
 export function PageLayoutOverviewMainColumn(
-  props: PageLayoutOverviewHeroProps,
+  props: PageLayoutOverviewMainColumnProps,
 ) {
   const { children } = props;
 
   return <div className={styles.pageOverview_mainColumn}>{children}</div>;
 }
-
-interface PageLayoutOverviewSideColumnProps extends React.PropsWithChildren {}
 
 export function PageLayoutOverviewSideColumn(
   props: PageLayoutOverviewSideColumnProps,
@@ -33,15 +39,39 @@ export function PageLayoutOverviewSideColumn(
   return <div className={styles.pageOverview_sideColumn}>{children}</div>;
 }
 
-interface PageLayoutOverviewHeroProps extends React.PropsWithChildren {}
-
 export async function PageLayoutOverviewHero(
   props: PageLayoutOverviewHeroProps,
 ) {
-  const { children } = props;
+  const {
+    children,
+    goToContentButtonConfig = {
+      shouldRender: false,
+      href: "#",
+    },
+  } = props;
 
   return (
     <header className={styles.pageOverview_hero}>
+      {goToContentButtonConfig.shouldRender && (
+        <IconButton.AsAnchor
+          href={goToContentButtonConfig.href}
+          label="Scroll down to content"
+          position="absolute"
+          display={{
+            default: "flex",
+            sm: "none",
+          }}
+          size="medium"
+          variant="filled"
+          left={"50%"}
+          top={`min(calc(100dvh - ${pxToRem(60)}), ${pxToRem(600)})`}
+          transform={"translateX(-50%)"}
+          zIndex={101}
+        >
+          <ChevronDoubleDownIcon />
+        </IconButton.AsAnchor>
+      )}
+
       <div className={styles.pageOverview_heroContent}>{children}</div>
 
       <div className={styles.pageOverview_container}>
@@ -87,11 +117,44 @@ export async function PageLayoutOverviewHero(
               width={300}
               height={300}
               src="/trustpkg-coin.png"
+              priority
               alt=""
             />
           </div>
         </div>
       </div>
     </header>
+  );
+}
+
+export function PageLayoutOverviewCommonSection(
+  props: PageLayoutOverviewCommonSectionProps,
+) {
+  const {
+    children,
+    borderVariant,
+    id,
+    paddingVariant = PAGE_LAYOUT_OVERVIEW_COMMON_SECTION_PADDING_VARIANT.MEDIUM,
+    className,
+  } = props;
+
+  return (
+    <section
+      className={clsx(
+        styles.pageOverview_commonSection,
+        {
+          [styles.pageOverview_commonSection__outline]:
+            borderVariant ===
+            PAGE_LAYOUT_OVERVIEW_COMMON_SECTION_BORDER_VARIANT.OUTLINE,
+          [styles.pageOverview_commonSection__smallPadding]:
+            paddingVariant ===
+            PAGE_LAYOUT_OVERVIEW_COMMON_SECTION_PADDING_VARIANT.SMALL,
+        },
+        className,
+      )}
+      id={id}
+    >
+      {children}
+    </section>
   );
 }

@@ -1,0 +1,265 @@
+@use "../../styles/pxToRem.scss" as pxToRem;
+@use "../../styles/breakpoints.scss" as breakpoints;
+@use "../../theme/generated/colors.generated.variables.scss" as colors;
+
+@keyframes drawerFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes drawerFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes circle-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes circle-range-indeterminate {
+  0% {
+    stroke-dasharray: 1px 181px;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 91px 91px;
+    stroke-dashoffset: -45px;
+  }
+  100% {
+    stroke-dasharray: 91px 91px;
+    stroke-dashoffset: -182px;
+  }
+}
+
+.search {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &_trigger {
+    position: relative;
+    width: 100%;
+
+    &Button {
+      display: flex;
+      gap: pxToRem.pxToRem(8);
+      align-items: center;
+      width: 100%;
+      padding: pxToRem.pxToRem(12);
+      border-radius: pxToRem.pxToRem(8);
+      background: colors.$color-background-surface-primary;
+      color: colors.$color-text-primary;
+      border: solid pxToRem.pxToRem(1) colors.$color-border-primary;
+
+      &:hover {
+        background: colors.$color-background-surface-secondary;
+        border-color: colors.$color-border-focus;
+        cursor: pointer;
+      }
+
+      &:focus,
+      &:focus-visible {
+        outline: none;
+        background: color-mix(
+          in srgb,
+          colors.$color-background-surface-secondary 95%,
+          colors.$color-text-primary
+        );
+      }
+    }
+
+    &Icon {
+      width: pxToRem.pxToRem(24);
+      height: pxToRem.pxToRem(24);
+      color: colors.$color-text-primary;
+    }
+
+    &ShortcutsContainer {
+      position: absolute;
+      top: 50%;
+      right: pxToRem.pxToRem(12);
+      display: flex;
+      gap: pxToRem.pxToRem(4);
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    &Shortcut {
+      border: solid pxToRem.pxToRem(1) colors.$color-border-secondary;
+      border-radius: pxToRem.pxToRem(4);
+      padding: pxToRem.pxToRem(8);
+      background: colors.$color-background-surface-secondary;
+      color: colors.$color-text-secondary;
+      font-size: pxToRem.pxToRem(11);
+      font-weight: 600;
+    }
+  }
+
+  &_backdrop {
+    position: fixed;
+    inset: 0;
+    background: color-mix(
+      in srgb,
+      colors.$color-background-overlay 86%,
+      transparent
+    );
+    backdrop-filter: blur(pxToRem.pxToRem(2));
+    animation-duration: 220ms;
+    animation-timing-function: ease;
+    animation-fill-mode: both;
+    z-index: 1001;
+
+    &[data-state="open"] {
+      animation-name: drawerFadeIn;
+    }
+
+    &[data-state="closed"] {
+      animation-name: drawerFadeOut;
+      pointer-events: none;
+    }
+  }
+
+  &_dialog {
+    position: fixed;
+    inset: 20% 50%;
+    width: 100%;
+    height: fit-content;
+    max-width: pxToRem.pxToRem(600);
+    background: colors.$color-background-surface-primary;
+    border: solid pxToRem.pxToRem(1) colors.$color-border-focus;
+    border-radius: pxToRem.pxToRem(8);
+    z-index: 1002;
+    transform: translateX(-50%);
+
+    &Actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: pxToRem.pxToRem(8);
+      width: 100%;
+      padding: pxToRem.pxToRem(16);
+      border-bottom: solid pxToRem.pxToRem(1) colors.$color-border-focus;
+    }
+
+    &ActionsSearch {
+      display: flex;
+      align-items: center;
+      gap: pxToRem.pxToRem(8);
+      flex: 1;
+    }
+
+    &SearchIcon {
+      width: pxToRem.pxToRem(24);
+      height: pxToRem.pxToRem(24);
+      color: colors.$color-text-primary;
+
+      &:hover {
+        cursor: text;
+      }
+
+      &:has(+ .search_dialogSearchInput:focus) {
+        color: colors.$color-text-accent;
+      }
+    }
+
+    &SearchInput {
+      width: 100%;
+      height: pxToRem.pxToRem(32);
+      outline: none;
+      border: none;
+      background: transparent;
+      color: colors.$color-text-primary;
+      font-weight: 600;
+      font-size: pxToRem.pxToRem(16);
+      caret-color: colors.$color-text-accent;
+    }
+
+    &ActionsEscape {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: pxToRem.pxToRem(8);
+    }
+
+    &ActionsEsc {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: pxToRem.pxToRem(32);
+      padding: 0 pxToRem.pxToRem(8);
+      background: colors.$color-background-surface-secondary;
+      color: colors.$color-text-secondary;
+      border: solid pxToRem.pxToRem(1) colors.$color-border-secondary;
+      border-radius: pxToRem.pxToRem(4);
+    }
+
+    &Content {
+      display: flex;
+      flex-direction: column;
+      gap: pxToRem.pxToRem(8);
+      width: 100%;
+      padding: pxToRem.pxToRem(16);
+
+      &Image {
+        width: 100%;
+        height: pxToRem.pxToRem(400);
+        object-fit: contain;
+      }
+    }
+  }
+
+  &_spinner {
+    color: colors.$color-text-accent;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: pxToRem.pxToRem(8);
+
+    &Circle {
+      &[data-state="indeterminate"] {
+        animation: circle-spin 2s linear infinite;
+      }
+    }
+
+    &CircleTrack {
+      stroke: colors.$color-border-secondary;
+    }
+
+    &CircleContainer {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &CircleRange {
+      stroke: colors.$color-text-accent;
+      transition:
+        stroke-dasharray 0.6s ease-out,
+        stroke 0.6s ease-out;
+
+      &[data-state="indeterminate"] {
+        animation: circle-range-indeterminate 1.5s ease-in-out infinite;
+      }
+    }
+
+    &ValueText {
+      font-size: pxToRem.pxToRem(10);
+      font-weight: 600;
+      color: colors.$color-text-accent;
+    }
+  }
+}

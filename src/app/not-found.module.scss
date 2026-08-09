@@ -1,0 +1,25 @@
+@use "@/styles/pxToRem.scss" as pxToRem;
+@use "@/styles/breakpoints.scss" as breakpoints;
+@use "@/theme/generated/colors.generated.variables.scss" as colors;
+
+.notFound {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: pxToRem.pxToRem(32);
+  padding: pxToRem.pxToRem(32) 0 0 !important;
+  width: 100%;
+
+  &_image {
+    width: 100%;
+    height: pxToRem.pxToRem(400);
+    object-fit: cover;
+    object-position: bottom;
+
+    @include breakpoints.md {
+      max-width: pxToRem.pxToRem(1200);
+      height: pxToRem.pxToRem(800);
+    }
+  }
+}

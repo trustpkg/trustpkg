@@ -34,7 +34,10 @@ export function ChooseTheme() {
       >
         <Menu.Trigger className={styles.chooseThemeTrigger} asChild>
           <Menu.Indicator className={styles.chooseThemeTrigger_indicator}>
-            <IconButton.AsButton label={`Current theme mode: ${context.theme}`}>
+            <IconButton.AsButton
+              label={`Change theme`}
+              aria-description={`Current theme: ${context.theme}`}
+            >
               <CurrentThemeIcon className={styles.chooseThemeTrigger_icon} />
             </IconButton.AsButton>
           </Menu.Indicator>

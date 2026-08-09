@@ -9,6 +9,7 @@ import { Link } from "@/components/Button";
 import { Base } from "@/components/Base/Base";
 import { pxToRem } from "@/utils/pxToRem";
 import { colors } from "@/theme/generated/colors.generated";
+import React from "react";
 
 function getFocusableElements(container: HTMLElement) {
   return Array.from(
@@ -219,6 +220,7 @@ function DesktopNavigationGroupItem(props: DesktopNavigationGroupItemProps) {
                         <Link.AsNextLink
                           className={styles.desktopNavigation_hoverCardLink}
                           href={href}
+                          prefetch
                           StartIconSlot={StartIconSlot}
                           EndIconSlot={EndIconSlot}
                         >
@@ -288,27 +290,42 @@ export function DesktopNavigation(props: DesktopNavigationProps) {
           } = item;
 
           return (
-            <li className={styles.desktopNavigation_item} key={label}>
-              {isExternal ? (
-                <Link.AsAnchor
-                  href={href}
-                  target={shouldOpenInNewTab ? "_blank" : undefined}
-                  rel={shouldOpenInNewTab ? "noopener noreferrer" : undefined}
-                  StartIconSlot={StartIconSlot}
-                  EndIconSlot={EndIconSlot}
-                >
-                  {label}
-                </Link.AsAnchor>
-              ) : (
-                <Link.AsNextLink
-                  href={href}
-                  StartIconSlot={StartIconSlot}
-                  EndIconSlot={EndIconSlot}
-                >
-                  {label}
-                </Link.AsNextLink>
+            <React.Fragment key={label}>
+              <li className={styles.desktopNavigation_item}>
+                {isExternal ? (
+                  <Link.AsAnchor
+                    href={href}
+                    target={shouldOpenInNewTab ? "_blank" : undefined}
+                    rel={shouldOpenInNewTab ? "noopener noreferrer" : undefined}
+                    StartIconSlot={StartIconSlot}
+                    EndIconSlot={EndIconSlot}
+                    className={styles.desktopNavigation_link}
+                  >
+                    {label}
+                  </Link.AsAnchor>
+                ) : (
+                  <Link.AsNextLink
+                    href={href}
+                    prefetch
+                    StartIconSlot={StartIconSlot}
+                    EndIconSlot={EndIconSlot}
+                    className={styles.desktopNavigation_link}
+                  >
+                    {label}
+                  </Link.AsNextLink>
+                )}
+              </li>
+
+              {index < array.length - 1 && (
+                <Base
+                  as="li"
+                  width={pxToRem(2)}
+                  height={pxToRem(24)}
+                  display="block"
+                  background={colors.border.primary}
+                />
               )}
-            </li>
+            </React.Fragment>
           );
         }
       })}

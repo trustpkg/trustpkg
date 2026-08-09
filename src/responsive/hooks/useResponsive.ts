@@ -1,15 +1,18 @@
 "use client";
 
 import { BREAKPOINTS_KEYS } from "../responsive.constants";
-import { type ResponsiveValue } from "../responsive.types";
+import { SSRSupportedResponsiveValue } from "../responsive.types";
 import { useAdvancedMedia } from "./useMedia";
 
 type BreakpointKey = keyof typeof BREAKPOINTS_KEYS;
-type ResponsiveObject<T> = Extract<ResponsiveValue<T>, { default: T }>;
+type ResponsiveObject<T> = Extract<
+  SSRSupportedResponsiveValue<T>,
+  { default: T }
+>;
 
 const breakpointKeys = Object.keys(BREAKPOINTS_KEYS) as BreakpointKey[];
 
-export function useResponsiveProp<T>(prop: ResponsiveValue<T>): T {
+export function useResponsiveProp<T>(prop: SSRSupportedResponsiveValue<T>): T {
   const { currentBreakpoint } = useAdvancedMedia();
 
   if (!prop || typeof prop !== "object" || !("default" in prop)) {
@@ -17,7 +20,9 @@ export function useResponsiveProp<T>(prop: ResponsiveValue<T>): T {
   }
 
   const responsiveProp = prop as ResponsiveObject<T>;
-  const responsiveMap = responsiveProp as { default: T } & Partial<Record<string, T>>;
+  const responsiveMap = responsiveProp as { default: T } & Partial<
+    Record<string, T>
+  >;
 
   const namedCandidates = breakpointKeys
     .filter((key) => key in responsiveProp)

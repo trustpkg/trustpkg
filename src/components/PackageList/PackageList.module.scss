@@ -1,0 +1,116 @@
+@use "../../styles/pxToRem.scss" as pxToRem;
+@use "../../styles/breakpoints.scss" as breakpoints;
+@use "../../theme/generated/colors.generated.variables.scss" as colors;
+
+.packageList {
+  width: 100%;
+
+  &_viewport {
+    width: 100%;
+    border-radius: pxToRem.pxToRem(8);
+  }
+
+  &_content {
+    width: 100%;
+    border-radius: pxToRem.pxToRem(8);
+    overflow: clip;
+  }
+
+  &_table {
+    table-layout: auto;
+    width: 100%;
+    border: pxToRem.pxToRem(1) solid colors.$color-border-primary;
+    border-radius: pxToRem.pxToRem(8);
+    border-spacing: 0;
+  }
+
+  &_head {
+    background-color: colors.$color-background-surface-primary;
+  }
+
+  &_headCell {
+    text-align: left;
+    padding: pxToRem.pxToRem(16);
+
+    &__hidden {
+      width: 0;
+      padding: 0;
+    }
+  }
+
+  &_row {
+    &:hover {
+      cursor: pointer;
+      outline: pxToRem.pxToRem(2) solid colors.$color-border-focus;
+    }
+
+    &:focus,
+    &:focus-within {
+      outline: pxToRem.pxToRem(2) solid colors.$color-border-focus;
+      background-color: color-mix(
+        colors.$color-text-accent 5%,
+        colors.$color-background-surface-primary
+      );
+    }
+
+    &__alternating {
+      background-color: color-mix(
+        colors.$color-text-accent 15%,
+        colors.$color-background-surface-primary
+      );
+    }
+  }
+
+  &_cell {
+    padding: pxToRem.pxToRem(16);
+  }
+}
+
+.chartSkeleton {
+  width: pxToRem.pxToRem(500);
+  height: pxToRem.pxToRem(100);
+  position: relative;
+  transform: translateY(pxToRem.pxToRem(-8));
+  opacity: 0.4;
+
+  &_axis {
+    position: absolute;
+    left: pxToRem.pxToRem(0);
+    right: pxToRem.pxToRem(5);
+    bottom: pxToRem.pxToRem(25);
+    height: pxToRem.pxToRem(1);
+    width: 100%;
+    background: currentColor;
+  }
+
+  &_tick {
+    position: absolute;
+    bottom: pxToRem.pxToRem(20);
+    width: pxToRem.pxToRem(1);
+    height: pxToRem.pxToRem(5);
+    background: currentColor;
+
+    &__hidden {
+      background: transparent;
+    }
+  }
+
+  &_point {
+    position: absolute;
+    bottom: pxToRem.pxToRem(20);
+    width: pxToRem.pxToRem(7);
+    height: pxToRem.pxToRem(7);
+    border: pxToRem.pxToRem(1) solid colors.$color-text-accent;
+    border-radius: 50%;
+    background: white;
+    transform: translate(-50%, -50%);
+  }
+
+  &_month {
+    position: absolute;
+    bottom: pxToRem.pxToRem(4);
+    font-size: pxToRem.pxToRem(16);
+    color: colors.$color-text-primary;
+    transform: translateX(-50%);
+  }
+}

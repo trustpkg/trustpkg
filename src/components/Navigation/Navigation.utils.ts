@@ -5,16 +5,12 @@ export const navigationDefaultConfig: NavigationItem[] = [
     title: "Packages",
     items: [
       {
-        label: "Trust Overview",
-        href: "/#trust-overview",
+        label: "All packages",
+        href: "/packages",
       },
       {
-        label: "Security Signals",
-        href: "/#security-signals",
-      },
-      {
-        label: "Vulnerability History",
-        href: "/#vulnerability-history",
+        label: "Understanding package security",
+        href: "/#understanding-package-security",
       },
     ],
   },
@@ -32,21 +28,8 @@ export const navigationDefaultConfig: NavigationItem[] = [
     ],
   },
   {
-    title: "CLI",
-    items: [
-      {
-        label: "npm Ecosystem",
-        href: "https://www.npmjs.com/",
-        isExternal: true,
-        shouldOpenInNewTab: true,
-      },
-      {
-        label: "Package Health Guide",
-        href: "https://docs.npmjs.com/about-package-readme-files",
-        isExternal: true,
-        shouldOpenInNewTab: true,
-      },
-    ],
+    label: "CLI",
+    href: "/cli",
   },
   {
     label: "API",

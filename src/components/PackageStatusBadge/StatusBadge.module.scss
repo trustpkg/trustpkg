@@ -1,0 +1,90 @@
+@use "../../styles/pxToRem.scss" as pxToRem;
+@use "../../styles/breakpoints.scss" as breakpoints;
+@use "../../theme/generated/colors.generated.variables.scss" as colors;
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 1;
+  }
+
+  70% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+
+  100% {
+    transform: scale(0.95);
+    opacity: 1.1;
+  }
+}
+
+.tooltip {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: pxToRem.pxToRem(20);
+  height: pxToRem.pxToRem(20);
+  border: 0;
+  border-radius: 50%;
+  background-color: colors.$color-background-surface-primary;
+  color: colors.$color-text-secondary;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    cursor: pointer;
+    color: colors.$color-text-primary;
+    background-color: rgb(
+      from colors.$color-background-surface-primary r g b / 8%
+    );
+    outline: none;
+  }
+
+  &_icon {
+    width: pxToRem.pxToRem(16);
+    height: pxToRem.pxToRem(16);
+  }
+
+  &_positioner {
+    z-index: 20;
+  }
+
+  &_content {
+    max-width: min(pxToRem.pxToRem(320), calc(100vw - #{pxToRem.pxToRem(24)}));
+    padding: pxToRem.pxToRem(10) pxToRem.pxToRem(12);
+    border: solid pxToRem.pxToRem(1) colors.$color-border-primary;
+    border-radius: pxToRem.pxToRem(8);
+    background-color: colors.$color-background-primary;
+    color: colors.$color-text-primary;
+    box-shadow: 0 pxToRem.pxToRem(8) pxToRem.pxToRem(20)
+      rgb(from colors.$color-text-primary r g b / 10%);
+    line-height: 1.45;
+    z-index: 50;
+  }
+
+  &_tooltipArrow,
+  &_tooltipArrowTip {
+    --arrow-size: #{pxToRem.pxToRem(10)};
+    background-color: colors.$color-background-primary;
+    border-top: solid pxToRem.pxToRem(1) colors.$color-border-primary;
+    border-left: solid pxToRem.pxToRem(1) colors.$color-border-primary;
+  }
+}
+
+.pulse {
+  display: block;
+  width: pxToRem.pxToRem(12);
+  height: pxToRem.pxToRem(12);
+  border-radius: 50%;
+  background-color: colors.$color-text-error;
+  animation: pulse 2s infinite;
+}
+
+.statusBadge {
+  display: flex;
+  align-items: center;
+  gap: pxToRem.pxToRem(8);
+}

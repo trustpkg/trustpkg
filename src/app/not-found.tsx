@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import styles from "./not-found.module.scss";
 import { Base } from "@/components/Base/Base";
 import PageLayout from "@/components/PageLayout";
@@ -6,6 +7,11 @@ import Navigation from "@/components/Navigation";
 import { colors } from "@/theme/generated/colors.generated";
 import { pxToRem } from "@/utils/pxToRem";
 import { Button } from "@/components/Button";
+
+export const metadata: Metadata = {
+  title: "Not Found",
+  description: "The page you are looking for does not exist.",
+};
 
 export default function NotFound() {
   return (
@@ -52,7 +58,7 @@ export default function NotFound() {
 
           <Image
             className={styles.notFound_image}
-            src="/Error.png"
+            src="/404.png"
             width={1536}
             height={1024}
             priority

@@ -175,13 +175,13 @@ export function SearchDialog() {
                 fontSize={pxToRem(24)}
                 fontWeight={600}
               >
-                No results found.
+                Find your package
               </Base>
 
               <Image
                 className={styles.search_dialogContentImage}
-                src="/no-result.png"
-                alt="Not found"
+                src="/before-searching.png"
+                alt=""
                 width={1536}
                 height={1024}
               />

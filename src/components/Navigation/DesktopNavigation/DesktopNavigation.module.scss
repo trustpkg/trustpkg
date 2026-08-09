@@ -16,6 +16,10 @@
     gap: pxToRem.pxToRem(16);
   }
 
+  &_link {
+    font-size: pxToRem.pxToRem(14);
+  }
+
   &_hoverCardPositioner {
     z-index: 1000;
   }

@@ -148,6 +148,7 @@ export function NavigationDrawer(props: NavigationDrawerProps) {
                                           href={href}
                                           StartIconSlot={StartIconSlot}
                                           EndIconSlot={EndIconSlot}
+                                          prefetch
                                         >
                                           {label}
                                         </Link.AsNextLink>
@@ -199,6 +200,7 @@ export function NavigationDrawer(props: NavigationDrawerProps) {
                           href={href}
                           StartIconSlot={StartIconSlot}
                           EndIconSlot={EndIconSlot}
+                          prefetch
                         >
                           {label}
                         </Link.AsNextLink>

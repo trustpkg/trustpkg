@@ -13,8 +13,8 @@
     "info": "#112A47",
     "overlay": "rgba(0,0,0,0.65)",
     "button": {
-      "primary": "#8B5CF6",
-      "secondary": "#169cd6"
+      "primary": "#a67eff",
+      "secondary": "#2abfff"
     }
   },
   "text": {
@@ -23,7 +23,7 @@
     "tertiary": "#9CA3AF",
     "disabled": "#6B7280",
     "inverse": "#111827",
-    "accent": "#8B7CFF",
+    "accent": "#c1a5ff",
     "success": "#4ADE80",
     "warning": "#FBBF24",
     "error": "#F87171",

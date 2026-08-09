@@ -1,6 +1,5 @@
 import Navigation from "@/components/Navigation";
 import PageLayout from "@/components/PageLayout";
-import type { NavigationItem } from "@/components/Navigation/Navigation.types";
 import { Base } from "@/components/Base/Base";
 import { pxToRem } from "@/utils/pxToRem";
 import { colors } from "@/theme/generated/colors.generated";
@@ -9,6 +8,7 @@ import { Button } from "@/components/Button";
 import ArrowRightIcon from "@/assets/ArrowRight.svg";
 import { Hidden } from "@/components/Hidden/Hidden";
 import Search from "@/components/Search";
+import PackageList from "@/components/PackageList";
 
 export const metadata = {
   title: "Home | trustpkg.dev",
@@ -52,20 +52,74 @@ export default function Home() {
           </PageLayout.Overview.Hero>
 
           <PageLayout.Overview.CommonSection
-            borderVariant="outline"
+            borderVariant="none"
+            paddingVariant="small"
             id="first-section"
           >
-            <Base as="h2" fontSize={pxToRem(24)} fontWeight={700}>
-              Popular packages
+            <Base
+              as="header"
+              display="flex"
+              justifyContent="space-between"
+              gap={pxToRem(16)}
+            >
+              <Base as="h2" fontSize={pxToRem(24)} fontWeight={700}>
+                Popular packages
+              </Base>
+
+              <Button.AsNextLink
+                href="/packages"
+                EndIconSlot={<ArrowRightIcon />}
+                variant="outlined"
+                prefetch
+              >
+                View all packages
+              </Button.AsNextLink>
             </Base>
-          </PageLayout.Overview.CommonSection>
-          <PageLayout.Overview.CommonSection
-            borderVariant="outline"
-            id="first-section"
-          >
-            <Base as="h2" fontSize={pxToRem(24)} fontWeight={700}>
-              Vulnerable packages
-            </Base>
+
+            <PackageList>
+              <PackageList.Item
+                packageName="React"
+                href="/packages/react"
+                status="no-vulnerabilities"
+                vulnerabilitiesOccurrences="45"
+              />
+              <PackageList.Item
+                packageName="Vue"
+                href="/packages/vue"
+                status="no-vulnerabilities"
+                vulnerabilitiesOccurrences="30"
+              />
+              <PackageList.Item
+                packageName="Angular"
+                href="/packages/angular"
+                status="recently-vulnerable"
+                vulnerabilitiesOccurrences="12"
+              />
+              <PackageList.Item
+                packageName="Svelte"
+                href="/packages/svelte"
+                status="no-vulnerabilities"
+                vulnerabilitiesOccurrences="5"
+              />
+              <PackageList.Item
+                packageName="Ember"
+                href="/packages/ember"
+                status="unknown"
+                vulnerabilitiesOccurrences="8"
+              />
+              <PackageList.Item
+                packageName="Backbone"
+                href="/packages/backbone"
+                status="vulnerable"
+                vulnerabilitiesOccurrences="0"
+              />
+              <PackageList.Item
+                packageName="Preact"
+                href="/packages/preact"
+                status="unknown"
+                vulnerabilitiesOccurrences="unknown"
+              />
+            </PackageList>
           </PageLayout.Overview.CommonSection>
         </PageLayout.Overview.MainColumn>
 

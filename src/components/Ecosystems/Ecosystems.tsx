@@ -21,7 +21,7 @@ export function EcosystemsRoot(props: EcosystemsRootProps) {
 
   const shouldRenderDisclaimer = useResponsiveProp({
     default: true,
-    xl: false,
+    lg: false,
   });
 
   return (
@@ -47,7 +47,7 @@ interface BaseItemComponentProps extends React.PropsWithChildren {
 function BaseItemComponent(props: BaseItemComponentProps) {
   const { children, isAvailableAlready, packageName } = props;
 
-  const shouldShowTooltip = useResponsiveProp({ default: false, xl: true });
+  const shouldShowTooltip = useResponsiveProp({ default: false, lg: true });
 
   return (
     <li className={clsx(styles.ecosystems_item)}>

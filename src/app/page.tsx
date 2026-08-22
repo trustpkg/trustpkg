@@ -40,7 +40,7 @@ export default function Home() {
             >
               Check vulnerabilities frequency from over{" "}
               <Base color={colors.text.accent} as="span">
-                3 001 011
+                4 322 512
               </Base>{" "}
               packages
             </Base>

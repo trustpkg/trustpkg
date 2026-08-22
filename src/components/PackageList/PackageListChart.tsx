@@ -1,8 +1,8 @@
 "use client";
 
-import { Line, XAxis, LineChart, Tooltip } from "recharts";
 import { colors } from "@/theme/generated/colors.generated";
 import { pxToRem } from "@/utils/pxToRem";
+import { Bar, BarChart, Tooltip, XAxis } from "recharts";
 
 interface PackageListChartProps {
   packageName: string;
@@ -16,12 +16,12 @@ export function PackageListChart(props: PackageListChartProps) {
   const { packageName, chartData } = props;
 
   return (
-    <LineChart
+    <BarChart
       accessibilityLayer
       barCategoryGap="8%"
       barGap={4}
       data={chartData}
-      height={100}
+      height={80}
       id={`package-list-item-${packageName}-chart`}
       layout="horizontal"
       margin={{
@@ -42,11 +42,13 @@ export function PackageListChart(props: PackageListChartProps) {
       ]}
       width={500}
     >
-      <Line
+    <Tooltip />
+      <Bar
         dataKey="vulnerabilitiesOccurrences"
         name="Vulnerabilities occurrences"
-        stroke={colors.text.accent}
-        type="monotone"
+        fill={colors.background.button.primary}
+        radius={4}
+        strokeWidth={4}
       />
       <XAxis dataKey="month" stroke={colors.text.primary} />
       <Tooltip
@@ -65,6 +67,6 @@ export function PackageListChart(props: PackageListChartProps) {
         offset={{ y: -80, x: 10 }}
         allowEscapeViewBox={{ x: true, y: true }}
       />
-    </LineChart>
+    </BarChart>
   );
 }

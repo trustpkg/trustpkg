@@ -13,60 +13,50 @@ import { PackageListItemProps } from "./PackageList.types";
 import { pxToRem } from "@/utils/pxToRem";
 import dynamic from "next/dynamic";
 
+const chartPositions = Array.from({ length: 12 }, (_, index) => {
+  return `${(index / 11) * 100}%`;
+});
+
 const PackageChart = dynamic(
-  () => import("./PackageListChart").then((mod) => mod.PackageListChart),
+  () => import("./PackageListChart").then((module) => module.PackageListChart),
   {
     ssr: false,
     loading: () => (
       <div className={styles.chartSkeleton}>
         <div className={styles.chartSkeleton_axis} />
 
-        {Array.from({ length: 12 }).map((_, index) => (
-          <span
-            key={index}
-            className={clsx(styles.chartSkeleton_tick, {
-              [styles.chartSkeleton_tick__hidden]: index === 0,
-            })}
-            style={{
-              left: `${(index / 11) * 100}%`,
-            }}
-          />
-        ))}
+        <div className={styles.chartSkeleton_content}>
+          {chartPositions.map((left, index) => (
+            <span
+              key={`tick-${index}`}
+              className={styles.chartSkeleton_tick}
+              style={{ left }}
+            />
+          ))}
 
-        {Array.from({ length: 12 }).map((_, index) => (
-          <span
-            key={index}
-            className={styles.chartSkeleton_point}
-            style={{
-              left: `${(index / 11) * 100}%`,
-            }}
-          />
-        ))}
-
-        {[
-          "",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec",
-        ].map((month, index) => (
-          <span
-            key={index}
-            className={styles.chartSkeleton_month}
-            style={{
-              left: `${(index / 11) * 100}%`,
-            }}
-          >
-            {month}
-          </span>
-        ))}
+          {[
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec",
+          ].map((month, index) => (
+            <span
+              key={month}
+              className={styles.chartSkeleton_month}
+              style={{ left: chartPositions[index] }}
+            >
+              {month}
+            </span>
+          ))}
+        </div>
       </div>
     ),
   },

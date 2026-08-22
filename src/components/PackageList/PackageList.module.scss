@@ -67,20 +67,30 @@
 }
 
 .chartSkeleton {
-  width: pxToRem.pxToRem(500);
-  height: pxToRem.pxToRem(100);
   position: relative;
-  transform: translateY(pxToRem.pxToRem(-8));
-  opacity: 0.4;
+  width: pxToRem.pxToRem(500);
+  height: pxToRem.pxToRem(80);
+  transform: translate(
+  pxToRem.pxToRem(0.5),
+  pxToRem.pxToRem(-9)
+  );
+  opacity:0.3;
 
   &_axis {
     position: absolute;
-    left: pxToRem.pxToRem(0);
-    right: pxToRem.pxToRem(5);
+    left: pxToRem.pxToRem(6);
+    right: pxToRem.pxToRem(6);
     bottom: pxToRem.pxToRem(25);
-    height: pxToRem.pxToRem(1);
-    width: 100%;
+    height: pxToRem.pxToRem(2);
     background: currentColor;
+  }
+
+  &_content {
+    position: absolute;
+    left: pxToRem.pxToRem(25);
+    right: pxToRem.pxToRem(25);
+    top: 0;
+    bottom: 0;
   }
 
   &_tick {
@@ -89,28 +99,16 @@
     width: pxToRem.pxToRem(1);
     height: pxToRem.pxToRem(5);
     background: currentColor;
-
-    &__hidden {
-      background: transparent;
-    }
-  }
-
-  &_point {
-    position: absolute;
-    bottom: pxToRem.pxToRem(20);
-    width: pxToRem.pxToRem(7);
-    height: pxToRem.pxToRem(7);
-    border: pxToRem.pxToRem(1) solid colors.$color-text-accent;
-    border-radius: 50%;
-    background: white;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
   }
 
   &_month {
     position: absolute;
     bottom: pxToRem.pxToRem(4);
     font-size: pxToRem.pxToRem(16);
+    line-height: 1;
     color: colors.$color-text-primary;
+    white-space: nowrap;
     transform: translateX(-50%);
   }
 }

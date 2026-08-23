@@ -11,6 +11,7 @@ import { Menu } from "@ark-ui/react";
 import React from "react";
 import styles from "./ChooseTheme.module.scss";
 import { IconButton } from "@/components/Button";
+import clsx from "clsx";
 
 const ThemeIcons: Record<CurrentTheme, SVGComponent> = {
   light: SunIcon,
@@ -51,13 +52,20 @@ export function ChooseTheme() {
             {themeDefinitions.map((definition) => {
               const Icon = ThemeIcons[definition.theme as CurrentTheme];
 
+              const isCurrentThemeModeActive = definition.theme === context.theme
+
               return (
                 <Menu.Item
                   key={definition.theme}
                   value={definition.theme}
-                  className={styles.chooseThemeContent_item}
+                  disabled={isCurrentThemeModeActive}
+                  className={clsx(styles.chooseThemeContent_item, {
+                    [styles.chooseThemeContent_item__active]: isCurrentThemeModeActive
+                  })}
                 >
-                  <Icon className={styles.chooseThemeContent_icon} />
+                  <Icon className={clsx(styles.chooseThemeContent_icon, {
+                    [styles.chooseThemeContent_icon__active]: isCurrentThemeModeActive
+                  })} />
                   <Hidden>{definition.theme}</Hidden>
                 </Menu.Item>
               );

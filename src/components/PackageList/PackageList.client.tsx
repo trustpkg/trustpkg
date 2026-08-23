@@ -2,16 +2,16 @@
 
 import { colors } from "@/theme/generated/colors.generated";
 import { clsx } from "clsx";
+import dynamic from "next/dynamic";
 import React from "react";
 import { Base } from "../Base/Base";
 import { Button } from "../Button";
 import EcosystemBadge from "../EcosystemBadge";
 import Hidden from "../Hidden";
 import { PackageStatusBadge } from "../PackageStatusBadge/StatusBadge";
+import Spinner from "../Spinner";
 import styles from "./PackageList.module.scss";
 import { PackageListItemProps } from "./PackageList.types";
-import { pxToRem } from "@/utils/pxToRem";
-import dynamic from "next/dynamic";
 
 const chartPositions = Array.from({ length: 12 }, (_, index) => {
   return `${(index / 11) * 100}%`;
@@ -76,7 +76,7 @@ export function PackageListItem(props: PackageListItemProps) {
 
   const chartData = [
     {
-      vulnerabilitiesOccurrences: 0,
+      vulnerabilitiesOccurrences: 1,
       month: "Jan",
     },
     { vulnerabilitiesOccurrences: 0, month: "Feb" },
@@ -87,7 +87,7 @@ export function PackageListItem(props: PackageListItemProps) {
     { vulnerabilitiesOccurrences: 0, month: "Jul" },
     { vulnerabilitiesOccurrences: 7, month: "Aug" },
     { vulnerabilitiesOccurrences: 0, month: "Sep" },
-    { vulnerabilitiesOccurrences: 0, month: "Oct" },
+    { vulnerabilitiesOccurrences: 12, month: "Oct" },
     { vulnerabilitiesOccurrences: 0, month: "Nov" },
     { vulnerabilitiesOccurrences: 0, month: "Dec" },
   ];
@@ -141,4 +141,29 @@ export function PackageListItem(props: PackageListItemProps) {
       </td>
     </tr>
   );
+}
+
+export function PackageListFooter() {
+  const [isLoading, setIsLoading] = React.useState(false)
+
+  const handleClick = () => {
+    setIsLoading(true)
+
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 3000)
+  }
+
+  return (
+    <div className={styles.packageListFooter}>
+      <div className={styles.packageListFooter_spinner}>
+        <Spinner isLoading={isLoading} />
+      </div>
+
+      <Button.AsButton onClick={handleClick} disabled={isLoading} size='small'>
+        Load more
+      </Button.AsButton>
+
+    </div>
+  )
 }

@@ -42,7 +42,6 @@ export function PackageListChart(props: PackageListChartProps) {
       ]}
       width={500}
     >
-    <Tooltip />
       <Bar
         dataKey="vulnerabilitiesOccurrences"
         name="Vulnerabilities occurrences"
@@ -52,18 +51,17 @@ export function PackageListChart(props: PackageListChartProps) {
       />
       <XAxis dataKey="month" stroke={colors.text.primary} />
       <Tooltip
-        trigger="click"
         contentStyle={{
+          padding: pxToRem(8),
           border: `${pxToRem(1)} solid ${colors.border.primary}`,
           borderRadius: pxToRem(8),
           background: colors.background.secondary,
-          boxShadow: `0px ${pxToRem(4)} ${pxToRem(8)} rgba(0, 0, 0, 0.1)`,
-          padding: pxToRem(8),
+          boxShadow: `0px ${pxToRem(4)} ${pxToRem(8)} ${colors.background.surface.primary}`,
         }}
         itemStyle={{ color: colors.text.primary }}
-        labelStyle={{ color: colors.text.primary }}
+        labelStyle={{ color: colors.text.accent }}
         wrapperStyle={{ zIndex: 1000 }}
-        cursor={{ fill: colors.background.secondary }}
+        cursor={{ fill: colors.background.overlay }}
         offset={{ y: -80, x: 10 }}
         allowEscapeViewBox={{ x: true, y: true }}
       />

@@ -4,23 +4,35 @@
 
 .packageList {
   width: 100%;
+  border-radius: pxToRem.pxToRem(8);
+  border: solid pxToRem.pxToRem(1) colors.$color-border-primary;
+  overflow: clip;
+
+  @include breakpoints.xl {
+    max-width: calc(60vw - pxToRem.pxToRem(16));
+  }
+
+  &_scrollWrapper {
+    width: 100%;
+  }
 
   &_viewport {
     width: 100%;
-    border-radius: pxToRem.pxToRem(8);
   }
 
   &_content {
     width: 100%;
-    border-radius: pxToRem.pxToRem(8);
     overflow: clip;
+    border: pxToRem.pxToRem(1) solid transparent;
+  }
+
+  &_body {
+    border: solid pxToRem.pxToRem(1) transparent;
   }
 
   &_table {
     table-layout: auto;
     width: 100%;
-    border: pxToRem.pxToRem(1) solid colors.$color-border-primary;
-    border-radius: pxToRem.pxToRem(8);
     border-spacing: 0;
   }
 
@@ -47,21 +59,22 @@
     &:focus,
     &:focus-within {
       outline: pxToRem.pxToRem(2) solid colors.$color-border-focus;
-      background-color: color-mix(
-        colors.$color-text-accent 5%,
-        colors.$color-background-surface-primary
-      );
+      background-color: color-mix(colors.$color-text-accent 5%,
+          colors.$color-background-surface-primary );
     }
 
     &__alternating {
-      background-color: color-mix(
-        colors.$color-text-accent 15%,
-        colors.$color-background-surface-primary
-      );
+      background-color: colors.$color-background-surface-primary;
     }
   }
 
   &_cell {
+    padding: pxToRem.pxToRem(16);
+  }
+
+  &_footer {
+    width: 100%;
+    background-color: colors.$color-background-surface-primary;
     padding: pxToRem.pxToRem(16);
   }
 }
@@ -70,11 +83,9 @@
   position: relative;
   width: pxToRem.pxToRem(500);
   height: pxToRem.pxToRem(80);
-  transform: translate(
-  pxToRem.pxToRem(0.5),
-  pxToRem.pxToRem(-9)
-  );
-  opacity:0.3;
+  transform: translate(pxToRem.pxToRem(0.5),
+      pxToRem.pxToRem(-9));
+  opacity: 0.3;
 
   &_axis {
     position: absolute;
@@ -110,5 +121,23 @@
     color: colors.$color-text-primary;
     white-space: nowrap;
     transform: translateX(-50%);
+  }
+}
+
+.packageListFooter {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: pxToRem.pxToRem(8);
+  width: 100%;
+
+  &_spinner {
+    position: absolute;
+    top: 50%;
+    left: pxToRem.pxToRem(16);
+    width: pxToRem.pxToRem(20);
+    height: pxToRem.pxToRem(20);
+    transform: translateY(-50%);
   }
 }

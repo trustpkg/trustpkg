@@ -55,10 +55,23 @@
         stroke-width: pxToRem.pxToRem(2);
       }
     }
+
+    &__active {
+      background: colors.$color-background-surface-secondary;
+
+      &:hover {
+        cursor: not-allowed;
+      }
+    }
   }
 
   &_icon {
     width: pxToRem.pxToRem(18);
     height: pxToRem.pxToRem(18);
+
+    &__active {
+      color: colors.$color-text-accent;
+      fill: colors.$color-text-accent;
+    }
   }
 }

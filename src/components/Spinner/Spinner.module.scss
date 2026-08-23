@@ -1,0 +1,98 @@
+@use "../../styles/pxToRem.scss" as pxToRem;
+@use "../../styles/breakpoints.scss" as breakpoints;
+@use "../../theme/generated/colors.generated.variables.scss" as colors;
+
+@keyframes drawerFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes drawerFadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes circle-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes circle-range-indeterminate {
+    0% {
+        stroke-dasharray: 1px 181px;
+        stroke-dashoffset: 0;
+    }
+
+    50% {
+        stroke-dasharray: 91px 91px;
+        stroke-dashoffset: -45px;
+    }
+
+    100% {
+        stroke-dasharray: 91px 91px;
+        stroke-dashoffset: -182px;
+    }
+}
+
+.spinner {
+    color: colors.$color-text-accent;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: pxToRem.pxToRem(8);
+
+    &_circle {
+        &[data-state="indeterminate"] {
+            animation: circle-spin 2s linear infinite;
+        }
+    }
+
+    &_circleTrack {
+        stroke: colors.$color-border-secondary;
+    }
+
+    &_circleContainer {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &_circleRange {
+        stroke: colors.$color-text-accent;
+        transition:
+            stroke-dasharray 0.6s ease-out,
+            stroke 0.6s ease-out;
+
+        &[data-state="indeterminate"] {
+            animation: circle-range-indeterminate 1.5s ease-in-out infinite;
+        }
+    }
+
+    &_valueText {
+        font-size: pxToRem.pxToRem(10);
+        font-weight: 600;
+        color: colors.$color-text-accent;
+    }
+}
+
+.spinnerSkeleton {
+    width: pxToRem.pxToRem(20);
+    height: pxToRem.pxToRem(20);
+    color: colors.$color-text-accent;
+}

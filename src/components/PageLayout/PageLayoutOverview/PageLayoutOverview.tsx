@@ -62,7 +62,7 @@ export async function PageLayoutOverviewHero(
             sm: "none",
           }}
           size="medium"
-          variant="filled"
+          variant='outlined'
           left={"50%"}
           top={`min(calc(100dvh - ${pxToRem(60)}), ${pxToRem(600)})`}
           transform={"translateX(-50%)"}

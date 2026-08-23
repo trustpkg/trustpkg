@@ -5,6 +5,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -14,6 +15,7 @@
   from {
     opacity: 1;
   }
+
   to {
     opacity: 0;
   }
@@ -23,6 +25,7 @@
   from {
     transform: translateX(100%);
   }
+
   to {
     transform: translateX(0);
   }
@@ -32,6 +35,7 @@
   from {
     transform: translateX(0);
   }
+
   to {
     transform: translateX(100%);
   }
@@ -71,6 +75,8 @@
   display: flex;
   justify-content: flex-end;
   pointer-events: none;
+  z-index: 102;
+
 
   &[data-state="open"] {
     visibility: visible;
@@ -83,11 +89,9 @@
   &_backdrop {
     position: fixed;
     inset: 0;
-    background: color-mix(
-      in srgb,
-      colors.$color-background-overlay 86%,
-      transparent
-    );
+    background: color-mix(in srgb,
+        colors.$color-background-overlay 86%,
+        transparent);
     backdrop-filter: blur(pxToRem.pxToRem(2));
     animation-duration: 220ms;
     animation-timing-function: ease;
@@ -112,8 +116,7 @@
     pointer-events: auto;
     background: colors.$color-background-surface-secondary;
     border-left: pxToRem.pxToRem(1) solid colors.$color-border-primary;
-    box-shadow: 0 0 pxToRem.pxToRem(28)
-      color-mix(in srgb, black 24%, transparent);
+    box-shadow: 0 0 pxToRem.pxToRem(28) color-mix(in srgb, black 24%, transparent);
     animation-duration: 260ms;
     animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
     animation-fill-mode: both;
@@ -242,20 +245,16 @@
       background-color 160ms ease;
 
     &:hover {
-      background: color-mix(
-        in srgb,
-        colors.$color-background-button-primary 8%,
-        transparent
-      );
+      background: color-mix(in srgb,
+          colors.$color-background-button-primary 8%,
+          transparent);
     }
 
     &:focus-visible {
       outline: none;
-      background: color-mix(
-        in srgb,
-        colors.$color-background-button-primary 14%,
-        transparent
-      );
+      background: color-mix(in srgb,
+          colors.$color-background-button-primary 14%,
+          transparent);
     }
   }
 
@@ -271,7 +270,7 @@
       transform: rotate(180deg);
     }
 
-    & > svg {
+    &>svg {
       width: pxToRem.pxToRem(18);
       height: pxToRem.pxToRem(18);
     }
@@ -313,6 +312,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .drawer_backdrop,
   .drawer_content {
     animation-duration: 1ms;

@@ -124,9 +124,9 @@ export function NavigationDrawer(props: NavigationDrawerProps) {
 
                                   const linkProps = shouldOpenInNewTab
                                     ? {
-                                        target: "_blank",
-                                        rel: "noopener noreferrer",
-                                      }
+                                      target: "_blank",
+                                      rel: "noopener noreferrer",
+                                    }
                                     : {};
 
                                   return (
@@ -174,9 +174,9 @@ export function NavigationDrawer(props: NavigationDrawerProps) {
                   } = item;
                   const linkProps = shouldOpenInNewTab
                     ? {
-                        target: "_blank",
-                        rel: "noopener noreferrer",
-                      }
+                      target: "_blank",
+                      rel: "noopener noreferrer",
+                    }
                     : {};
 
                   return (

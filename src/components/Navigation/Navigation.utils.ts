@@ -2,19 +2,6 @@ import type { NavigationItem } from "./Navigation.types";
 
 export const navigationDefaultConfig: NavigationItem[] = [
   {
-    title: "Packages",
-    items: [
-      {
-        label: "All packages",
-        href: "/packages",
-      },
-      {
-        label: "Understanding package security",
-        href: "/#understanding-package-security",
-      },
-    ],
-  },
-  {
     title: "Images / github actions",
     items: [
       {
@@ -26,6 +13,14 @@ export const navigationDefaultConfig: NavigationItem[] = [
         href: "/actions",
       },
     ],
+  },
+  {
+    label: "Packages",
+    href: '/packages'
+  },
+  {
+    label: 'Blog',
+    href: '/blog'
   },
   {
     label: "CLI",

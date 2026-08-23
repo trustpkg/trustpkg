@@ -53,16 +53,13 @@
   &_row {
     &:hover {
       cursor: pointer;
-      background-color: color-mix(colors.$color-text-accent 10%,
-          colors.$color-background-surface-primary);
-      box-shadow: inset 0 0 0 pxToRem.pxToRem(1) colors.$color-border-focus;
+      background-color: color-mix(colors.$color-text-accent 12%,
+          colors.$color-background-surface-primary );
     }
 
     &:focus,
     &:focus-within {
-      box-shadow: inset 0 0 0 pxToRem.pxToRem(1) colors.$color-border-focus;
-      background-color: color-mix(colors.$color-text-accent 15%,
-          colors.$color-background-surface-primary );
+      box-shadow: inset 0 0 0 pxToRem.pxToRem(2) colors.$color-border-focus;
     }
 
     &__alternating {

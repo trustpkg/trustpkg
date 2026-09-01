@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 import { parseUABreakpoint } from "@/responsive/utils/parseUABreakpoint";
 import { ResponsiveProvider } from "@/responsive/Responsive.Provider";
 import { ThemeProvider } from "@/theme/providers/ThemeProvider";
+import { QueryClientProvider } from "@/providers/QueryClientProvider";
 import { getTheme } from "@/api/getTheme";
 
 const geistSans = Geist({
@@ -34,11 +35,13 @@ export default async function RootLayout({
       data-theme={theme}
     >
       <body>
-        <ThemeProvider theme={theme}>
-          <ResponsiveProvider ssrBreakpoint={ssrBreakpoint}>
-            <main>{children}</main>
-          </ResponsiveProvider>
-        </ThemeProvider>
+        <QueryClientProvider>
+          <ThemeProvider theme={theme}>
+            <ResponsiveProvider ssrBreakpoint={ssrBreakpoint}>
+              <main>{children}</main>
+            </ResponsiveProvider>
+          </ThemeProvider>
+        </QueryClientProvider>
       </body>
     </html>
   );

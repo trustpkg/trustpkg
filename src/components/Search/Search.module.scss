@@ -6,6 +6,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -15,6 +16,7 @@
   from {
     opacity: 1;
   }
+
   to {
     opacity: 0;
   }
@@ -24,6 +26,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -34,13 +37,46 @@
     stroke-dasharray: 1px 181px;
     stroke-dashoffset: 0;
   }
+
   50% {
     stroke-dasharray: 91px 91px;
     stroke-dashoffset: -45px;
   }
+
   100% {
     stroke-dasharray: 91px 91px;
     stroke-dashoffset: -182px;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: scale(0.95);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+}
+
+@keyframes selectionHintPulse {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+    box-shadow: 0 0 0 transparent;
+  }
+
+  50% {
+    background-position: 100% 50%;
+    box-shadow: 0 0 0 pxToRem.pxToRem(3) color-mix(in srgb, colors.$color-text-accent 14%, transparent);
   }
 }
 
@@ -48,6 +84,11 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+
+  &_dialogSearchIcon {
+    width: 24px;
+    height: 24px;
+  }
 
   &_trigger {
     position: relative;
@@ -73,11 +114,9 @@
       &:focus,
       &:focus-visible {
         outline: none;
-        background: color-mix(
-          in srgb,
-          colors.$color-background-surface-secondary 95%,
-          colors.$color-text-primary
-        );
+        background: color-mix(in srgb,
+            colors.$color-background-surface-secondary 95%,
+            colors.$color-text-primary );
       }
     }
 
@@ -111,11 +150,9 @@
   &_backdrop {
     position: fixed;
     inset: 0;
-    background: color-mix(
-      in srgb,
-      colors.$color-background-overlay 86%,
-      transparent
-    );
+    background: color-mix(in srgb,
+        colors.$color-background-overlay 86%,
+        transparent);
     backdrop-filter: blur(pxToRem.pxToRem(2));
     animation-duration: 220ms;
     animation-timing-function: ease;
@@ -194,6 +231,33 @@
       gap: pxToRem.pxToRem(8);
     }
 
+    &ActionsEnter {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex: 0 0 auto;
+      height: pxToRem.pxToRem(32);
+      padding: 0 pxToRem.pxToRem(8);
+      border: solid pxToRem.pxToRem(1) color-mix(in srgb, colors.$color-text-accent 60%, colors.$color-border-secondary);
+      border-radius: pxToRem.pxToRem(4);
+      background: linear-gradient(110deg,
+          color-mix(in srgb, colors.$color-text-accent 14%, colors.$color-background-surface-secondary),
+          colors.$color-background-surface-secondary,
+          color-mix(in srgb, colors.$color-text-accent 22%, colors.$color-background-surface-secondary));
+      background-size: 200% 100%;
+
+      &[data-active="true"] {
+        display: flex;
+        animation: selectionHintPulse 1.8s ease-in-out infinite;
+      }
+
+      kbd {
+        color: colors.$color-text-accent;
+        font: inherit;
+        font-weight: 700;
+      }
+    }
+
     &ActionsEsc {
       display: flex;
       justify-content: center;
@@ -217,6 +281,66 @@
         width: 100%;
         height: pxToRem.pxToRem(400);
         object-fit: contain;
+      }
+    }
+
+  }
+
+  &_resultsList {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: pxToRem.pxToRem(4);
+    list-style: none;
+  }
+
+  &_resultsIcon {
+    display: none;
+  }
+
+  &_resultsItem {
+    display: flex;
+    align-items: center;
+    gap: pxToRem.pxToRem(16);
+    padding: pxToRem.pxToRem(16) pxToRem.pxToRem(24);
+    border: none;
+    border-left: solid pxToRem.pxToRem(3) transparent;
+    outline: none;
+    color: colors.$color-text-primary;
+    font-weight: 600;
+    font-size: pxToRem.pxToRem(18);
+    border-radius: pxToRem.pxToRem(8);
+    transition: background-color 150ms ease, color 150ms ease;
+
+    &__isActive {
+      background: color-mix(in srgb,
+          colors.$color-text-accent 18%,
+          transparent);
+      border-left-color: colors.$color-text-accent;
+
+      &>.search_resultsIcon {
+        display: flex;
+        color: colors.$color-text-accent;
+      }
+    }
+
+    &:hover {
+      background: color-mix(in srgb,
+          colors.$color-text-accent 8%,
+          transparent);
+      cursor: pointer;
+    }
+
+    &:focus-visible {
+      background: color-mix(in srgb,
+          colors.$color-text-accent 8%,
+          transparent);
+      cursor: pointer;
+
+      &>.search_resultsIcon {
+        display: flex;
+        color: colors.$color-text-accent;
+        animation: pulse 1.5s ease-in-out infinite;
       }
     }
   }
@@ -261,5 +385,17 @@
       font-weight: 600;
       color: colors.$color-text-accent;
     }
+
+    &:focus-visible {
+      outline: solid pxToRem.pxToRem(2) colors.$color-border-focus;
+      outline-offset: pxToRem.pxToRem(2);
+    }
+  }
+
+  &:active {
+    background: color-mix(in srgb,
+        colors.$color-text-accent 18%,
+        transparent);
+    color: colors.$color-text-accent;
   }
 }

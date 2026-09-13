@@ -4,7 +4,27 @@
  */
 
 export interface paths {
-    "/packages/search": {
+    "/api/packages/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List packages
+         * @description List packages with pagination and sorting.
+         */
+        get: operations["listPackages"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/packages/search": {
         parameters: {
             query?: never;
             header?: never;
@@ -28,6 +48,31 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        "packagesApi.AffectedPackage": {
+            ecosystem?: string;
+            fixed_version?: string;
+            introduced_version?: string;
+            last_affected_version?: string;
+        };
+        "packagesApi.ListResponse": {
+            documents?: components["schemas"]["packagesApi.PackageListDocument"][];
+            message?: string;
+            status?: number;
+        };
+        "packagesApi.PackageListDocument": {
+            ecosystem?: string;
+            id?: number;
+            is_deprecated?: boolean;
+            name?: string;
+            popularity?: number;
+            slug?: string;
+            vulnerabilities?: {
+                [key: string]: components["schemas"]["packagesApi.Vulnerability"][];
+            };
+            vulnerability_counts?: {
+                [key: string]: number;
+            };
+        };
         "packagesApi.SearchDocument": {
             /**
              * @description Package ecosystem.
@@ -42,6 +87,8 @@ export interface components {
             name: string;
             /** @description Download popularity score. */
             popularity: number;
+            /** @description URL-safe package identifier. */
+            slug: string;
             /** @description Monthly vulnerability counts keyed by YYYY-MM. */
             vulnerabilities: {
                 [key: string]: number;
@@ -49,9 +96,23 @@ export interface components {
         };
         "packagesApi.SearchResponse": {
             documents?: components["schemas"]["packagesApi.SearchDocument"][];
-            message: string;
-            /** @enum {integer} */
-            status: 200 | 400 | 429 | 500;
+            message?: string;
+            status?: number;
+        };
+        "packagesApi.Vulnerability": {
+            affected?: components["schemas"]["packagesApi.AffectedPackage"][];
+            cve_id?: string;
+            cvss_score?: number;
+            cvss_vector?: string;
+            description?: string;
+            id?: number;
+            modified_at?: string;
+            osv_id?: string;
+            published_at?: string;
+            references?: string[];
+            severity?: string;
+            summary?: string;
+            withdrawn_at?: string;
         };
     };
     responses: never;
@@ -62,6 +123,73 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    listPackages: {
+        parameters: {
+            query?: {
+                /** @description Page number */
+                page?: number;
+                /** @description Maximum number of results */
+                limit?: number;
+                /** @description Field to sort by (e.g., name, popularity or ecosystem) */
+                sortBy?: string;
+                /** @description Sort order (asc or desc) */
+                order?: string;
+                /** @description Package ecosystem */
+                ecosystem?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["packagesApi.ListResponse"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["packagesApi.ListResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["packagesApi.ListResponse"];
+                };
+            };
+            /** @description Too Many Requests */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["packagesApi.ListResponse"];
+                };
+            };
+            /** @description Internal Server Error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["packagesApi.ListResponse"];
+                };
+            };
+        };
+    };
     searchPackages: {
         parameters: {
             query: {

@@ -9,6 +9,13 @@ import ArrowRightIcon from "@/assets/ArrowRight.svg";
 import { Hidden } from "@/components/Hidden/Hidden";
 import Search from "@/components/Search";
 import PackageList from "@/components/PackageList";
+import { getPackagesFetch } from "@/api/getPackagesFetch";
+import React from "react";
+import { ListPackagesParametersSchema } from "@/api/parameters";
+import {
+  normalizeSearchParams,
+  type SearchParams,
+} from "@/utils/normalizeSearchParams";
 
 export const metadata = {
   title: "Home | trustpkg.dev",
@@ -16,7 +23,23 @@ export const metadata = {
     "trustpkg.dev is a platform that provides vulnerability frequency, insight and comparison of packages. ",
 };
 
-export default function Home() {
+interface PageProps {
+  searchParams: Promise<SearchParams>;
+};
+
+export default async function Home(props: PageProps) {
+  const { searchParams } = props
+  const rawQueryParams = await searchParams
+  const queryParams = normalizeSearchParams(rawQueryParams, ["page", "limit"])
+
+  const resolvedParams = ListPackagesParametersSchema.safeParse(queryParams)
+
+  if (!resolvedParams.success) {
+    throw new Error("Invalid query parameters." + JSON.stringify(resolvedParams.error));
+  }
+
+  const packagesList = await getPackagesFetch(resolvedParams.data)
+
   return (
     <PageLayout NavigationSlot={<Navigation />}>
       <PageLayout.Overview>
@@ -77,48 +100,30 @@ export default function Home() {
             </Base>
 
             <PackageList>
-              <PackageList.Item
-                packageName="React"
-                href="/packages/react"
-                status="no-vulnerabilities"
-                vulnerabilitiesOccurrences="45"
-              />
-              <PackageList.Item
-                packageName="Vue"
-                href="/packages/vue"
-                status="no-vulnerabilities"
-                vulnerabilitiesOccurrences="30"
-              />
-              <PackageList.Item
-                packageName="Angular"
-                href="/packages/angular"
-                status="recently-vulnerable"
-                vulnerabilitiesOccurrences="12"
-              />
-              <PackageList.Item
-                packageName="Svelte"
-                href="/packages/svelte"
-                status="no-vulnerabilities"
-                vulnerabilitiesOccurrences="5"
-              />
-              <PackageList.Item
-                packageName="Ember"
-                href="/packages/ember"
-                status="unknown"
-                vulnerabilitiesOccurrences="8"
-              />
-              <PackageList.Item
-                packageName="Backbone"
-                href="/packages/backbone"
-                status="vulnerable"
-                vulnerabilitiesOccurrences="0"
-              />
-              <PackageList.Item
-                packageName="Preact"
-                href="/packages/preact"
-                status="unknown"
-                vulnerabilitiesOccurrences="unknown"
-              />
+              <React.Suspense
+                fallback={Array.from({ length: 9 }, (_, index) => (
+                  <PackageList.ItemSkeleton key={`package-skeleton-${index}`} />
+                ))}
+              >
+                {packagesList?.documents?.map((document) => {
+                  const vulnerabilitiesCount = Object.values(document.vulnerability_counts ?? {}).reduce(
+                    (sum, value) => sum + Number(value ?? 0),
+                    0,
+                  )
+
+                  return (
+                    <PackageList.Item
+                      key={document.name}
+                      packageName={document.name ?? ""}
+                      href={`/packages/${document.slug}`}
+                      status="unknown"
+                      vulnerabilitiesOccurrences={String(vulnerabilitiesCount)}
+                      vulnerabilityCounts={document.vulnerability_counts ?? {}}
+                    />
+                  )
+                })}
+
+              </React.Suspense>
             </PackageList>
           </PageLayout.Overview.CommonSection>
         </PageLayout.Overview.MainColumn>
@@ -172,7 +177,7 @@ export default function Home() {
               </Base>
 
               <Base as="p" fontSize={pxToRem(12)}>
-                Projects with frequent vulnerabilities aren't necessarily
+                Projects with frequent vulnerabilities aren&apos;t necessarily
                 insecure. An active security process and fast fixes can be signs
                 of a healthy, well-maintained package.
               </Base>

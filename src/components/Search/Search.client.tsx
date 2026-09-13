@@ -9,6 +9,7 @@ import { pxToRem } from "@/utils/pxToRem";
 import { Dialog, Portal, Progress } from "@ark-ui/react";
 import clsx from "clsx";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { Base } from "../Base/Base";
@@ -17,6 +18,7 @@ import Hidden from "../Hidden";
 import { useSearch } from "./hooks/useSearch";
 import { SearchContext } from "./Search.context";
 import styles from "./Search.module.scss";
+import { normalizedPackage } from "@/utils/normalizePackage";
 
 
 export function SearchTrigger() {
@@ -86,7 +88,7 @@ export function SearchDialog() {
   const [activeResultIndex, setActiveResultIndex] = React.useState(-1);
 
   const selectDocument = (documentName: string) => {
-    router.push(`/packages/${encodeURIComponent(documentName)}`);
+    router.push(`/packages/${normalizedPackage(encodeURIComponent(documentName))}`);
     setIsDialogWithSearchOpen?.(false);
   };
 
@@ -238,37 +240,33 @@ export function SearchDialog() {
                 <ul id="search-results" className={styles.search_resultsList}>
                   {documents.map((document, index) => {
                     return (
-                      <li
-                        id={`search-result-${index}`}
-                        key={document.name}
-                        className={clsx(styles.search_resultsItem, {
-                          [styles.search_resultsItem__isActive]:
-                            activeResultIndex === index,
-                        })}
-                        role="option"
-                        aria-selected={activeResultIndex === index}
-                        tabIndex={0}
-                        onClick={() => selectDocument(document.name)}
-                        onMouseEnter={() => setActiveResultIndex(index)}
-                        onMouseMove={() => setActiveResultIndex(index)}
-                        onFocus={() => setActiveResultIndex(index)}
-                        onKeyDown={(event) => {
-                          if (event.key === "Enter") {
-                            selectDocument(document.name);
-                          }
-                        }}
-                      >
-                        {document.ecosystem === "npm" && (
-                          <Base width={pxToRem(24)} height={pxToRem(24)}>
-                            <NpmIcon fill={colors.text.primary} />
+                      <li key={document.name}>
+                        <Link
+                          id={`search-result-${index}`}
+                          href={`/packages/${document.slug}`}
+                          className={clsx(styles.search_resultsItem, {
+                            [styles.search_resultsItem__isActive]:
+                              activeResultIndex === index,
+                          })}
+                          role="option"
+                          aria-selected={activeResultIndex === index}
+                          onClick={() => setIsDialogWithSearchOpen?.(false)}
+                          onMouseEnter={() => setActiveResultIndex(index)}
+                          onMouseMove={() => setActiveResultIndex(index)}
+                          onFocus={() => setActiveResultIndex(index)}
+                        >
+                          {document.ecosystem === "npm" && (
+                            <Base width={pxToRem(24)} height={pxToRem(24)}>
+                              <NpmIcon fill={colors.text.primary} />
+                            </Base>
+                          )}
+
+                          {document.name}
+
+                          <Base asChild width={pxToRem(24)} height={pxToRem(24)} marginLeft="auto" className={clsx(styles.search_resultsIcon)}>
+                            <ArrowRightIcon />
                           </Base>
-                        )}
-
-                        {document.name}
-
-                        <Base asChild width={pxToRem(24)} height={pxToRem(24)} marginLeft="auto" className={clsx(styles.search_resultsIcon)}>
-                          <ArrowRightIcon />
-                        </Base>
+                        </Link>
                       </li>
                     )
                   })}
@@ -280,6 +278,7 @@ export function SearchDialog() {
                 alt=""
                 width={1536}
                 height={1024}
+                priority
               />}
 
               {(isNotFound && !isDefaultView) && <Image
@@ -288,6 +287,7 @@ export function SearchDialog() {
                 alt=""
                 width={1536}
                 height={1024}
+                priority
               />}
             </div>
           </Dialog.Content>

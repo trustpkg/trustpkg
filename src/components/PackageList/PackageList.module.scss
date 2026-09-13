@@ -31,8 +31,9 @@
   }
 
   &_table {
-    table-layout: auto;
+    table-layout: fixed;
     width: 100%;
+    min-width: pxToRem.pxToRem(988);
     border-spacing: 0;
   }
 
@@ -71,6 +72,57 @@
     padding: pxToRem.pxToRem(16);
   }
 
+  &_headCell,
+  &_cell {
+    &:nth-child(1) {
+      width: pxToRem.pxToRem(152);
+    }
+
+    &:nth-child(2) {
+      width: pxToRem.pxToRem(96);
+    }
+
+    &:nth-child(3) {
+      width: pxToRem.pxToRem(532);
+    }
+
+    &:nth-child(4) {
+      width: pxToRem.pxToRem(64);
+    }
+
+    &:nth-child(5) {
+      width: pxToRem.pxToRem(144);
+    }
+
+    &:nth-child(6) {
+      width: 0;
+    }
+  }
+
+  &_skeletonBlock {
+    display: block;
+    height: pxToRem.pxToRem(20);
+    border-radius: pxToRem.pxToRem(4);
+    background-color: colors.$color-border-primary;
+    animation: packageListSkeletonPulse 1.6s ease-in-out infinite;
+
+    &__package {
+      width: pxToRem.pxToRem(120);
+    }
+
+    &__ecosystem {
+      width: pxToRem.pxToRem(64);
+    }
+
+    &__total {
+      width: pxToRem.pxToRem(32);
+    }
+
+    &__status {
+      width: pxToRem.pxToRem(112);
+    }
+  }
+
   &_footer {
     width: 100%;
     background-color: colors.$color-background-surface-primary;
@@ -97,8 +149,8 @@
 
   &_content {
     position: absolute;
-    left: pxToRem.pxToRem(25);
-    right: pxToRem.pxToRem(25);
+    left: 0;
+    right: 0;
     top: 0;
     bottom: 0;
   }
@@ -112,14 +164,36 @@
     transform: translateX(-50%);
   }
 
+  &_bar {
+    position: absolute;
+    bottom: pxToRem.pxToRem(25);
+    width: pxToRem.pxToRem(28);
+    height: pxToRem.pxToRem(40);
+    border-radius: pxToRem.pxToRem(4) pxToRem.pxToRem(4) 0 0;
+    background: currentColor;
+    transform: translateX(-50%);
+  }
+
   &_month {
     position: absolute;
-    bottom: pxToRem.pxToRem(4);
+    bottom: pxToRem.pxToRem(3);
+    color: currentColor;
     font-size: pxToRem.pxToRem(16);
-    line-height: 1;
-    color: colors.$color-text-primary;
+    line-height: normal;
     white-space: nowrap;
-    transform: translateX(-50%);
+    transform: translateX(calc(-50% - 1px));
+  }
+}
+
+@keyframes packageListSkeletonPulse {
+
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+
+  50% {
+    opacity: 0.8;
   }
 }
 

@@ -41,7 +41,9 @@ export default function NotFound() {
           </Base>
 
           <Button.AsNextLink
-            href="/"
+            href={{ pathname: "/", query: {} }}
+            replace
+            prefetch={false}
             position={{
               default: "static",
               lg: "absolute",

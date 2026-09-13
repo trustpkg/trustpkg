@@ -12,55 +12,108 @@ import { PackageStatusBadge } from "../PackageStatusBadge/StatusBadge";
 import Spinner from "../Spinner";
 import styles from "./PackageList.module.scss";
 import { PackageListItemProps } from "./PackageList.types";
+import {
+  getChartTickPositions,
+  getLastMonths,
+} from "./PackageList.utils";
 
-const chartPositions = Array.from({ length: 12 }, (_, index) => {
-  return `${(index / 11) * 100}%`;
-});
+const chartMonths = getLastMonths(6);
+const chartPositions = getChartTickPositions(chartMonths.length).map(
+  (position) => `${position}%`,
+);
+
+function PackageChartSkeleton() {
+  return (
+    <div className={styles.chartSkeleton} aria-hidden="true">
+      <div className={styles.chartSkeleton_axis} />
+
+      <div className={styles.chartSkeleton_content}>
+        {chartPositions.map((left, index) => (
+          <span
+            key={`tick-${index}`}
+            className={styles.chartSkeleton_tick}
+            style={{ left }}
+          />
+        ))}
+
+        {chartPositions.map((left, index) => (
+          <span
+            key={`label-${index}`}
+            className={styles.chartSkeleton_month}
+            style={{ left }}
+          >
+            {chartMonths[index].label}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 const PackageChart = dynamic(
   () => import("./PackageListChart").then((module) => module.PackageListChart),
   {
     ssr: false,
-    loading: () => (
-      <div className={styles.chartSkeleton}>
-        <div className={styles.chartSkeleton_axis} />
-
-        <div className={styles.chartSkeleton_content}>
-          {chartPositions.map((left, index) => (
-            <span
-              key={`tick-${index}`}
-              className={styles.chartSkeleton_tick}
-              style={{ left }}
-            />
-          ))}
-
-          {[
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec",
-          ].map((month, index) => (
-            <span
-              key={month}
-              className={styles.chartSkeleton_month}
-              style={{ left: chartPositions[index] }}
-            >
-              {month}
-            </span>
-          ))}
-        </div>
-      </div>
-    ),
+    loading: () => <PackageChartSkeleton />,
   },
 );
+
+export function PackageListItemSkeleton({
+  IsAlternating,
+}: Pick<PackageListItemProps, "IsAlternating"> = {}) {
+  return (
+    <tr
+      aria-busy="true"
+      className={clsx(styles.packageList_row, {
+        [styles.packageList_row__alternating]: IsAlternating,
+      })}
+    >
+      <td className={styles.packageList_cell}>
+        <Hidden>
+          <span role="status">Loading package data</span>
+        </Hidden>
+        <span
+          aria-hidden="true"
+          className={clsx(
+            styles.packageList_skeletonBlock,
+            styles.packageList_skeletonBlock__package,
+          )}
+        />
+      </td>
+      <td className={styles.packageList_cell}>
+        <span
+          aria-hidden="true"
+          className={clsx(
+            styles.packageList_skeletonBlock,
+            styles.packageList_skeletonBlock__ecosystem,
+          )}
+        />
+      </td>
+      <td className={styles.packageList_cell}>
+        <PackageChartSkeleton />
+      </td>
+      <td className={styles.packageList_cell}>
+        <span
+          aria-hidden="true"
+          className={clsx(
+            styles.packageList_skeletonBlock,
+            styles.packageList_skeletonBlock__total,
+          )}
+        />
+      </td>
+      <td className={styles.packageList_cell}>
+        <span
+          aria-hidden="true"
+          className={clsx(
+            styles.packageList_skeletonBlock,
+            styles.packageList_skeletonBlock__status,
+          )}
+        />
+      </td>
+      <td aria-hidden="true" />
+    </tr>
+  );
+}
 
 export function PackageListItem(props: PackageListItemProps) {
   const {
@@ -69,28 +122,16 @@ export function PackageListItem(props: PackageListItemProps) {
     href,
     status,
     vulnerabilitiesOccurrences,
+    vulnerabilityCounts,
   } = props;
 
   const rowLinkRef = React.useRef<HTMLAnchorElement>(null);
   const cellRef = React.useRef<HTMLTableCellElement>(null);
 
-  const chartData = [
-    {
-      vulnerabilitiesOccurrences: 1,
-      month: "Jan",
-    },
-    { vulnerabilitiesOccurrences: 0, month: "Feb" },
-    { vulnerabilitiesOccurrences: 5, month: "Mar" },
-    { vulnerabilitiesOccurrences: 0, month: "Apr" },
-    { vulnerabilitiesOccurrences: 3, month: "May" },
-    { vulnerabilitiesOccurrences: 0, month: "Jun" },
-    { vulnerabilitiesOccurrences: 0, month: "Jul" },
-    { vulnerabilitiesOccurrences: 7, month: "Aug" },
-    { vulnerabilitiesOccurrences: 0, month: "Sep" },
-    { vulnerabilitiesOccurrences: 12, month: "Oct" },
-    { vulnerabilitiesOccurrences: 0, month: "Nov" },
-    { vulnerabilitiesOccurrences: 0, month: "Dec" },
-  ];
+  const chartData = getLastMonths(6).map(({ key, label }) => ({
+    month: label,
+    vulnerabilitiesOccurrences: vulnerabilityCounts[key] ?? 0,
+  }));
 
   return (
     <tr
@@ -144,26 +185,11 @@ export function PackageListItem(props: PackageListItemProps) {
 }
 
 export function PackageListFooter() {
-  const [isLoading, setIsLoading] = React.useState(false)
-
-  const handleClick = () => {
-    setIsLoading(true)
-
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 3000)
-  }
-
   return (
-    <div className={styles.packageListFooter}>
-      <div className={styles.packageListFooter_spinner}>
-        <Spinner isLoading={isLoading} />
+    <div className={styles.packageListPagination}>
+      <div className={styles.packageListPagination_spinner}>
+        <Spinner isLoading={false} />
       </div>
-
-      <Button.AsButton onClick={handleClick} disabled={isLoading} size='small'>
-        Load more
-      </Button.AsButton>
-
     </div>
   )
 }

@@ -38,7 +38,7 @@ export async function getTheme(): Promise<CurrentTheme> {
       await client.appendHeaders({ Cookie: cookieHeader });
     }
 
-    const response = await client.get<null, { theme: CurrentTheme }>(
+    const response = await client.get<{ theme: CurrentTheme }>(
       `${domainUrl}/api/theme/get`,
     );
 

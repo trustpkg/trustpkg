@@ -3,6 +3,12 @@
 import { colors } from "@/theme/generated/colors.generated";
 import { pxToRem } from "@/utils/pxToRem";
 import { Bar, BarChart, Tooltip, XAxis } from "recharts";
+import {
+  getChartTickIndexes,
+  PACKAGE_LIST_CHART_AXIS_PADDING,
+  PACKAGE_LIST_CHART_MARGIN,
+  PACKAGE_LIST_CHART_WIDTH,
+} from "./PackageList.utils";
 
 interface PackageListChartProps {
   packageName: string;
@@ -14,6 +20,9 @@ interface PackageListChartProps {
 
 export function PackageListChart(props: PackageListChartProps) {
   const { packageName, chartData } = props;
+  const chartTicks = getChartTickIndexes(chartData.length).map(
+    (index) => chartData[index].month,
+  );
 
   return (
     <BarChart
@@ -25,10 +34,10 @@ export function PackageListChart(props: PackageListChartProps) {
       id={`package-list-item-${packageName}-chart`}
       layout="horizontal"
       margin={{
-        bottom: 5,
-        left: 5,
-        right: 5,
-        top: 5,
+        bottom: PACKAGE_LIST_CHART_MARGIN,
+        left: PACKAGE_LIST_CHART_MARGIN,
+        right: PACKAGE_LIST_CHART_MARGIN,
+        top: PACKAGE_LIST_CHART_MARGIN,
       }}
       syncId={packageName}
       syncMethod="index"
@@ -40,7 +49,7 @@ export function PackageListChart(props: PackageListChartProps) {
         "scroll",
         "wheel",
       ]}
-      width={500}
+      width={PACKAGE_LIST_CHART_WIDTH}
     >
       <Bar
         dataKey="vulnerabilitiesOccurrences"
@@ -49,7 +58,16 @@ export function PackageListChart(props: PackageListChartProps) {
         radius={4}
         strokeWidth={4}
       />
-      <XAxis dataKey="month" stroke={colors.text.primary} />
+      <XAxis
+        dataKey="month"
+        ticks={chartTicks}
+        interval={0}
+        padding={{
+          left: PACKAGE_LIST_CHART_AXIS_PADDING,
+          right: PACKAGE_LIST_CHART_AXIS_PADDING,
+        }}
+        stroke={colors.text.primary}
+      />
       <Tooltip
         contentStyle={{
           padding: pxToRem(8),

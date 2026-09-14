@@ -3,10 +3,13 @@ import { z } from "zod";
 
 type packagesApi_ListResponse = Partial<{
   documents: Array<packagesApi_PackageListDocument>;
+  lastPage: number;
   message: string;
   status: number;
+  totalPages: number;
 }>;
 type packagesApi_PackageListDocument = Partial<{
+  current_statuses: Array<packagesApi_PackageCurrentStatus>;
   ecosystem: string;
   id: number;
   is_deprecated: boolean;
@@ -15,6 +18,21 @@ type packagesApi_PackageListDocument = Partial<{
   slug: string;
   vulnerabilities: {};
   vulnerability_counts: {};
+}>;
+type packagesApi_PackageCurrentStatus = Partial<{
+  affected: Array<packagesApi_AffectedPackage>;
+  code: string;
+  cve_id: string;
+  fixed_versions: Array<string>;
+  label: string;
+  osv_id: string;
+  severity: string;
+}>;
+type packagesApi_AffectedPackage = Partial<{
+  ecosystem: string;
+  fixed_version: string;
+  introduced_version: string;
+  last_affected_version: string;
 }>;
 type packagesApi_Vulnerability = Partial<{
   affected: Array<packagesApi_AffectedPackage>;
@@ -30,12 +48,6 @@ type packagesApi_Vulnerability = Partial<{
   severity: string;
   summary: string;
   withdrawn_at: string;
-}>;
-type packagesApi_AffectedPackage = Partial<{
-  ecosystem: string;
-  fixed_version: string;
-  introduced_version: string;
-  last_affected_version: string;
 }>;
 type packagesApi_SearchResponse = Partial<{
   documents: Array<packagesApi_SearchDocument>;
@@ -94,6 +106,19 @@ const packagesApi_AffectedPackage: z.ZodType<packagesApi_AffectedPackage> = z
   })
   .partial()
   .passthrough();
+const packagesApi_PackageCurrentStatus: z.ZodType<packagesApi_PackageCurrentStatus> =
+  z
+    .object({
+      affected: z.array(packagesApi_AffectedPackage),
+      code: z.string(),
+      cve_id: z.string(),
+      fixed_versions: z.array(z.string()),
+      label: z.string(),
+      osv_id: z.string(),
+      severity: z.string(),
+    })
+    .partial()
+    .passthrough();
 const packagesApi_Vulnerability: z.ZodType<packagesApi_Vulnerability> = z
   .object({
     affected: z.array(packagesApi_AffectedPackage),
@@ -115,6 +140,7 @@ const packagesApi_Vulnerability: z.ZodType<packagesApi_Vulnerability> = z
 const packagesApi_PackageListDocument: z.ZodType<packagesApi_PackageListDocument> =
   z
     .object({
+      current_statuses: z.array(packagesApi_PackageCurrentStatus),
       ecosystem: z.string(),
       id: z.number().int(),
       is_deprecated: z.boolean(),
@@ -129,8 +155,10 @@ const packagesApi_PackageListDocument: z.ZodType<packagesApi_PackageListDocument
 const packagesApi_ListResponse: z.ZodType<packagesApi_ListResponse> = z
   .object({
     documents: z.array(packagesApi_PackageListDocument),
+    lastPage: z.number().int(),
     message: z.string(),
     status: z.number().int(),
+    totalPages: z.number().int(),
   })
   .partial()
   .passthrough();
@@ -156,6 +184,7 @@ const packagesApi_SearchResponse: z.ZodType<packagesApi_SearchResponse> = z
 
 export const schemas = {
   packagesApi_AffectedPackage,
+  packagesApi_PackageCurrentStatus,
   packagesApi_Vulnerability,
   packagesApi_PackageListDocument,
   packagesApi_ListResponse,
@@ -195,6 +224,26 @@ const endpoints = makeApi([
         name: "ecosystem",
         type: "Query",
         schema: z.string().optional().default("npm"),
+      },
+      {
+        name: "includeVulnerabilities",
+        type: "Query",
+        schema: z.boolean().optional().default(false),
+      },
+      {
+        name: "onlyWithVulnerabilities",
+        type: "Query",
+        schema: z.boolean().optional().default(false),
+      },
+      {
+        name: "vulnerabilityMonths",
+        type: "Query",
+        schema: z.number().int().gte(0).lte(12).optional().default(0),
+      },
+      {
+        name: "withCurrentStatus",
+        type: "Query",
+        schema: z.boolean().optional().default(false),
       },
     ],
     response: packagesApi_ListResponse,

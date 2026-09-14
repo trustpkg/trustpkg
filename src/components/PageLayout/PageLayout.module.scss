@@ -24,7 +24,7 @@
 
   &_menuInnerContainer {
     width: 100%;
-    max-width: pxToRem.pxToRem(1800);
+    max-width: pxToRem.pxToRem(1900);
   }
 
   &_contentContainer {
@@ -41,7 +41,7 @@
 
   &_contentInnerContainer {
     width: 100%;
-    max-width: pxToRem.pxToRem(1800);
+    max-width: pxToRem.pxToRem(1900);
   }
 
   &_footerContainer {
@@ -62,6 +62,6 @@
     justify-content: center;
     gap: pxToRem.pxToRem(8);
     width: 100%;
-    max-width: pxToRem.pxToRem(1800);
+    max-width: pxToRem.pxToRem(1900);
   }
 }

@@ -40,6 +40,8 @@ export default async function Home(props: PageProps) {
 
   const packagesList = await getPackagesFetch(resolvedParams.data)
 
+  // console.log({ packageList: packagesList?.documents?.map(doc => doc.current_statuses), totalDocuments: packagesList?.documents?.length, total: packagesList?.totalPages })
+
   return (
     <PageLayout NavigationSlot={<Navigation />}>
       <PageLayout.Overview>

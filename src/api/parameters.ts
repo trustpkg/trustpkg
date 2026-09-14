@@ -5,7 +5,11 @@ export const ListPackagesParametersSchema = z.object({
   limit: z.number().int().gte(1).lte(50).optional().default(10),
   sortBy: z.string().optional().default("popularity"),
   order: z.string().optional().default("desc"),
-  ecosystem: z.string().optional().default("npm")
+  ecosystem: z.string().optional().default("npm"),
+  includeVulnerabilities: z.boolean().optional().default(false),
+  onlyWithVulnerabilities: z.boolean().optional().default(false),
+  vulnerabilityMonths: z.number().int().gte(0).lte(12).optional().default(0),
+  withCurrentStatus: z.boolean().optional().default(false)
 });
 
 export type ListPackagesParameters = z.infer<typeof ListPackagesParametersSchema>;

@@ -2,13 +2,12 @@ import { ScrollArea } from "@ark-ui/react";
 import { clsx } from "clsx";
 import React from "react";
 import Hidden from "../Hidden";
+import { PackageListFooter } from "./PackageList.client";
 import styles from "./PackageList.module.scss";
 import type {
   PackageListItemProps,
   PackageListRootProps,
 } from "./PackageList.types";
-import Spinner from "../Spinner";
-import { PackageListFooter } from "./PackageList.client";
 
 export function PackageListRoot(props: PackageListRootProps) {
   const { children } = props;
@@ -28,7 +27,7 @@ export function PackageListRoot(props: PackageListRootProps) {
                   </th>
                   <th className={styles.packageList_headCell}>Total (12M)</th>
                   <th className={styles.packageList_headCell}>
-                    Status
+                    Status (last 30 days)
                   </th>
                   <th
                     className={clsx(

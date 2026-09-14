@@ -56,10 +56,22 @@ export interface components {
         };
         "packagesApi.ListResponse": {
             documents?: components["schemas"]["packagesApi.PackageListDocument"][];
+            lastPage?: number;
             message?: string;
             status?: number;
+            totalPages?: number;
+        };
+        "packagesApi.PackageCurrentStatus": {
+            affected?: components["schemas"]["packagesApi.AffectedPackage"][];
+            code?: string;
+            cve_id?: string;
+            fixed_versions?: string[];
+            label?: string;
+            osv_id?: string;
+            severity?: string;
         };
         "packagesApi.PackageListDocument": {
+            current_statuses?: components["schemas"]["packagesApi.PackageCurrentStatus"][];
             ecosystem?: string;
             id?: number;
             is_deprecated?: boolean;
@@ -136,6 +148,14 @@ export interface operations {
                 order?: string;
                 /** @description Package ecosystem */
                 ecosystem?: string;
+                /** @description Include full vulnerability details */
+                includeVulnerabilities?: boolean;
+                /** @description Only return packages with vulnerabilities */
+                onlyWithVulnerabilities?: boolean;
+                /** @description Limit vulnerabilities to the last N months (0 for all available months, 1-12 for a window) */
+                vulnerabilityMonths?: number;
+                /** @description Include current vulnerability status details */
+                withCurrentStatus?: boolean;
             };
             header?: never;
             path?: never;

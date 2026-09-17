@@ -1,5 +1,4 @@
 @use "../../styles/pxToRem.scss" as pxToRem;
-@use "../../styles/breakpoints.scss" as breakpoints;
 @use "../../theme/generated/colors.generated.variables.scss" as colors;
 
 .packageList {
@@ -8,22 +7,15 @@
   border: solid pxToRem.pxToRem(1) colors.$color-border-primary;
   overflow: clip;
 
-  @include breakpoints.xl {
-    max-width: calc(60vw - pxToRem.pxToRem(16));
-  }
-
   &_scrollWrapper {
+    display: block;
     width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
   }
 
   &_viewport {
     width: 100%;
-  }
-
-  &_content {
-    width: 100%;
-    overflow: clip;
-    border: pxToRem.pxToRem(1) solid transparent;
   }
 
   &_body {
@@ -75,7 +67,7 @@
   &_headCell,
   &_cell {
     &:nth-child(1) {
-      width: pxToRem.pxToRem(152);
+      width: pxToRem.pxToRem(180);
     }
 
     &:nth-child(2) {
@@ -134,14 +126,12 @@
   position: relative;
   width: pxToRem.pxToRem(500);
   height: pxToRem.pxToRem(80);
-  transform: translate(pxToRem.pxToRem(0.5),
-      pxToRem.pxToRem(-9));
   opacity: 0.3;
 
   &_axis {
     position: absolute;
-    left: pxToRem.pxToRem(6);
-    right: pxToRem.pxToRem(6);
+    left: pxToRem.pxToRem(30);
+    right: pxToRem.pxToRem(30);
     bottom: pxToRem.pxToRem(25);
     height: pxToRem.pxToRem(2);
     background: currentColor;
@@ -153,15 +143,6 @@
     right: 0;
     top: 0;
     bottom: 0;
-  }
-
-  &_tick {
-    position: absolute;
-    bottom: pxToRem.pxToRem(20);
-    width: pxToRem.pxToRem(1);
-    height: pxToRem.pxToRem(5);
-    background: currentColor;
-    transform: translateX(-50%);
   }
 
   &_bar {
@@ -212,5 +193,111 @@
     width: pxToRem.pxToRem(20);
     height: pxToRem.pxToRem(20);
     transform: translateY(-50%);
+  }
+}
+
+.packageListPagination {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: pxToRem.pxToRem(40);
+
+  &_spinner {
+    position: relative;
+    width: 100%;
+    min-height: pxToRem.pxToRem(40);
+
+    > :first-child {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: pxToRem.pxToRem(24);
+      min-width: pxToRem.pxToRem(24);
+      height: pxToRem.pxToRem(24);
+      transform: translateY(-50%);
+    }
+  }
+
+  &_navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: pxToRem.pxToRem(4);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &_control,
+  &_item {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: pxToRem.pxToRem(32);
+    height: pxToRem.pxToRem(40);
+    padding: 0 pxToRem.pxToRem(10);
+    border: solid pxToRem.pxToRem(1) transparent;
+    border-radius: pxToRem.pxToRem(4);
+    background: transparent;
+    color: colors.$color-text-primary;
+    font: inherit;
+    font-size: pxToRem.pxToRem(14);
+    font-weight: 600;
+    line-height: 1.25;
+    text-decoration: none;
+    transition:
+      background-color 160ms ease,
+      border-color 160ms ease,
+      color 160ms ease;
+
+    &:hover {
+      cursor: pointer;
+      border-color: colors.$color-border-primary;
+      background-color: color-mix(in srgb,
+          colors.$color-background-button-primary 10%,
+          transparent);
+    }
+
+    &:focus-visible {
+      outline: solid pxToRem.pxToRem(2) colors.$color-border-focus;
+      outline-offset: pxToRem.pxToRem(2);
+    }
+
+    &[data-selected="true"] {
+      border-color: colors.$color-background-button-primary;
+      background-color: colors.$color-background-button-primary;
+      color: colors.$color-text-button-primary;
+      font-weight: 700;
+    }
+
+    &[data-disabled="true"],
+    &[aria-disabled="true"]:not([data-selected="true"]) {
+      pointer-events: none;
+      color: colors.$color-text-disabled;
+      opacity: 0.65;
+    }
+  }
+
+  &_control {
+    min-width: pxToRem.pxToRem(72);
+  }
+
+  &_ellipsis {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: pxToRem.pxToRem(32);
+    height: pxToRem.pxToRem(40);
+    color: colors.$color-text-tertiary;
+    font-size: pxToRem.pxToRem(14);
+    font-weight: 500;
+    user-select: none;
   }
 }

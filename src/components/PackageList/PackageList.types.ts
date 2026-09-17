@@ -2,7 +2,15 @@ import { ValueOf } from "@/types/valueOf";
 import React from "react";
 import { PACKAGE_STATUS_BADGE_STATUS } from "../PackageStatusBadge/StatusBadge.types";
 
-export interface PackageListRootProps extends React.PropsWithChildren {}
+interface PaginationProps {
+  count: number;
+  currentPage?: number;
+  pageSize?: number;
+  siblingCount?: number;
+  paginationPath?: string;
+}
+
+export interface PackageListRootProps extends React.PropsWithChildren, PackageListFooterProps {}
 
 export interface PackageListItemProps {
   packageName: string;
@@ -12,3 +20,5 @@ export interface PackageListItemProps {
   vulnerabilitiesOccurrences: string;
   vulnerabilityCounts: Record<string, number>;
 }
+
+export type PackageListFooterProps = PaginationProps;

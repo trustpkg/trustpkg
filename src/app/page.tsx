@@ -40,8 +40,6 @@ export default async function Home(props: PageProps) {
 
   const packagesList = await getPackagesFetch(resolvedParams.data)
 
-  // console.log({ packageList: packagesList?.documents?.map(doc => doc.current_statuses), totalDocuments: packagesList?.documents?.length, total: packagesList?.totalPages })
-
   return (
     <PageLayout NavigationSlot={<Navigation />}>
       <PageLayout.Overview>
@@ -101,7 +99,10 @@ export default async function Home(props: PageProps) {
               </Button.AsNextLink>
             </Base>
 
-            <PackageList>
+            <PackageList
+              count={packagesList?.totalPages ?? 0}
+              currentPage={resolvedParams.data.page}
+            >
               <React.Suspense
                 fallback={Array.from({ length: 9 }, (_, index) => (
                   <PackageList.ItemSkeleton key={`package-skeleton-${index}`} />

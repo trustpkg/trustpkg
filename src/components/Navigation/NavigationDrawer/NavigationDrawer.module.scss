@@ -77,6 +77,9 @@
   pointer-events: none;
   z-index: 102;
 
+  &[hidden] {
+    display: none;
+  }
 
   &[data-state="open"] {
     visibility: visible;

@@ -10,7 +10,9 @@ interface PaginationProps {
   paginationPath?: string;
 }
 
-export interface PackageListRootProps extends React.PropsWithChildren, PackageListFooterProps {}
+export interface PackageListRootProps
+  extends React.PropsWithChildren,
+    PackageListFooterProps {}
 
 export interface PackageListItemProps {
   packageName: string;
@@ -19,6 +21,19 @@ export interface PackageListItemProps {
   status: ValueOf<typeof PACKAGE_STATUS_BADGE_STATUS>;
   vulnerabilitiesOccurrences: string;
   vulnerabilityCounts: Record<string, number>;
+}
+
+export interface PackageListItemRenderContext {
+  index: number;
+  isAlternating: boolean;
+}
+
+export interface PackageListItemsProps {
+  items: PackageListItemProps[];
+  children: (
+    item: PackageListItemProps,
+    context: PackageListItemRenderContext,
+  ) => React.ReactNode;
 }
 
 export type PackageListFooterProps = PaginationProps;

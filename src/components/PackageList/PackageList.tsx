@@ -1,10 +1,10 @@
 import { clsx } from "clsx";
 import React from "react";
 import Hidden from "../Hidden";
-import { PackageListFooter } from "./PackageList.client";
+import { PackageListFooter } from "./components/Pagination/PackageListPagination.client";
 import styles from "./PackageList.module.scss";
 import type {
-  PackageListItemProps,
+  PackageListItemsProps,
   PackageListRootProps,
 } from "./PackageList.types";
 
@@ -43,16 +43,7 @@ export function PackageListRoot(props: PackageListRootProps) {
               </th>
             </tr>
           </thead>
-          <tbody className={styles.packageList_body}>
-            {React.Children.map(children, (child, index) =>
-              React.isValidElement(child)
-                ? React.cloneElement(child, {
-                  IsAlternating: index % 2 === 1,
-                } as unknown as React.ReactElement<PackageListItemProps>)
-                : child,
-            )}
-
-          </tbody>
+          <tbody className={styles.packageList_body}>{children}</tbody>
         </table>
       </div>
 
@@ -66,5 +57,16 @@ export function PackageListRoot(props: PackageListRootProps) {
         />
       </div>
     </div>
+  );
+}
+
+export function PackageListItems(props: PackageListItemsProps) {
+  const { items, children } = props;
+
+  return items.map((item, index) =>
+    children(item, {
+      index,
+      isAlternating: index % 2 === 1,
+    }),
   );
 }

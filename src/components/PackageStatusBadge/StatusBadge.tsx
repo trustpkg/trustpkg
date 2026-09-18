@@ -9,6 +9,7 @@ import { ValueOf } from "@/types/valueOf";
 import { Tooltip } from "@ark-ui/react";
 import InfoIcon from "@/assets/info.svg";
 import styles from "./StatusBadge.module.scss";
+import Hidden from "../Hidden";
 
 export function PackageStatusBadge(props: PackageStatusBadgeProps) {
   const { status, tooltip } = props;
@@ -65,15 +66,17 @@ export function PackageStatusBadge(props: PackageStatusBadgeProps) {
       </Base>
 
       {tooltip && (
-        <Tooltip.Root openDelay={100} closeDelay={100}>
+        <Tooltip.Root
+          openDelay={100}
+          closeDelay={100}
+          lazyMount
+          unmountOnExit
+        >
           <Tooltip.Trigger asChild>
-            <button
-              type="button"
-              className={styles.tooltip}
-              aria-label={`show details`}
-            >
-              <InfoIcon className={styles.tooltip_icon} />
-            </button>
+            <Hidden>
+              Show details
+            </Hidden>
+            <InfoIcon className={styles.tooltip_icon} />
           </Tooltip.Trigger>
           <Tooltip.Positioner className={styles.tooltip_positioner}>
             <Tooltip.Content className={styles.tooltip_content}>

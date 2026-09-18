@@ -1,5 +1,6 @@
 import { SearchRoot } from "./Search";
-import { SearchTrigger, SearchDialog } from "./Search.client";
+import { SearchDialog } from "./components/Dialog/SearchDialog.client";
+import { SearchTrigger } from "./components/Trigger/SearchTrigger.client";
 
 interface SearchComponent {
   Trigger: typeof SearchTrigger;

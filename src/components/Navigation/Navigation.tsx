@@ -1,17 +1,18 @@
 import { getTheme } from "@/api/getTheme";
 import GithubIcon from "@/assets/github.svg";
 import { ChooseTheme } from "@/theme/components/ChooseTheme/ChooseTheme.client";
+import { primaryTheme } from "@/theme/generated/themes.generated.const";
+import type { CurrentTheme } from "@/theme/generated/themes.generated.types";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { pxToRem } from "@/utils/pxToRem";
 import { IconButton } from "../Button";
 import styles from "./Navigation.module.scss";
 import type { NavigationItem } from "./Navigation.types";
 import { NavigationDrawer } from "./NavigationDrawer/NavigationDrawer";
 import { navigationDefaultConfig } from "./Navigation.utils";
 import { DesktopNavigation } from "./DesktopNavigation/DesktopNavigation";
-import { Base } from "../Base/Base";
+
 const logoSrcByTheme = {
   light: "/trustpkg-coin.png",
   dark: "/trustpkg-coin-light.png",
@@ -21,22 +22,22 @@ interface NavigationRootProps {
   config?: NavigationItem[];
 }
 
-export async function NavigationRoot(props: NavigationRootProps) {
-  const { config = navigationDefaultConfig } = props;
+interface NavigationViewProps {
+  config: NavigationItem[];
+  theme: CurrentTheme;
+  isLogoLoading?: boolean;
+}
 
-  const theme = await getTheme();
+function NavigationView(props: NavigationViewProps) {
+  const { config, theme, isLogoLoading = false } = props;
 
   return (
     <nav className={styles.navigation}>
       <Link href="/" className={styles.navigation_logoLink}>
-        <React.Suspense
-          fallback={
-            <Base as="span" height={pxToRem(36)}>
-              loading theme ....
-            </Base>
-          }
-        >
-          <div className={styles.navigation_logoContainer}>
+        <div className={styles.navigation_logoContainer}>
+          {isLogoLoading ? (
+            <span className={styles.navigation_logoSkeleton} aria-hidden="true" />
+          ) : (
             <Image
               data-theme={theme}
               className={styles.navigation_logoImage}
@@ -45,13 +46,13 @@ export async function NavigationRoot(props: NavigationRootProps) {
               width={36}
               height={36}
             />
-          </div>
+          )}
+        </div>
 
-          <span className={styles.navigation_logoText}>
-            trustpkg
-            <span className={styles.navigation_logoTextSuffix}>.dev</span>
-          </span>
-        </React.Suspense>
+        <span className={styles.navigation_logoText}>
+          trustpkg
+          <span className={styles.navigation_logoTextSuffix}>.dev</span>
+        </span>
       </Link>
 
       <DesktopNavigation config={config} />
@@ -81,5 +82,30 @@ export async function NavigationRoot(props: NavigationRootProps) {
         </li>
       </ul>
     </nav>
+  );
+}
+
+async function NavigationContent(props: NavigationRootProps) {
+  const { config = navigationDefaultConfig } = props;
+  const theme = await getTheme();
+
+  return <NavigationView config={config} theme={theme} />;
+}
+
+export function NavigationRoot(props: NavigationRootProps) {
+  const { config = navigationDefaultConfig } = props;
+
+  return (
+    <React.Suspense
+      fallback={
+        <NavigationView
+          config={config}
+          theme={primaryTheme}
+          isLogoLoading
+        />
+      }
+    >
+      <NavigationContent config={config} />
+    </React.Suspense>
   );
 }

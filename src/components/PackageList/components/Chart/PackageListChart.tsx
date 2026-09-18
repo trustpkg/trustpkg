@@ -1,14 +1,14 @@
 "use client";
 
 import { colors } from "@/theme/generated/colors.generated";
-import { CanvasBarChart } from "../CanvasBarChart/CanvasBarChart";
+import { CanvasBarChart } from "../../../CanvasBarChart/CanvasBarChart";
 import {
   PACKAGE_LIST_CHART_AXIS_PADDING,
   PACKAGE_LIST_CHART_MARGIN,
   PACKAGE_LIST_CHART_WIDTH,
-} from "./PackageList.utils";
+} from "../../PackageList.utils";
 
-interface PackageListChartProps {
+export interface PackageListChartProps {
   packageName: string;
   chartData: {
     vulnerabilitiesOccurrences: number;

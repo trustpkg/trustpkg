@@ -6,6 +6,7 @@
   border-radius: pxToRem.pxToRem(8);
   border: solid pxToRem.pxToRem(1) colors.$color-border-primary;
   overflow: clip;
+  contain: paint;
 
   &_scrollWrapper {
     display: block;

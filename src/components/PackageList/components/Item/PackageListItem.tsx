@@ -89,7 +89,7 @@ export function PackageListItem(props: PackageListItemProps) {
       })}
     >
       <td className={styles.packageList_cell}>
-        <Base as="span" color={colors.text.accent} fontWeight={700}>
+        <Base as="span" color={colors.text.accent} fontWeight={700} overflowWrap="anywhere">
           {packageName}
         </Base>
       </td>

@@ -164,5 +164,13 @@
         padding: pxToRem.pxToRem(32);
       }
     }
+
+    &__fullRight {
+      width: calc(100% + pxToRem.pxToRem(32));
+
+      @include breakpoints.lg {
+        width: 100%;
+      }
+    }
   }
 }

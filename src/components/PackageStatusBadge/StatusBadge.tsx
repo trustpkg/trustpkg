@@ -21,17 +21,17 @@ export function PackageStatusBadge(props: PackageStatusBadgeProps) {
     [PACKAGE_STATUS_BADGE_STATUS.NO_VULNERABILITIES]: colors.text.success,
     [PACKAGE_STATUS_BADGE_STATUS.VULNERABLE]: colors.text.error,
     [PACKAGE_STATUS_BADGE_STATUS.UNKNOWN]: colors.text.warning,
-    [PACKAGE_STATUS_BADGE_STATUS.RECENTLY_VULNERABLE]: colors.text.warning,
+    [PACKAGE_STATUS_BADGE_STATUS.VULNERABILITY_WITH_FIXES]: colors.text.warning,
   };
 
   const textByStatus: Record<
     ValueOf<typeof PACKAGE_STATUS_BADGE_STATUS>,
     string
   > = {
-    [PACKAGE_STATUS_BADGE_STATUS.NO_VULNERABILITIES]: "No Vulnerabilities",
+    [PACKAGE_STATUS_BADGE_STATUS.NO_VULNERABILITIES]: "Clear",
     [PACKAGE_STATUS_BADGE_STATUS.VULNERABLE]: "Vulnerable",
     [PACKAGE_STATUS_BADGE_STATUS.UNKNOWN]: "Unknown",
-    [PACKAGE_STATUS_BADGE_STATUS.RECENTLY_VULNERABLE]: "Recently Vulnerable",
+    [PACKAGE_STATUS_BADGE_STATUS.VULNERABILITY_WITH_FIXES]: "Fix Available",
   };
 
   return (
@@ -73,10 +73,10 @@ export function PackageStatusBadge(props: PackageStatusBadgeProps) {
           unmountOnExit
         >
           <Tooltip.Trigger asChild>
-            <Hidden>
-              Show details
-            </Hidden>
-            <InfoIcon className={styles.tooltip_icon} />
+            <button type="button" className={styles.tooltip}>
+              <Hidden>Show details</Hidden>
+              <InfoIcon className={styles.tooltip_icon} aria-hidden="true" />
+            </button>
           </Tooltip.Trigger>
           <Tooltip.Positioner className={styles.tooltip_positioner}>
             <Tooltip.Content className={styles.tooltip_content}>
@@ -84,7 +84,7 @@ export function PackageStatusBadge(props: PackageStatusBadgeProps) {
                 {tooltip.title}
               </Base>
               {tooltip.description && (
-                <Base as="p" fontSize={pxToRem(12)}>
+                <Base as="div" fontSize={pxToRem(12)}>
                   {tooltip.description}
                 </Base>
               )}

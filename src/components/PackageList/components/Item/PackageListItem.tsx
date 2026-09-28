@@ -77,9 +77,11 @@ export function PackageListItem(props: PackageListItemProps) {
     IsAlternating,
     href,
     status,
+    statusTooltip,
     vulnerabilitiesOccurrences,
     vulnerabilityCounts,
   } = props;
+
   const chartData = getPackageChartData(vulnerabilityCounts);
 
   return (
@@ -105,13 +107,7 @@ export function PackageListItem(props: PackageListItemProps) {
         </Base>
       </td>
       <td className={styles.packageList_cell}>
-        <PackageStatusBadge
-          status={status}
-          tooltip={{
-            title: "high vulnerability >=2.11.3",
-            description: "test test test test",
-          }}
-        />
+        <PackageStatusBadge status={status} tooltip={statusTooltip} />
       </td>
       <td>
         <Hidden>

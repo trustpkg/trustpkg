@@ -1,6 +1,9 @@
 import { ValueOf } from "@/types/valueOf";
 import React from "react";
-import { PACKAGE_STATUS_BADGE_STATUS } from "../PackageStatusBadge/StatusBadge.types";
+import {
+  PACKAGE_STATUS_BADGE_STATUS,
+  PackageStatusBadgeTooltip,
+} from "../PackageStatusBadge/StatusBadge.types";
 
 interface PaginationProps {
   count: number;
@@ -19,6 +22,7 @@ export interface PackageListItemProps {
   IsAlternating?: boolean;
   href: string;
   status: ValueOf<typeof PACKAGE_STATUS_BADGE_STATUS>;
+  statusTooltip?: PackageStatusBadgeTooltip;
   vulnerabilitiesOccurrences: string;
   vulnerabilityCounts: Record<string, number>;
 }

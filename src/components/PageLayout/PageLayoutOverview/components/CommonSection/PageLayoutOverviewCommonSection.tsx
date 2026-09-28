@@ -3,6 +3,7 @@ import styles from "../../PageLayoutOverview.module.scss";
 import {
   PAGE_LAYOUT_OVERVIEW_COMMON_SECTION_BORDER_VARIANT,
   PAGE_LAYOUT_OVERVIEW_COMMON_SECTION_PADDING_VARIANT,
+  PAGE_LAYOUT_OVERVIEW_COMMON_SECTION_WIDTH_VARIANT,
 } from "../../PageLayoutOverview.constants";
 import type { PageLayoutOverviewCommonSectionProps } from "../../PageLayoutOverview.types";
 
@@ -14,6 +15,7 @@ export function PageLayoutOverviewCommonSection(
     borderVariant,
     id,
     paddingVariant = PAGE_LAYOUT_OVERVIEW_COMMON_SECTION_PADDING_VARIANT.MEDIUM,
+    widthVariant,
     className,
   } = props;
 
@@ -28,6 +30,8 @@ export function PageLayoutOverviewCommonSection(
           [styles.pageOverview_commonSection__smallPadding]:
             paddingVariant ===
             PAGE_LAYOUT_OVERVIEW_COMMON_SECTION_PADDING_VARIANT.SMALL,
+          [styles.pageOverview_commonSection__fullRight]:
+            widthVariant === PAGE_LAYOUT_OVERVIEW_COMMON_SECTION_WIDTH_VARIANT.FULL_RIGHT,
         },
         className,
       )}

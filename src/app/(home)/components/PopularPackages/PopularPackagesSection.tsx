@@ -11,6 +11,7 @@ export async function PopularPackagesSection(
   props: PopularPackagesSectionProps,
 ) {
   const { params } = props;
+
   const packagesList = await getPackagesFetch(params);
 
   return (

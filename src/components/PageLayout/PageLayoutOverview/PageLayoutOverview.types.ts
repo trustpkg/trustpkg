@@ -2,6 +2,7 @@ import type { ValueOf } from "@/types/valueOf";
 import {
   PAGE_LAYOUT_OVERVIEW_COMMON_SECTION_BORDER_VARIANT,
   PAGE_LAYOUT_OVERVIEW_COMMON_SECTION_PADDING_VARIANT,
+  PAGE_LAYOUT_OVERVIEW_COMMON_SECTION_WIDTH_VARIANT,
 } from "./PageLayoutOverview.constants";
 
 export interface PageLayoutOverviewProps extends React.PropsWithChildren {}
@@ -29,6 +30,9 @@ export interface PageLayoutOverviewCommonSectionProps
   id?: React.HTMLAttributes<HTMLElement>["id"];
   paddingVariant?: ValueOf<
     typeof PAGE_LAYOUT_OVERVIEW_COMMON_SECTION_PADDING_VARIANT
+  >;
+  widthVariant?: ValueOf<
+    typeof PAGE_LAYOUT_OVERVIEW_COMMON_SECTION_WIDTH_VARIANT
   >;
   className?: string;
 }

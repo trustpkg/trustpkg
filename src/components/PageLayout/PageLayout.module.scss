@@ -27,18 +27,6 @@
     max-width: pxToRem.pxToRem(1900);
   }
 
-  &_contentContainer {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    flex: 1 0 auto;
-    padding: pxToRem.pxToRem(16);
-
-    @include breakpoints.md {
-      padding: pxToRem.pxToRem(32);
-    }
-  }
-
   &_contentInnerContainer {
     width: 100%;
     max-width: pxToRem.pxToRem(1900);

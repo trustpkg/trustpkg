@@ -1,0 +1,29 @@
+@use "../../styles/pxToRem.scss" as pxToRem;
+@use "../../styles/breakpoints.scss" as breakpoints;
+@use "../../theme/generated/colors.generated.variables.scss" as colors;
+
+.breadcrumbs {
+    display: flex;
+
+    &_list {
+        display: flex;
+        align-items: center;
+        gap: pxToRem.pxToRem(16);
+        list-style: none;
+    }
+
+    &_link {
+        &:hover {
+            & svg {
+                fill: colors.$color-background-button-primary;
+            }
+        }
+    }
+
+    &_dotSeparator {
+        width: pxToRem.pxToRem(4);
+        height: pxToRem.pxToRem(4);
+        background-color: colors.$color-text-accent;
+        border-radius: 50%;
+    }
+}

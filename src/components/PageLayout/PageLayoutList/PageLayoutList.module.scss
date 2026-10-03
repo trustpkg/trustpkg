@@ -1,0 +1,15 @@
+@use "../../../styles/pxToRem.scss" as pxToRem;
+@use "../../../styles/breakpoints.scss" as breakpoints;
+@use "../../../theme/generated/colors.generated.variables.scss" as colors;
+
+.pageList {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+
+    @include breakpoints.lg {
+        display: grid;
+        grid-template-columns: pxToRem.pxToRem(300) auto;
+    }
+}

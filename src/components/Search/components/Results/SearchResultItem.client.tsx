@@ -24,7 +24,7 @@ export function SearchResultItem(props: SearchResultItemProps) {
   return (
     <Link
       id={id}
-      href={`/packages/${document.slug}`}
+      href={`/packages/${document.ecosystem}/${document.slug}`}
       className={clsx(styles.search_resultsItem, {
         [styles.search_resultsItem__isActive]: isActive,
       })}

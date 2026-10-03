@@ -12,7 +12,7 @@ import styles from "./StatusBadge.module.scss";
 import Hidden from "../Hidden";
 
 export function PackageStatusBadge(props: PackageStatusBadgeProps) {
-  const { status, tooltip } = props;
+  const { status, severity, tooltip } = props;
 
   const colorByStatus: Record<
     ValueOf<typeof PACKAGE_STATUS_BADGE_STATUS>,
@@ -34,6 +34,17 @@ export function PackageStatusBadge(props: PackageStatusBadgeProps) {
     [PACKAGE_STATUS_BADGE_STATUS.VULNERABILITY_WITH_FIXES]: "Fix Available",
   };
 
+  const normalizedSeverity = severity?.trim().toLowerCase();
+  const colorBySeverity: Record<string, string> = {
+    critical: colors.text.error,
+    high: colors.text.error,
+    medium: colors.text.warning,
+    moderate: colors.text.warning,
+    low: colors.text.info,
+  };
+  const statusColor =
+    colorBySeverity[normalizedSeverity ?? ""] ?? colorByStatus[status];
+
   return (
     <div className={styles.statusBadge}>
       <Base
@@ -49,10 +60,10 @@ export function PackageStatusBadge(props: PackageStatusBadgeProps) {
           gap={pxToRem(4)}
           width="fit-content"
           padding={`0 ${pxToRem(16)}`}
-          color={colorByStatus[status]}
+          color={statusColor}
           borderRadius={pxToRem(8)}
-          backgroundColor={`${colorByStatus[status]}1A`}
-          border={`${pxToRem(2)} solid ${colorByStatus[status]}`}
+          backgroundColor={`${statusColor}1A`}
+          border={`${pxToRem(2)} solid ${statusColor}`}
           fontSize={pxToRem(14)}
           textTransform="uppercase"
           fontWeight={700}

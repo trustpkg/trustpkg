@@ -18,5 +18,6 @@ export interface PackageStatusBadgeTooltip {
 
 export interface PackageStatusBadgeProps {
   status: ValueOf<typeof PACKAGE_STATUS_BADGE_STATUS>;
+  severity?: string;
   tooltip?: PackageStatusBadgeTooltip;
 }

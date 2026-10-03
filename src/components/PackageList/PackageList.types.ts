@@ -22,6 +22,7 @@ export interface PackageListItemProps {
   IsAlternating?: boolean;
   href: string;
   status: ValueOf<typeof PACKAGE_STATUS_BADGE_STATUS>;
+  severity?: string;
   statusTooltip?: PackageStatusBadgeTooltip;
   vulnerabilitiesOccurrences: string;
   vulnerabilityCounts: Record<string, number>;

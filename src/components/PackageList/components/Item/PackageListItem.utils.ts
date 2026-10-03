@@ -18,6 +18,7 @@ const PREVIOUS_MONTH_LOOKBACK_DAYS = 7;
 
 interface PackageStatusResult {
   status: PackageStatusBadgeStatus;
+  severity?: string;
   statusTooltip?: PackageStatusBadgeTooltip;
 }
 
@@ -214,14 +215,21 @@ function getVulnerableVersionDetails(
   };
 }
 
+function getVulnerabilitySeverity(
+  vulnerability: PackageVulnerability,
+  currentStatus: PackageCurrentStatus,
+) {
+  return hasValue(currentStatus.severity)
+    ? currentStatus.severity
+    : vulnerability.severity;
+}
+
 function getStatusTooltip(
   vulnerability: PackageVulnerability,
   currentStatus: PackageCurrentStatus,
   fixedVersions: string[],
 ): PackageStatusBadgeTooltip {
-  const severity = hasValue(currentStatus.severity)
-    ? currentStatus.severity
-    : vulnerability.severity;
+  const severity = getVulnerabilitySeverity(vulnerability, currentStatus);
   const vulnerableVersionDetails = getVulnerableVersionDetails(
     vulnerability,
     currentStatus,
@@ -311,6 +319,10 @@ export function getPackageStatus(
   if (fixedVersions.length === 0) {
     return {
       status: PACKAGE_STATUS_BADGE_STATUS.VULNERABLE,
+      severity: getVulnerabilitySeverity(
+        latestVulnerability.vulnerability,
+        currentStatus,
+      ),
       statusTooltip: getStatusTooltip(
         latestVulnerability.vulnerability,
         currentStatus,
@@ -321,6 +333,10 @@ export function getPackageStatus(
 
   return {
     status: PACKAGE_STATUS_BADGE_STATUS.VULNERABILITY_WITH_FIXES,
+    severity: getVulnerabilitySeverity(
+      latestVulnerability.vulnerability,
+      currentStatus,
+    ),
     statusTooltip: getStatusTooltip(
       latestVulnerability.vulnerability,
       currentStatus,
@@ -337,8 +353,9 @@ export function toPackageListItem(
 
   return {
     packageName: document.name ?? "",
-    href: `/packages/${document.slug}`,
+    href: `/packages/${document.ecosystem}/${document.slug}`,
     status: packageStatus.status,
+    severity: packageStatus.severity,
     statusTooltip: packageStatus.statusTooltip,
     vulnerabilitiesOccurrences: String(
       Object.values(vulnerabilityCounts).reduce(

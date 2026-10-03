@@ -1,5 +1,5 @@
 import { PageLayoutRoot } from "./PageLayout";
-import { PageLayoutList } from "./PageLayoutList/PageLayoutList";
+import PageLayoutList from "./PageLayoutList";
 import PageLayoutOverview from "./PageLayoutOverview";
 
 interface PageLayoutSubcomponents {

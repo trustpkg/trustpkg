@@ -19,7 +19,7 @@ export function SecurityQuestion(props: SecurityQuestionProps) {
         {title}
       </Base>
 
-      <Base as="p" fontSize={pxToRem(12)}>
+      <Base as="p" fontSize={pxToRem(16)}>
         {children}
       </Base>
     </Base>

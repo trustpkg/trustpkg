@@ -1,0 +1,11 @@
+@use "../../../../../styles/pxToRem.scss" as pxToRem;
+@use "../../../../../styles/breakpoints.scss" as breakpoints;
+@use "../../../../../theme/generated/colors.generated.variables.scss" as colors;
+
+.pageLayoutSideMenu {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: pxToRem.pxToRem(16);
+    height: 100%;
+}

@@ -1,0 +1,56 @@
+@use "../../../../../styles/pxToRem.scss" as pxToRem;
+@use "../../../../../styles/breakpoints.scss" as breakpoints;
+@use "../../../../../theme/generated/colors.generated.variables.scss" as colors;
+
+.pageLayoutDetails {
+    display: flex;
+    flex-direction: column;
+
+    &_contentWrapper {
+        display: flex;
+        flex-direction: column;
+        width: calc(calc(calc(100vw - pxToRem.pxToRem(1900)) / 2) + pxToRem.pxToRem(1600));
+        height: 100%;
+        margin-block: pxToRem.pxToRem(16);
+        border: solid pxToRem.pxToRem(1) colors.$color-border-primary;
+        border-right: none;
+        border-radius: pxToRem.pxToRem(12) 0 0 pxToRem.pxToRem(12);
+        background-color: colors.$color-background-surface-secondary;
+        overflow: clip;
+    }
+
+    &_breadcrumbsWrapper {
+        position: relative;
+        isolation: isolate;
+        display: flex;
+        align-items: center;
+        gap: pxToRem.pxToRem(16);
+        min-width: pxToRem.pxToRem(200);
+        width: fit-content;
+        height: pxToRem.pxToRem(48);
+        padding: 0 pxToRem.pxToRem(80) 0 pxToRem.pxToRem(16);
+        background-color: colors.$color-border-primary;
+        clip-path: polygon(0 0, 100% 0, calc(100% - pxToRem.pxToRem(48)) 100%, 0 100%);
+
+        &::before {
+            position: absolute;
+            z-index: 0;
+            inset: 0;
+            background-color: colors.$color-background-surface-primary;
+            clip-path: polygon(0 0,
+                    calc(100% - pxToRem.pxToRem(1)) 0,
+                    calc(100% - pxToRem.pxToRem(49)) calc(100% - pxToRem.pxToRem(1)),
+                    0 calc(100% - pxToRem.pxToRem(1)));
+            content: "";
+        }
+
+        >* {
+            position: relative;
+            z-index: 1;
+        }
+    }
+
+    &_content {}
+
+    &_hero {}
+}

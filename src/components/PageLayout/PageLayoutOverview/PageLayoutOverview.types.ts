@@ -13,14 +13,7 @@ export interface PageLayoutOverviewMainColumnProps
 export interface PageLayoutOverviewSideColumnProps
   extends React.PropsWithChildren {}
 
-interface GoToContentButtonConfig {
-  href: string;
-  shouldRender: boolean;
-}
-
-export interface PageLayoutOverviewHeroProps extends React.PropsWithChildren {
-  goToContentButtonConfig?: GoToContentButtonConfig;
-}
+export interface PageLayoutOverviewHeroProps extends React.PropsWithChildren {}
 
 export interface PageLayoutOverviewCommonSectionProps
   extends React.PropsWithChildren {

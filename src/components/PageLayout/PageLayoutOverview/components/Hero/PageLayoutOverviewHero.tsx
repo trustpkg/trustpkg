@@ -1,5 +1,3 @@
-import ChevronDoubleDownIcon from "@/assets/chevronDoubleDown.svg";
-import { IconButton } from "@/components/Button";
 import { Base } from "@/components/Base/Base";
 import { pxToRem } from "@/utils/pxToRem";
 import Image from "next/image";
@@ -9,34 +7,10 @@ import type { PageLayoutOverviewHeroProps } from "../../PageLayoutOverview.types
 export function PageLayoutOverviewHero(props: PageLayoutOverviewHeroProps) {
   const {
     children,
-    goToContentButtonConfig = {
-      shouldRender: false,
-      href: "#",
-    },
   } = props;
 
   return (
     <header className={styles.pageOverview_hero}>
-      {goToContentButtonConfig.shouldRender && (
-        <IconButton.AsAnchor
-          href={goToContentButtonConfig.href}
-          label="Scroll down to content"
-          position="absolute"
-          display={{
-            default: "flex",
-            sm: "none",
-          }}
-          size="medium"
-          variant="outlined"
-          left="50%"
-          top={`min(calc(100dvh - ${pxToRem(60)}), ${pxToRem(600)})`}
-          transform="translateX(-50%)"
-          zIndex={101}
-        >
-          <ChevronDoubleDownIcon />
-        </IconButton.AsAnchor>
-      )}
-
       <div className={styles.pageOverview_heroContent}>{children}</div>
 
       <div className={styles.pageOverview_container}>

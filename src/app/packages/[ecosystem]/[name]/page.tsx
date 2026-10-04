@@ -1,6 +1,8 @@
+import { getTheme } from "@/api/getTheme"
 import Breadcrumbs from "@/components/Breadcrumbs"
 import Navigation from "@/components/Navigation"
 import PageLayout from "@/components/PageLayout"
+import { PageLayoutListSideMenuAction, PageLayoutListSideMenuProvider } from "@/components/PageLayout/PageLayoutList"
 import { pxToRem } from "@/utils/pxToRem"
 import { notFound } from "next/navigation"
 import z from "zod"
@@ -41,21 +43,21 @@ export default async function PackagePage(props: PackagePageProps) {
         return notFound()
     }
 
+    const theme = await getTheme();
+
+    if (!result.success) {
+        return notFound()
+    }
+
     const { name, ecosystem } = result.data
 
     const pathName = `/packages/${ecosystem}/${name}`
 
     return (
         <PageLayout
-            NavigationSlot={<Navigation />}
-            contentContainerPadding={{
-                default: pxToRem(16),
-                md: pxToRem(32),
-                lg: `0 ${pxToRem(32)}`
-            }}
         >
             <PageLayout.List>
-                <PageLayout.List.SideMenu />
+                <PageLayout.List.SideMenu theme={theme} />
 
                 <PageLayout.List.Details BreadcrumbsSlot={<Breadcrumbs pathName={pathName} />}>
                     <PageLayout.List.Details.Hero>

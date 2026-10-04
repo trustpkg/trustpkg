@@ -5,18 +5,27 @@
 .pageLayoutDetails {
     display: flex;
     flex-direction: column;
+    flex: 1;
 
     &_contentWrapper {
         display: flex;
         flex-direction: column;
-        width: calc(calc(calc(100vw - pxToRem.pxToRem(1900)) / 2) + pxToRem.pxToRem(1600));
+        width: calc(100% + pxToRem.pxToRem(16));
         height: 100%;
-        margin-block: pxToRem.pxToRem(16);
         border: solid pxToRem.pxToRem(1) colors.$color-border-primary;
         border-right: none;
         border-radius: pxToRem.pxToRem(12) 0 0 pxToRem.pxToRem(12);
         background-color: colors.$color-background-surface-secondary;
         overflow: clip;
+
+        @include breakpoints.md {
+            width: calc(100% + pxToRem.pxToRem(32));
+        }
+
+        @include breakpoints.lg {
+            width: calc(calc(calc(100vw - pxToRem.pxToRem(1900)) / 2) + pxToRem.pxToRem(1600));
+            margin-block: pxToRem.pxToRem(16);
+        }
     }
 
     &_breadcrumbsWrapper {

@@ -1,11 +1,10 @@
-import React from "react";
 import { ListPackagesParametersSchema } from "@/api/parameters";
+import PageLayout from "@/components/PageLayout";
 import {
   normalizeSearchParams,
   type SearchParams,
 } from "@/utils/normalizeSearchParams";
-import Navigation from "@/components/Navigation";
-import PageLayout from "@/components/PageLayout";
+import React from "react";
 import { EcosystemsSection } from "./components/EcosystemsSection";
 import { HomeHero } from "./components/HomeHero";
 import { PopularPackagesHeader } from "./components/PopularPackages/PopularPackagesHeader";
@@ -36,7 +35,7 @@ export default async function Home(props: PageProps) {
   }
 
   return (
-    <PageLayout NavigationSlot={<Navigation />}>
+    <PageLayout>
       <PageLayout.Overview>
         <PageLayout.Overview.MainColumn>
           <HomeHero />

@@ -20,16 +20,18 @@ const logoSrcByTheme = {
 
 interface NavigationRootProps {
   config?: NavigationItem[];
+  ActionSlot?: React.ReactNode
 }
 
 interface NavigationViewProps {
   config: NavigationItem[];
   theme: CurrentTheme;
   isLogoLoading?: boolean;
+  ActionSlot?: React.ReactNode
 }
 
 function NavigationView(props: NavigationViewProps) {
-  const { config, theme, isLogoLoading = false } = props;
+  const { config, theme, isLogoLoading = false, ActionSlot } = props;
 
   return (
     <nav className={styles.navigation}>
@@ -58,6 +60,12 @@ function NavigationView(props: NavigationViewProps) {
       <DesktopNavigation config={config} />
 
       <ul className={styles.navigation_actions}>
+        {Boolean(ActionSlot) && (
+          <li>
+            {ActionSlot}
+          </li>
+        )}
+
         <li className={styles.navigation_actionsItem}>
           <IconButton.AsAnchor
             href="https://github.com/trustpkg"
@@ -86,14 +94,14 @@ function NavigationView(props: NavigationViewProps) {
 }
 
 async function NavigationContent(props: NavigationRootProps) {
-  const { config = navigationDefaultConfig } = props;
+  const { config = navigationDefaultConfig, ActionSlot } = props;
   const theme = await getTheme();
 
-  return <NavigationView config={config} theme={theme} />;
+  return <NavigationView config={config} theme={theme} ActionSlot={ActionSlot} />;
 }
 
 export function NavigationRoot(props: NavigationRootProps) {
-  const { config = navigationDefaultConfig } = props;
+  const { config = navigationDefaultConfig, ActionSlot } = props;
 
   return (
     <React.Suspense
@@ -105,7 +113,7 @@ export function NavigationRoot(props: NavigationRootProps) {
         />
       }
     >
-      <NavigationContent config={config} />
+      <NavigationContent config={config} ActionSlot={ActionSlot} />
     </React.Suspense>
   );
 }

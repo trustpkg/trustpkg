@@ -2,7 +2,8 @@
 
 import styles from "./error.module.scss";
 import { Base } from "@/components/Base/Base";
-import PageLayout from "@/components/PageLayout";
+import { PageLayoutRootComponent } from "@/components/PageLayout/PageLayoutBase";
+import PageLayoutOverview from "@/components/PageLayout/PageLayoutOverview";
 import Image from "next/image";
 import { colors } from "@/theme/generated/colors.generated";
 import { pxToRem } from "@/utils/pxToRem";
@@ -10,9 +11,9 @@ import { Button } from "@/components/Button";
 
 export default function Error() {
     return (
-        <PageLayout>
-            <PageLayout.Overview.MainColumn>
-                <PageLayout.Overview.CommonSection className={styles.error}>
+        <PageLayoutRootComponent>
+            <PageLayoutOverview.MainColumn>
+                <PageLayoutOverview.CommonSection className={styles.error}>
                     <Base
                         as="h1"
                         position={{
@@ -60,8 +61,8 @@ export default function Error() {
                         priority
                         alt="500 - Something went wrong"
                     />
-                </PageLayout.Overview.CommonSection>
-            </PageLayout.Overview.MainColumn>
-        </PageLayout>
+                </PageLayoutOverview.CommonSection>
+            </PageLayoutOverview.MainColumn>
+        </PageLayoutRootComponent>
     );
 }

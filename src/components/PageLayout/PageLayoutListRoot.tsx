@@ -1,7 +1,6 @@
-import Navigation from "../Navigation";
-import { PageLayoutRootComponent, PageLayoutComponentProps } from "./PageLayoutBase";
-import { PageLayoutListSideMenuAction, PageLayoutListSideMenuProvider } from "./PageLayoutList";
 import { pxToRem } from "@/utils/pxToRem";
+import Navigation from "../Navigation";
+import { PageLayoutComponentProps, PageLayoutRootComponent } from "./PageLayoutBase";
 
 export function PageLayoutListRoot(props: PageLayoutComponentProps) {
     const { children } = props;
@@ -10,13 +9,11 @@ export function PageLayoutListRoot(props: PageLayoutComponentProps) {
         <PageLayoutRootComponent
             NavigationSlot={
                 <Navigation
-                    ActionSlot={<PageLayoutListSideMenuAction />}
                 />
             }
-            WrapperSlot={PageLayoutListSideMenuProvider}
             contentContainerPadding={{
                 default: pxToRem(16),
-                md: pxToRem(32),
+                md: pxToRem(16),
                 lg: `0 ${pxToRem(32)}`
             }}
             isListVariant={true}

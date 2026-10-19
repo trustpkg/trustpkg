@@ -24,7 +24,12 @@ export function PackageListItemSkeleton(
         [styles.packageList_row__alternating]: IsAlternating,
       })}
     >
-      <td className={styles.packageList_cell}>
+      <td
+        className={clsx(
+          styles.packageList_cell,
+          styles.packageList_columnPackage,
+        )}
+      >
         <Hidden>
           <span role="status">Loading package data</span>
         </Hidden>
@@ -36,7 +41,12 @@ export function PackageListItemSkeleton(
           )}
         />
       </td>
-      <td className={styles.packageList_cell}>
+      <td
+        className={clsx(
+          styles.packageList_cell,
+          styles.packageList_columnEcosystem,
+        )}
+      >
         <span
           aria-hidden="true"
           className={clsx(
@@ -45,10 +55,20 @@ export function PackageListItemSkeleton(
           )}
         />
       </td>
-      <td className={styles.packageList_cell}>
+      <td
+        className={clsx(
+          styles.packageList_cell,
+          styles.packageList_columnChart,
+        )}
+      >
         <PackageListChartSkeleton />
       </td>
-      <td className={styles.packageList_cell}>
+      <td
+        className={clsx(
+          styles.packageList_cell,
+          styles.packageList_columnTotal,
+        )}
+      >
         <span
           aria-hidden="true"
           className={clsx(
@@ -57,7 +77,12 @@ export function PackageListItemSkeleton(
           )}
         />
       </td>
-      <td className={styles.packageList_cell}>
+      <td
+        className={clsx(
+          styles.packageList_cell,
+          styles.packageList_columnStatus,
+        )}
+      >
         <span
           aria-hidden="true"
           className={clsx(
@@ -66,7 +91,10 @@ export function PackageListItemSkeleton(
           )}
         />
       </td>
-      <td aria-hidden="true" />
+      <td
+        aria-hidden="true"
+        className={styles.packageList_columnLink}
+      />
     </tr>
   );
 }
@@ -91,30 +119,55 @@ export function PackageListItem(props: PackageListItemProps) {
         [styles.packageList_row__alternating]: IsAlternating,
       })}
     >
-      <td className={styles.packageList_cell}>
+      <td
+        className={clsx(
+          styles.packageList_cell,
+          styles.packageList_columnPackage,
+        )}
+      >
         <Base as="span" color={colors.text.accent} fontWeight={700} overflowWrap="anywhere">
           {packageName}
         </Base>
       </td>
-      <td className={styles.packageList_cell}>
+      <td
+        className={clsx(
+          styles.packageList_cell,
+          styles.packageList_columnEcosystem,
+        )}
+      >
         <EcosystemBadge ecosystemName="npm" />
       </td>
-      <td className={styles.packageList_cell}>
+      <td
+        className={clsx(
+          styles.packageList_cell,
+          styles.packageList_columnChart,
+        )}
+      >
         <PackageListChartSlot packageName={packageName} chartData={chartData} />
       </td>
-      <td className={styles.packageList_cell}>
+      <td
+        className={clsx(
+          styles.packageList_cell,
+          styles.packageList_columnTotal,
+        )}
+      >
         <Base as="span" fontWeight={700}>
           {vulnerabilitiesOccurrences}
         </Base>
       </td>
-      <td className={styles.packageList_cell}>
+      <td
+        className={clsx(
+          styles.packageList_cell,
+          styles.packageList_columnStatus,
+        )}
+      >
         <PackageStatusBadge
           status={status}
           severity={severity}
           tooltip={statusTooltip}
         />
       </td>
-      <td>
+      <td className={styles.packageList_columnLink}>
         <Hidden>
           <Button.AsNextLink href={href} prefetch>
             view {packageName} details

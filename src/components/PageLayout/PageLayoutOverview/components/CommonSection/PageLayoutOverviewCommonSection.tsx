@@ -27,6 +27,9 @@ export function PageLayoutOverviewCommonSection(
           [styles.pageOverview_commonSection__outline]:
             borderVariant ===
             PAGE_LAYOUT_OVERVIEW_COMMON_SECTION_BORDER_VARIANT.OUTLINE,
+          [styles.pageOverview_commonSection__nonePadding]:
+            paddingVariant ===
+            PAGE_LAYOUT_OVERVIEW_COMMON_SECTION_PADDING_VARIANT.NONE,
           [styles.pageOverview_commonSection__smallPadding]:
             paddingVariant ===
             PAGE_LAYOUT_OVERVIEW_COMMON_SECTION_PADDING_VARIANT.SMALL,

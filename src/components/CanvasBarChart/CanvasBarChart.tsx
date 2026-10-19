@@ -297,7 +297,7 @@ function resolveCssColor(element: HTMLElement, color: string) {
     return getComputedStyle(element).getPropertyValue(variableName).trim() || color;
 }
 
-function resolveCanvasColors(
+export function resolveCanvasColors(
     canvas: HTMLCanvasElement,
     colors: CanvasBarChartColors,
 ): CanvasBarChartColors {
@@ -314,7 +314,7 @@ function resolveCanvasColors(
     };
 }
 
-function drawCanvasChart(
+export function drawCanvasChart(
     canvas: HTMLCanvasElement,
     data: readonly CanvasBarChartDataPoint[],
     width: number,
@@ -323,6 +323,7 @@ function drawCanvasChart(
     geometryOptions: BarChartGeometryOptions,
     activeIndex: number | null,
     barProgress: readonly number[],
+    showLabels = true,
 ) {
     const context = canvas.getContext("2d");
 
@@ -380,14 +381,16 @@ function drawCanvasChart(
     context.lineTo(width - geometryOptions.horizontalInset, axisY);
     context.stroke();
 
-    context.font = "16px sans-serif";
-    context.textAlign = "center";
-    context.textBaseline = "bottom";
-    context.fillStyle = colors.label;
+    if (showLabels) {
+        context.font = "16px sans-serif";
+        context.textAlign = "center";
+        context.textBaseline = "bottom";
+        context.fillStyle = colors.label;
 
-    geometry.forEach((bar, index) => {
-        context.fillText(data[index].label, bar.centerX, height - 3);
-    });
+        geometry.forEach((bar, index) => {
+            context.fillText(data[index].label, bar.centerX, height - 3);
+        });
+    }
 }
 
 function CanvasBarChartCanvas() {

@@ -41,7 +41,8 @@ export function useSearchDialogController(): SearchDialogController {
   const [activeResultIndex, setActiveResultIndex] = React.useState(-1);
 
   const onSelectDocument = (documentName: string) => {
-    router.push(`/packages/${normalizedPackage(encodeURIComponent(documentName))}`);
+    router.push(`/packages/npm/${normalizedPackage(encodeURIComponent(documentName))}`);
+    
     setIsDialogWithSearchOpen?.(false);
   };
 
@@ -68,6 +69,7 @@ export function useSearchDialogController(): SearchDialogController {
 
     if (event.key === "Enter" && activeResultIndex >= 0) {
       event.preventDefault();
+
       onSelectDocument(documents[activeResultIndex].name);
     }
   };

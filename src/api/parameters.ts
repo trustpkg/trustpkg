@@ -1,5 +1,11 @@
 import { z } from "zod";
 
+export const GetPackageParametersSchema = z.object({
+  name: z.string()
+});
+
+export type GetPackageParameters = z.infer<typeof GetPackageParametersSchema>;
+
 export const ListPackagesParametersSchema = z.object({
   page: z.number().int().gte(1).optional().default(1),
   limit: z.number().int().gte(1).lte(50).optional().default(10),

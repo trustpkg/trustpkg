@@ -49,6 +49,23 @@ type packagesApi_Vulnerability = Partial<{
   summary: string;
   withdrawn_at: string;
 }>;
+type packagesApi_PackageDetailResponse = Partial<{
+  document: packagesApi_PackageDetailDocument;
+  message: string;
+  status: number;
+}>;
+type packagesApi_PackageDetailDocument = Partial<{
+  current_statuses: Array<{}>;
+  ecosystem: string;
+  id: number;
+  is_deprecated: boolean;
+  name: string;
+  popularity: number;
+  slug: string;
+  summary: {};
+  vulnerabilities: {};
+  vulnerability_counts: {};
+}>;
 type packagesApi_SearchResponse = Partial<{
   documents: Array<packagesApi_SearchDocument>;
   message: string;
@@ -181,6 +198,62 @@ const packagesApi_SearchResponse: z.ZodType<packagesApi_SearchResponse> = z
   })
   .partial()
   .passthrough();
+const packagesApi_PackageDetailRequest = z
+  .object({
+    ecosystem: z.literal("npm").default("npm"),
+    includeDescription: z.boolean(),
+    includeReferences: z.boolean(),
+    includeVulnerabilities: z.boolean(),
+    includeWithdrawn: z.boolean(),
+    severity: z.enum(["LOW", "MODERATE", "MEDIUM", "HIGH", "CRITICAL"]),
+    vulnerabilityMonths: z
+      .enum([
+        "all",
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+      ])
+      .default("all"),
+    withCurrentStatus: z.boolean(),
+    withSummary: z.boolean(),
+  })
+  .partial()
+  .passthrough();
+const packagesApi_PackageDetailDocument: z.ZodType<packagesApi_PackageDetailDocument> =
+  z
+    .object({
+      current_statuses: z.array(z.object({}).partial().passthrough()),
+      ecosystem: z.string(),
+      id: z.number().int(),
+      is_deprecated: z.boolean(),
+      name: z.string(),
+      popularity: z.number().int(),
+      slug: z.string(),
+      summary: z.object({}).partial().passthrough(),
+      vulnerabilities: z.object({}).partial().passthrough(),
+      vulnerability_counts: z.object({}).partial().passthrough(),
+    })
+    .partial()
+    .passthrough();
+const packagesApi_PackageDetailResponse: z.ZodType<packagesApi_PackageDetailResponse> =
+  z
+    .object({
+      document: packagesApi_PackageDetailDocument,
+      message: z.string(),
+      status: z.number().int(),
+    })
+    .partial()
+    .passthrough();
 
 export const schemas = {
   packagesApi_AffectedPackage,
@@ -190,9 +263,55 @@ export const schemas = {
   packagesApi_ListResponse,
   packagesApi_SearchDocument,
   packagesApi_SearchResponse,
+  packagesApi_PackageDetailRequest,
+  packagesApi_PackageDetailDocument,
+  packagesApi_PackageDetailResponse,
 };
 
 const endpoints = makeApi([
+  {
+    method: "post",
+    path: "/api/packages/:name",
+    alias: "getPackage",
+    description: `Get a single package by slug or exact name (scoped names: /api/packages/@scope/name) with optional vulnerability details selected in the JSON request body (query parameters are not accepted).`,
+    requestFormat: "json",
+    parameters: [
+      {
+        name: "body",
+        description: `Optional detail options; an empty body returns the base package data`,
+        type: "Body",
+        schema: packagesApi_PackageDetailRequest,
+      },
+      {
+        name: "name",
+        type: "Path",
+        schema: z.string(),
+      },
+    ],
+    response: packagesApi_PackageDetailResponse,
+    errors: [
+      {
+        status: 400,
+        description: `Bad Request`,
+        schema: packagesApi_PackageDetailResponse,
+      },
+      {
+        status: 404,
+        description: `Not Found`,
+        schema: packagesApi_PackageDetailResponse,
+      },
+      {
+        status: 429,
+        description: `Too Many Requests`,
+        schema: packagesApi_PackageDetailResponse,
+      },
+      {
+        status: 500,
+        description: `Internal Server Error`,
+        schema: packagesApi_PackageDetailResponse,
+      },
+    ],
+  },
   {
     method: "get",
     path: "/api/packages/list",

@@ -23,7 +23,10 @@ export function PageLayoutRoot(props: PageLayoutComponentProps) {
   }
 
   return (
-    <PageLayoutRootComponent {...props} NavigationSlot={NavigationSlot || <Navigation />}>
+    <PageLayoutRootComponent
+      {...props}
+      NavigationSlot={NavigationSlot || <Navigation />}
+    >
       {children}
     </PageLayoutRootComponent>
   );

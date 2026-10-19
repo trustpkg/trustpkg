@@ -1,0 +1,71 @@
+@use "../../../../styles/pxToRem.scss" as pxToRem;
+@use "../../../../styles/breakpoints.scss" as breakpoints;
+@use "../../../../theme/generated/colors.generated.variables.scss" as colors;
+
+@mixin package {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: pxToRem.pxToRem(8);
+    width: 100%;
+    min-height: pxToRem.pxToRem(34);
+    padding: pxToRem.pxToRem(8) pxToRem.pxToRem(16);
+    border-radius: pxToRem.pxToRem(8);
+    color: colors.$color-text-primary;
+    text-decoration: none;
+}
+
+.navigationPackageList {
+    display: flex;
+    flex-direction: column;
+    gap: pxToRem.pxToRem(16);
+    width: 100%;
+    padding: pxToRem.pxToRem(16) 0;
+
+    &_section {
+        display: flex;
+        flex-direction: column;
+        gap: pxToRem.pxToRem(16);
+        width: 100%;
+    }
+
+    &_list {
+        list-style: none;
+    }
+
+    &_skeletonItem {
+        @include package;
+    }
+
+    &_skeletonName {
+        width: pxToRem.pxToRem(100);
+        height: pxToRem.pxToRem(16);
+        border-radius: pxToRem.pxToRem(4);
+        background-color: colors.$color-background-surface-secondary;
+    }
+
+    &_skeletonPopularity {
+        width: pxToRem.pxToRem(60);
+        height: pxToRem.pxToRem(16);
+        border-radius: pxToRem.pxToRem(4);
+        background-color: colors.$color-background-surface-secondary;
+    }
+
+    &_link {
+        @include package;
+
+        &:hover {
+            background-color: colors.$color-background-surface-secondary;
+            color: colors.$color-text-accent;
+        }
+    }
+
+    &_currentPackage {
+        @include package;
+
+        background: color-mix(in srgb,
+                colors.$color-background-surface-tertiary 10%,
+                colors.$color-text-accent 5%);
+        color: colors.$color-text-accent;
+    }
+}

@@ -157,6 +157,14 @@
       border-color: colors.$color-border-primary;
     }
 
+    &__nonePadding {
+      padding: pxToRem.pxToRem(0);
+
+      @include breakpoints.lg {
+        padding: pxToRem.pxToRem(0);
+      }
+    }
+
     &__smallPadding {
       padding: pxToRem.pxToRem(16);
 

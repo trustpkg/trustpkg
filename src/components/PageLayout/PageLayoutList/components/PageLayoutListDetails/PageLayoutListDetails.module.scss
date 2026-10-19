@@ -17,14 +17,19 @@
         border-radius: pxToRem.pxToRem(12) 0 0 pxToRem.pxToRem(12);
         background-color: colors.$color-background-surface-secondary;
         overflow: clip;
+        padding-right: pxToRem.pxToRem(16);
 
         @include breakpoints.md {
-            width: calc(100% + pxToRem.pxToRem(32));
+            width: calc(100% + pxToRem.pxToRem(16));
         }
 
         @include breakpoints.lg {
-            width: calc(calc(calc(100vw - pxToRem.pxToRem(1900)) / 2) + pxToRem.pxToRem(1600));
             margin-block: pxToRem.pxToRem(16);
+        }
+
+        @include breakpoints.rwd(1964) {
+            width: calc(calc(calc(calc(100vw - pxToRem.pxToRem(1900)) / 2)) + 100%);
+            padding-right: calc(calc(100vw - pxToRem.pxToRem(1900)) / 2);
         }
     }
 
@@ -59,7 +64,15 @@
         }
     }
 
-    &_content {}
+    &_content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: pxToRem.pxToRem(16);
+        padding: pxToRem.pxToRem(24) 0 pxToRem.pxToRem(16) pxToRem.pxToRem(16);
 
-    &_hero {}
+        @include breakpoints.xxl {
+            padding: pxToRem.pxToRem(32) 0 pxToRem.pxToRem(32) pxToRem.pxToRem(32);
+        }
+    }
 }

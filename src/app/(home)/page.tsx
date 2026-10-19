@@ -42,8 +42,7 @@ export default async function Home(props: PageProps) {
 
           <PageLayout.Overview.CommonSection
             borderVariant="none"
-            paddingVariant="small"
-            widthVariant="fullRight"
+            paddingVariant="none"
             id="first-section"
           >
             <PopularPackagesHeader />

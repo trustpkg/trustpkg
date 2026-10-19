@@ -1,0 +1,287 @@
+@use "../../styles/pxToRem.scss" as pxToRem;
+@use "../../styles/breakpoints.scss" as breakpoints;
+@use "../../theme/generated/colors.generated.variables.scss" as colors;
+
+@keyframes severityAreaReveal {
+  from {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+  }
+
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes severityAreaRowIn {
+  from {
+    opacity: 0;
+    transform: translateY(pxToRem.pxToRem(8));
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes severityAreaBarGrow {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes severityAreaPulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.severityAreaChart {
+  display: flex;
+  flex-direction: column;
+  gap: pxToRem.pxToRem(16);
+  width: 100%;
+
+  &_title {
+    margin: 0;
+    font-size: pxToRem.pxToRem(18);
+    font-weight: 700;
+    color: colors.$color-text-primary;
+  }
+
+  &_srOnly {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  &_marker {
+    display: inline-block;
+    width: pxToRem.pxToRem(10);
+    height: pxToRem.pxToRem(10);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  &_list {
+    display: flex;
+    flex-direction: column;
+    gap: pxToRem.pxToRem(8);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    @include breakpoints.lg {
+      display: none;
+    }
+  }
+
+  &_row {
+    display: grid;
+    gap: pxToRem.pxToRem(8);
+    padding: pxToRem.pxToRem(12) pxToRem.pxToRem(16);
+    border: solid pxToRem.pxToRem(1) colors.$color-border-primary;
+    border-radius: pxToRem.pxToRem(8);
+    background-color: colors.$color-background-surface-primary;
+    content-visibility: auto;
+    contain-intrinsic-size: auto pxToRem.pxToRem(84);
+    animation: severityAreaRowIn 0.35s ease-out both;
+    animation-delay: calc(min(var(--index, 0), 8) * 40ms);
+  }
+
+  &_rowHeader {
+    display: flex;
+    justify-content: space-between;
+    gap: pxToRem.pxToRem(16);
+    color: colors.$color-text-primary;
+    font-size: pxToRem.pxToRem(16);
+  }
+
+  &_bar {
+    display: flex;
+    height: pxToRem.pxToRem(10);
+    border-radius: pxToRem.pxToRem(5);
+    background-color: colors.$color-background-secondary;
+    overflow: hidden;
+    transform-origin: left;
+    animation: severityAreaBarGrow 0.5s ease-out both;
+    animation-delay: calc(min(var(--index, 0), 8) * 40ms + 100ms);
+  }
+
+  &_counts {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: pxToRem.pxToRem(14);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+
+    li {
+      flex: 1;
+      text-align: center;
+    }
+  }
+
+  &_desktop {
+    display: none;
+
+    @include breakpoints.lg {
+      display: flex;
+      flex-direction: column;
+      gap: pxToRem.pxToRem(12);
+    }
+  }
+
+  &_legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: pxToRem.pxToRem(8) pxToRem.pxToRem(20);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: colors.$color-text-secondary;
+    font-size: pxToRem.pxToRem(14);
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: pxToRem.pxToRem(6);
+    }
+  }
+
+  &_graph {
+    position: relative;
+    border-radius: pxToRem.pxToRem(8);
+
+    &:focus-visible {
+      outline: solid pxToRem.pxToRem(2) colors.$color-border-focus;
+      outline-offset: pxToRem.pxToRem(4);
+    }
+  }
+
+  &_svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  &_layers {
+    animation: severityAreaReveal 0.8s ease-out both;
+  }
+
+  &_grid {
+    stroke: colors.$color-border-primary;
+    stroke-dasharray: 3 4;
+  }
+
+  &_tick {
+    fill: colors.$color-text-tertiary;
+    font-size: 12px;
+  }
+
+  &_cursor {
+    stroke: colors.$color-text-tertiary;
+    stroke-dasharray: 3 3;
+    pointer-events: none;
+  }
+
+  &_tooltip {
+    position: absolute;
+    top: 0;
+    min-width: pxToRem.pxToRem(170);
+    padding: pxToRem.pxToRem(12);
+    border: solid pxToRem.pxToRem(1) colors.$color-border-primary;
+    border-radius: pxToRem.pxToRem(8);
+    background-color: colors.$color-background-surface-primary;
+    box-shadow: 0 pxToRem.pxToRem(8) pxToRem.pxToRem(24) rgb(0 0 0 / 12%);
+    color: colors.$color-text-primary;
+    font-size: pxToRem.pxToRem(14);
+    pointer-events: none;
+    transform: translateX(pxToRem.pxToRem(12));
+
+    &[data-flip="true"] {
+      transform: translateX(calc(-100% - #{pxToRem.pxToRem(12)}));
+    }
+  }
+
+  &_tooltipList {
+    display: grid;
+    gap: pxToRem.pxToRem(4);
+    margin: pxToRem.pxToRem(8) 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: pxToRem.pxToRem(8);
+      font-variant-numeric: tabular-nums;
+    }
+  }
+
+  &_tooltipTotal {
+    display: flex;
+    justify-content: space-between;
+    padding-top: pxToRem.pxToRem(8);
+    border-top: solid pxToRem.pxToRem(1) colors.$color-border-primary;
+    font-weight: 700;
+  }
+
+  &_skeleton {
+    display: block;
+    border-radius: pxToRem.pxToRem(8);
+    background-color: colors.$color-border-primary;
+    animation: severityAreaPulse 1.6s ease-in-out infinite;
+
+    &Title {
+      width: pxToRem.pxToRem(160);
+      height: pxToRem.pxToRem(24);
+    }
+
+    &Graph {
+      display: none;
+      height: pxToRem.pxToRem(300);
+
+      @include breakpoints.lg {
+        display: block;
+      }
+    }
+
+    &Row {
+      height: pxToRem.pxToRem(84);
+    }
+  }
+
+  &_skeletonList {
+    display: flex;
+    flex-direction: column;
+    gap: pxToRem.pxToRem(8);
+
+    @include breakpoints.lg {
+      display: none;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .severityAreaChart_layers,
+  .severityAreaChart_row,
+  .severityAreaChart_bar,
+  .severityAreaChart_skeleton {
+    animation: none;
+  }
+}

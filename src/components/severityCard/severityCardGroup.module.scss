@@ -1,0 +1,17 @@
+@use "../../styles/pxToRem.scss" as pxToRem;
+
+.severityCardGroup {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: pxToRem.pxToRem(16);
+
+  &_item {
+    display: flex;
+    // at least 2 per row; cards in every row grow to fill the full width
+    flex: 1 1 min(#{pxToRem.pxToRem(200)}, calc((100% - #{pxToRem.pxToRem(16)}) / 2));
+    min-width: 0;
+  }
+}

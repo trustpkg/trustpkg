@@ -11,11 +11,11 @@ type PackagesError = {
 }
 
 const ONE_DAY_IN_SECONDS = 60 * 60 * 24 
-const LIMIT_PARAMETER_VALUE = 9
 const INCLUDE_VULNERABILITIES_VALUE = "true"
 const ONLY_WITH_VULNERABILITIES_VALUE = "true"
 const VULNERABILITY_MONTHS_VALUE = "6"
 const WITH_CURRENT_STATUS_VALUE = "true"
+const DEFAULT_LIMIT = 9
 
 export const packagesRevalidateTags = {
     all: "packagesList",
@@ -26,23 +26,44 @@ export const packagesRevalidateTags = {
     }
 }
 
+interface Options {
+    limit?: number
+}
 
-export async function getPackagesFetch(params: ListPackagesParameters): Promise<PackagesResponse | null> {
+
+interface GetPackagesFetchParams {
+    queryParams: ListPackagesParameters,
+    options?: Options
+}
+
+const defaultOptions = {
+    limit: DEFAULT_LIMIT
+}
+
+export async function getPackagesFetch(params: GetPackagesFetchParams): Promise<PackagesResponse | null> {
+    const { queryParams, options = defaultOptions  } = params
+    const { limit } = options 
+    
+    const omittedVulnerabilities = ["includeVulnerabilities", "onlyWithVulnerabilities", "vulnerabilityMonths", "withCurrentStatus"]
+
     try {
         const searchParams = new URLSearchParams()
-        const omittedVulnerabilities = ["includeVulnerabilities", "onlyWithVulnerabilities", "vulnerabilityMonths", "limit", "withCurrentStatus"]
 
-        Object.entries(params ?? {}).forEach(([key, value]) => {
-            if (value !== undefined && !omittedVulnerabilities.includes(key)) {
-                searchParams.set(key, String(value))
-            }
-            })
+        Object
+            .entries(queryParams ?? {})
+            .forEach(
+                ([key, value]) => {
+                    if (value !== undefined && !omittedVulnerabilities.includes(key)) {
+                        searchParams.set(key, String(value))
+                    }
+                }
+            )
 
         searchParams.set("includeVulnerabilities", INCLUDE_VULNERABILITIES_VALUE)
         searchParams.set("onlyWithVulnerabilities", ONLY_WITH_VULNERABILITIES_VALUE)
         searchParams.set("vulnerabilityMonths", VULNERABILITY_MONTHS_VALUE)
         searchParams.set("withCurrentStatus", WITH_CURRENT_STATUS_VALUE)
-        searchParams.set("limit", String(LIMIT_PARAMETER_VALUE))
+        searchParams.set("limit", `${limit ?? DEFAULT_LIMIT}`)
 
         const queryString = searchParams.toString()
         const packagesUrl = queryString ? `/api/packages/list?${queryString}` : '/api/packages/list'
@@ -50,7 +71,7 @@ export async function getPackagesFetch(params: ListPackagesParameters): Promise<
 
         const response = await apiClient.get<PackagesResponse, PackagesError>(packagesUrl,
             {
-                tags: [packagesRevalidateTags.all, packagesRevalidateTags.query({...params, limit: LIMIT_PARAMETER_VALUE})],
+                tags: [packagesRevalidateTags.all, packagesRevalidateTags.query({ ...queryParams, limit })],
                 revalidate: ONE_DAY_IN_SECONDS
             }
         )

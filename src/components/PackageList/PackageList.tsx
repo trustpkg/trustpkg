@@ -24,19 +24,51 @@ export function PackageListRoot(props: PackageListRootProps) {
         <table className={styles.packageList_table}>
           <thead className={styles.packageList_head}>
             <tr className={styles.packageList_headRow}>
-              <th className={styles.packageList_headCell}>Package</th>
-              <th className={styles.packageList_headCell}>Ecosystem</th>
-              <th className={styles.packageList_headCell}>
+              <th
+                className={clsx(
+                  styles.packageList_headCell,
+                  styles.packageList_columnPackage,
+                )}
+              >
+                Package
+              </th>
+              <th
+                className={clsx(
+                  styles.packageList_headCell,
+                  styles.packageList_columnEcosystem,
+                )}
+              >
+                Ecosystem
+              </th>
+              <th
+                className={clsx(
+                  styles.packageList_headCell,
+                  styles.packageList_columnChart,
+                )}
+              >
                 6 months vulnerabilities trend
               </th>
-              <th className={styles.packageList_headCell}>Total (6M)</th>
-              <th className={styles.packageList_headCell}>
+              <th
+                className={clsx(
+                  styles.packageList_headCell,
+                  styles.packageList_columnTotal,
+                )}
+              >
+                Total (6M)
+              </th>
+              <th
+                className={clsx(
+                  styles.packageList_headCell,
+                  styles.packageList_columnStatus,
+                )}
+              >
                 Status (last 30 days)
               </th>
               <th
                 className={clsx(
                   styles.packageList_headCell,
                   styles.packageList_headCell__hidden,
+                  styles.packageList_columnLink,
                 )}
               >
                 <Hidden>link to package details</Hidden>

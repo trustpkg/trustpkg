@@ -8,6 +8,7 @@
     flex-direction: column;
     gap: pxToRem.pxToRem(16);
     height: 100%;
+    padding: pxToRem.pxToRem(16) pxToRem.pxToRem(16) pxToRem.pxToRem(16) 0;
 
     @include breakpoints.lg {
         display: flex;

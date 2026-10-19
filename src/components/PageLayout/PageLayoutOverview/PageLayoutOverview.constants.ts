@@ -4,6 +4,7 @@ export const PAGE_LAYOUT_OVERVIEW_COMMON_SECTION_BORDER_VARIANT = {
 } as const;
 
 export const PAGE_LAYOUT_OVERVIEW_COMMON_SECTION_PADDING_VARIANT = {
+  NONE: "none",
   SMALL: "small",
   MEDIUM: "medium",
 } as const;

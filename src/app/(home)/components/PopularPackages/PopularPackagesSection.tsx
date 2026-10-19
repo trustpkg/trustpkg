@@ -12,7 +12,9 @@ export async function PopularPackagesSection(
 ) {
   const { params } = props;
 
-  const packagesList = await getPackagesFetch(params);
+  const packagesList = await getPackagesFetch({
+    queryParams: params,
+  });
 
   return (
     <PackageList

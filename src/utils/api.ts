@@ -99,8 +99,9 @@ export class ApiClient {
   public async post<BODY, RESPONSE, APIError = unknown>(
     endpoint: string,
     body: BODY,
+    next?: NextFetchRequestConfig,
   ): Promise<RESPONSE> {
-    return this.request<BODY, APIError, RESPONSE>(endpoint, body, "POST");
+    return this.request<BODY, APIError, RESPONSE>(endpoint, body, "POST", next);
   }
 
   public async put<BODY, RESPONSE, APIError = unknown>(

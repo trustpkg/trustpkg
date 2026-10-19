@@ -1,9 +1,10 @@
-import React from "react";
-import styles from './PageLayoutListDetails.module.scss'
+import { Base } from "@/components/Base/Base";
+import styles from './PageLayoutListDetails.module.scss';
+import { PageLayoutListDetailsHeroProps, PageLayoutListDetailsRootProps, PageLayoutListDetailsSectionProps } from "./PageLayoutListDetails.types";
+import { resolveProps } from "@/responsive/utils/resolveProps";
+import { pxToRem } from "@/utils/pxToRem";
 
-interface PageLayoutListDetailsRootProps extends React.PropsWithChildren {
-    BreadcrumbsSlot?: React.ReactNode
-}
+
 
 export function PageLayoutListDetailsRoot(props: PageLayoutListDetailsRootProps) {
     const { children, BreadcrumbsSlot } = props
@@ -25,10 +26,47 @@ export function PageLayoutListDetailsRoot(props: PageLayoutListDetailsRootProps)
     )
 }
 
-interface PageLayoutListDetailsHeroProps extends React.PropsWithChildren { }
 
 export function PageLayoutListDetailsHero(props: PageLayoutListDetailsHeroProps) {
-    const { children } = props
+    const { stylesProps, rest } = resolveProps(props)
+    const { display = 'flex', gap = pxToRem(16), flexDirection = 'column', } = stylesProps
+    const { children } = rest
 
-    return <header className={styles.pageLayoutDetails_hero}>{children}</header>
+    const restStylesProps = {
+        display,
+        gap,
+        flexDirection
+    }
+
+    return (
+        <Base
+            {...stylesProps}
+            {...restStylesProps}
+            as="header"
+        >
+            {children}
+        </Base>
+    )
+}
+
+export function PageLayoutListDetailsSection(props: PageLayoutListDetailsSectionProps) {
+    const { stylesProps, rest } = resolveProps(props)
+    const { display = 'flex', gap = pxToRem(16), flexDirection = 'column', } = stylesProps
+    const { as = 'section', children } = rest
+
+    const restStylesProps = {
+        display,
+        gap,
+        flexDirection
+    }
+
+    return (
+        <Base
+            {...stylesProps}
+            {...restStylesProps}
+            as={as}
+        >
+            {children}
+        </Base>
+    )
 }

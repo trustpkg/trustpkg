@@ -11,10 +11,12 @@ interface PathChunk {
     Icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>
 }
 
-type PathChunkOptions = Pick<PathChunk, 'Icon' | 'isActive' | 'isLabelVisible'> 
+type PathChunkOptions = Pick<PathChunk, 'Icon' | 'isActive' | 'isLabelVisible'>
 
 const omittedPathChunk: string[] = [
-    'packages',
+    // Note: 
+    // There are no data, but those items are omitted in breadcrumbs list, 
+    // let's delete comment after complete
 ]
 
 const home: PathChunk = {
@@ -38,13 +40,12 @@ const pathWithAdditionalParameters: Record<string, PathChunkOptions> = {
     }
 }
 
-export function resolvePathName (pathName: string): PathChunk[] {
+export function resolvePathName(pathName: string): PathChunk[] {
     const chunksList = pathName
         .split('/')
         .filter(Boolean)
-    
+
     const resolvedChunks: PathChunk[] = chunksList.map((chunk, index, array) => {
-        console.log({ chunk})
 
         const link = array
             .slice(0, index + 1)
@@ -57,10 +58,10 @@ export function resolvePathName (pathName: string): PathChunk[] {
             label: chunk,
             isLabelVisible,
             isActive,
-            href: link,
+            href: "/" + link,
             Icon: Icon
         }
-    })  
+    })
 
     const filteredChunks = resolvedChunks.filter((chunk) => !omittedPathChunk.includes(chunk.label))
 

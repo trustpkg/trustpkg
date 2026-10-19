@@ -12,4 +12,8 @@
         display: grid;
         grid-template-columns: pxToRem.pxToRem(300) auto;
     }
+
+    @include breakpoints.xl {
+        grid-template-columns: pxToRem.pxToRem(400) auto;
+    }
 }

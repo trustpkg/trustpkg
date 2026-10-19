@@ -8,6 +8,7 @@ import styles from "../../PackageList.module.scss";
 import { getPaginationHref } from "./PackageListPagination.utils";
 import { PackageListPaginationPageLink } from "./PackageListPaginationPageLink.client";
 import type { PackageListFooterProps } from "../../PackageList.types";
+import { useResponsiveProp } from "@/responsive/hooks/useResponsive";
 
 export function PackageListFooter(props: PackageListFooterProps) {
   const {
@@ -18,14 +19,28 @@ export function PackageListFooter(props: PackageListFooterProps) {
     paginationPath = "/",
   } = props;
   const [pendingPage, setPendingPage] = React.useState<number | null>(null);
+
   const getHref = (page: number) => getPaginationHref(paginationPath, page);
+
+  const isSpinnerVisible = useResponsiveProp({
+    default: false,
+    md: true,
+  });
+  const responsiveSiblingCount = useResponsiveProp({
+    default: 0,
+    lg: siblingCount,
+  });
+  const isCompactPagination = useResponsiveProp({
+    default: true,
+    md: false,
+  });
 
   const pagination = usePagination({
     type: "link",
     count,
     page: currentPage,
     pageSize,
-    siblingCount,
+    siblingCount: responsiveSiblingCount,
     getPageUrl: ({ page }) => getHref(page),
   });
 
@@ -49,7 +64,12 @@ export function PackageListFooter(props: PackageListFooterProps) {
   return (
     <div className={styles.packageListPagination}>
       <div className={styles.packageListPagination_spinner}>
-        <Spinner isLoading={isNavigating} />
+        {isSpinnerVisible && (
+          <div className={styles.packageListPagination_spinnerIcon}>
+            <Spinner isLoading={isNavigating} />
+          </div>
+        )}
+
         <nav
           className={styles.packageListPagination_navigation}
           aria-label="Package list pagination"
@@ -75,8 +95,30 @@ export function PackageListFooter(props: PackageListFooterProps) {
             </Pagination.PrevTrigger>
 
             <Pagination.Context>
-              {(pagination) =>
-                pagination.pages.map((page, index) =>
+              {(pagination) => {
+                const pageValues = pagination.pages.flatMap((page) =>
+                  page.type === "page" ? [page.value] : [],
+                );
+                const lastPage = pageValues[pageValues.length - 1] ?? 1;
+                const firstCompactPage = Math.max(
+                  1,
+                  Math.min(pagination.page - 1, lastPage - 2),
+                );
+                const compactPageValues = new Set(
+                  Array.from(
+                    { length: Math.min(3, lastPage) },
+                    (_, index) => firstCompactPage + index,
+                  ),
+                );
+                const pages = isCompactPagination
+                  ? pagination.pages.filter(
+                      (page) =>
+                        page.type === "page" &&
+                        compactPageValues.has(page.value),
+                    )
+                  : pagination.pages;
+
+                return pages.map((page, index) =>
                   page.type === "page" ? (
                     <PackageListPaginationPageLink
                       key={index}
@@ -95,8 +137,8 @@ export function PackageListFooter(props: PackageListFooterProps) {
                       &#8230;
                     </Pagination.Ellipsis>
                   ),
-                )
-              }
+                );
+              }}
             </Pagination.Context>
 
             <Pagination.NextTrigger asChild>

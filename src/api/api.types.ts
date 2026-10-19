@@ -44,6 +44,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/packages/{name}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Get a single package
+         * @description Get a single package by slug or exact name (scoped names: /api/packages/@scope/name) with optional vulnerability details selected in the JSON request body (query parameters are not accepted).
+         */
+        post: operations["getPackage"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -69,6 +89,54 @@ export interface components {
             label?: string;
             osv_id?: string;
             severity?: string;
+        };
+        "packagesApi.PackageDetailDocument": {
+            current_statuses?: Record<string, never>[];
+            ecosystem?: string;
+            id?: number;
+            is_deprecated?: boolean;
+            name?: string;
+            popularity?: number;
+            slug?: string;
+            summary?: Record<string, never>;
+            vulnerabilities?: Record<string, never>;
+            vulnerability_counts?: Record<string, never>;
+        };
+        "packagesApi.PackageDetailRequest": {
+            /**
+             * @description Package ecosystem.
+             * @default npm
+             * @enum {string}
+             */
+            ecosystem: "npm";
+            /** @description Include full vulnerability descriptions. */
+            includeDescription?: boolean;
+            /** @description Include vulnerability reference URLs. */
+            includeReferences?: boolean;
+            /** @description Include vulnerabilities grouped by month. */
+            includeVulnerabilities?: boolean;
+            /** @description Include withdrawn vulnerabilities. */
+            includeWithdrawn?: boolean;
+            /**
+             * @description Only vulnerabilities with this severity.
+             * @enum {string}
+             */
+            severity?: "LOW" | "MODERATE" | "MEDIUM" | "HIGH" | "CRITICAL";
+            /**
+             * @description "all" returns the entire history, 1-12 limits it to the last N months.
+             * @default all
+             * @enum {string}
+             */
+            vulnerabilityMonths: "all" | "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12";
+            /** @description Include current vulnerability status details. */
+            withCurrentStatus?: boolean;
+            /** @description Include aggregated vulnerability summary. */
+            withSummary?: boolean;
+        };
+        "packagesApi.PackageDetailResponse": {
+            document?: components["schemas"]["packagesApi.PackageDetailDocument"];
+            message?: string;
+            status?: number;
         };
         "packagesApi.PackageListDocument": {
             current_statuses?: components["schemas"]["packagesApi.PackageCurrentStatus"][];
@@ -258,6 +326,70 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["packagesApi.SearchResponse"];
+                };
+            };
+        };
+    };
+    getPackage: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Package slug or name */
+                name: string;
+            };
+            cookie?: never;
+        };
+        /** @description Optional detail options; an empty body returns the base package data */
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["packagesApi.PackageDetailRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["packagesApi.PackageDetailResponse"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["packagesApi.PackageDetailResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["packagesApi.PackageDetailResponse"];
+                };
+            };
+            /** @description Too Many Requests */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["packagesApi.PackageDetailResponse"];
+                };
+            };
+            /** @description Internal Server Error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["packagesApi.PackageDetailResponse"];
                 };
             };
         };

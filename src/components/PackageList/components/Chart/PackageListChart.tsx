@@ -1,7 +1,7 @@
 "use client";
 
-import { colors } from "@/theme/generated/colors.generated";
 import { CanvasBarChart } from "../../../CanvasBarChart/CanvasBarChart";
+import { PACKAGE_LIST_CHART_COLORS } from "./PackageListChart.colors";
 import {
   PACKAGE_LIST_CHART_AXIS_PADDING,
   PACKAGE_LIST_CHART_MARGIN,
@@ -16,6 +16,8 @@ export interface PackageListChartProps {
   }[];
 }
 
+export { PACKAGE_LIST_CHART_COLORS };
+
 export function PackageListChart(props: PackageListChartProps) {
   const { packageName, chartData } = props;
   const data = chartData.map(({ month, vulnerabilitiesOccurrences }) => ({
@@ -29,17 +31,7 @@ export function PackageListChart(props: PackageListChartProps) {
       data={data}
       width={PACKAGE_LIST_CHART_WIDTH}
       height={80}
-      colors={{
-        bar: colors.background.button.primary,
-        axis: colors.text.primary,
-        label: colors.text.primary,
-        cursor: colors.background.overlay,
-        tooltipBackground: colors.background.secondary,
-        tooltipBorder: colors.border.primary,
-        tooltipShadow: colors.background.surface.primary,
-        tooltipLabel: colors.text.accent,
-        tooltipText: colors.text.primary,
-      }}
+      colors={PACKAGE_LIST_CHART_COLORS}
       geometryOptions={{
         horizontalInset:
           PACKAGE_LIST_CHART_MARGIN + PACKAGE_LIST_CHART_AXIS_PADDING,

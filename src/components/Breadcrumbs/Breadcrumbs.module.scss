@@ -14,7 +14,10 @@
 
     &_link {
         &:hover {
-            & svg {
+
+            & svg,
+            p {
+                color: colors.$color-background-button-primary;
                 fill: colors.$color-background-button-primary;
             }
         }

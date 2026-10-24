@@ -1,0 +1,88 @@
+name: Build and push image to GitHub Container Registry
+
+on:
+  workflow_call:
+    inputs:
+      is_beta_version:
+        description: Publish the image with the beta tag
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  push-image-to-github-registry:
+    runs-on: ubuntu-26.04
+    permissions:
+      contents: read
+      packages: write
+    env:
+      NODE_VERSION: "26.12.1"
+      PNPM_VERSION: "11.17.0"
+      IS_BETA_VERSION: ${{ inputs.is_beta_version }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Install Podman
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes podman
+
+      - name: Build image
+        id: image
+        shell: bash
+        run: |
+          image_name="ghcr.io/$(printf '%s' "$GITHUB_REPOSITORY" | tr '[:upper:]' '[:lower:]')"
+
+          if [[ "$GITHUB_EVENT_NAME" == "pull_request" ]]; then
+            image_tags=("beta-pr-${PR_NUMBER}")
+          elif [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
+            image_tags=("$REF_NAME")
+            if [[ "$IS_BETA_VERSION" != "true" ]]; then
+              image_tags+=("latest")
+            fi
+          elif [[ "$IS_BETA_VERSION" == "true" ]]; then
+            image_tags=("beta")
+          else
+            image_tags=("latest")
+          fi
+
+          echo "name=$image_name" >> "$GITHUB_OUTPUT"
+          {
+            echo "tags<<EOF"
+            printf '%s\n' "${image_tags[@]}"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+          podman build \
+            --build-arg "NODE_VERSION=$NODE_VERSION" \
+            --build-arg "PNPM_VERSION=$PNPM_VERSION" \
+            --tag "$image_name:${image_tags[0]}" \
+            .
+
+          for image_tag in "${image_tags[@]:1}"; do
+            podman tag "$image_name:${image_tags[0]}" "$image_name:$image_tag"
+          done
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REF_NAME: ${{ github.ref_name }}
+
+      - name: Log in to GitHub Container Registry
+        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          REGISTRY_USERNAME: ${{ github.actor }}
+          REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          printf '%s' "$REGISTRY_PASSWORD" |
+            podman login ghcr.io --username "$REGISTRY_USERNAME" --password-stdin
+
+      - name: Push image
+        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          IMAGE_NAME: ${{ steps.image.outputs.name }}
+          IMAGE_TAGS: ${{ steps.image.outputs.tags }}
+        shell: bash
+        run: |
+          while IFS= read -r image_tag; do
+            [[ -n "$image_tag" ]] && podman push "$IMAGE_NAME:$image_tag"
+          done <<< "$IMAGE_TAGS"

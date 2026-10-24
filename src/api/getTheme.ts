@@ -7,7 +7,7 @@ import { cookies } from "next/headers";
 import { unstable_rethrow } from "next/navigation";
 
 function resolveDomainUrl(): string | null {
-  const rawDomain = process.env.NEXT_PUBLIC_DOMAIN_URL?.trim();
+  const rawDomain = process.env.DOMAIN_URL?.trim();
 
   if (!rawDomain) {
     return null;
@@ -25,7 +25,7 @@ export async function getTheme(): Promise<CurrentTheme> {
     const domainUrl = resolveDomainUrl();
 
     if (!domainUrl) {
-      throw new Error("NEXT_PUBLIC_DOMAIN_URL is not defined.");
+      throw new Error("DOMAIN_URL is not defined.");
     }
 
     const client = new ApiClient("");

@@ -14,9 +14,24 @@ export function useSearchMutation() {
 
     return useMutation<SearchResponse, Error, SearchParams>({
         mutationFn: async (params) => {
+            const searchParams = new URLSearchParams();
+
+            if (params?.query) {
+                searchParams.set("query", params.query);
+            }
+
+            if (params?.limit !== undefined) {
+                searchParams.set("limit", String(params.limit));
+            }
+
             const response = await fetch(
-                `${process.env.NEXT_PUBLIC_BE_URL}/api/packages/search?query=${params?.query}${params?.limit ? `&limit=${params.limit}` : ""}`
+                `/api/packages/search?${searchParams.toString()}`,
             );
+
+            if (!response.ok) {
+                throw new Error(`Package search failed with status ${response.status}.`);
+            }
+
             return response.json();
         },
         onSuccess: (data, params) => {

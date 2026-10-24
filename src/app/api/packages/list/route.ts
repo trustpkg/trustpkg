@@ -31,7 +31,7 @@ function getListPackagesQuery(request: NextRequest): ListPackagesParameters {
 }
 
 export async function GET(request: NextRequest) {
-    const backendUrl = process.env.NEXT_PUBLIC_BE_URL;
+    const backendUrl = process.env.BE_URL;
 
     if (!backendUrl) {
         return NextResponse.json(

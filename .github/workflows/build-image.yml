@@ -60,7 +60,7 @@ jobs:
           podman build \
             --build-arg "NODE_VERSION=$NODE_VERSION" \
             --build-arg "PNPM_VERSION=$PNPM_VERSION" \
-            --label "org.opencontainers.image.source=https://github.com/$GITHUB_REPOSITORY" \
+            --label "org.opencontainers.image.source=https://github.com/trustpkg/$GITHUB_REPOSITORY" \
             --tag "$image_name:${image_tags[0]}" \
             .
 

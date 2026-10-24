@@ -16,6 +16,8 @@ jobs:
 
   build-image:
     uses: ./.github/workflows/build-image.yml
+    secrets:
+      TRUSTPKG_GHCR: ${{ secrets.TRUSTPKG_GHCR }}
     with:
       is_beta_version: ${{ contains(github.ref_name, '-beta') }}
     permissions:

@@ -8,6 +8,9 @@ on:
         required: false
         type: boolean
         default: false
+    secrets:
+      TRUSTPKG_GHCR:
+        required: false
 
 jobs:
   push-image-to-github-registry:
@@ -71,7 +74,7 @@ jobs:
         if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
         env:
           REGISTRY_USERNAME: ${{ github.actor }}
-          REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+          REGISTRY_PASSWORD: ${{ secrets.TRUSTPKG_GHCR }}
         run: |
           printf '%s' "$REGISTRY_PASSWORD" |
             podman login ghcr.io --username "$REGISTRY_USERNAME" --password-stdin

@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:prod": "IS_PRODUCTION_BUILD=true && pnpm build",
+    "build:prod": "IS_PRODUCTION_BUILD=true pnpm build",
     "start": "next start",
     "start:prod": "node .next/standalone/server.js",
     "lint": "eslint",

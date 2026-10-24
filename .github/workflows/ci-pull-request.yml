@@ -19,6 +19,8 @@ jobs:
       - code-checks
       - build
       - vulnerabilities-audit
+    secrets:
+      TRUSTPKG_GHCR: ${{ secrets.TRUSTPKG_GHCR }}
     with:
       is_beta_version: true
     permissions:

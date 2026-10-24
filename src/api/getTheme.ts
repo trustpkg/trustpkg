@@ -1,53 +1,18 @@
 import "server-only";
 
-import { primaryTheme } from "@/theme/generated/themes.generated.const";
+import {
+  primaryTheme,
+  themeDefinitions,
+} from "@/theme/generated/themes.generated.const";
 import type { CurrentTheme } from "@/theme/generated/themes.generated.types";
-import { ApiClient } from "@/utils/api";
 import { cookies } from "next/headers";
-import { unstable_rethrow } from "next/navigation";
 
-function resolveDomainUrl(): string | null {
-  const rawDomain = process.env.DOMAIN_URL?.trim();
-
-  if (!rawDomain) {
-    return null;
-  }
-
-  const withProtocol = /^https?:\/\//i.test(rawDomain)
-    ? rawDomain
-    : `https://${rawDomain}`;
-
-  return withProtocol.replace(/\/$/, "");
+function isCurrentTheme(theme: string | undefined): theme is CurrentTheme {
+  return themeDefinitions.some((item) => item.theme === theme);
 }
 
 export async function getTheme(): Promise<CurrentTheme> {
-  try {
-    const domainUrl = resolveDomainUrl();
+  const theme = (await cookies()).get("theme")?.value;
 
-    if (!domainUrl) {
-      throw new Error("DOMAIN_URL is not defined.");
-    }
-
-    const client = new ApiClient("");
-    const cookieStore = await cookies();
-    const cookieHeader = cookieStore
-      .getAll()
-      .map((item) => `${item.name}=${item.value}`)
-      .join("; ");
-
-    if (cookieHeader.length > 0) {
-      await client.appendHeaders({ Cookie: cookieHeader });
-    }
-
-    const response = await client.get<{ theme: CurrentTheme }>(
-      `${domainUrl}/api/theme/get`,
-    );
-
-    return response?.theme ?? primaryTheme;
-  } catch (error) {
-    unstable_rethrow(error);
-    console.error("Failed to get theme:", error);
-
-    return primaryTheme;
-  }
+  return isCurrentTheme(theme) ? theme : primaryTheme;
 }

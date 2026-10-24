@@ -113,7 +113,7 @@ export default async function PackagePage(props: PackagePageProps) {
 
     const trend = Object.entries(vulnerabilitiesByMonth)
         .filter(([month]) => /^\d{4}-\d{2}$/.test(month))
-        .sort(([a], [b]) => a.localeCompare(b))
+        .sort(([prev], [next]) => prev.localeCompare(next))
         .map(([month, vulnerabilities]) => {
             const counts: Partial<Record<Severity, number>> = {}
 

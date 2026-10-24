@@ -1,9 +1,13 @@
 import { ApiClient, isApiClientError } from "@/utils/api"
-import { components, operations } from "./api.types"
+import type {
+    GetPackageData,
+    PackagesApiPackageDetailRequest,
+    PackagesApiPackageDetailResponse,
+} from "./generated"
 
-type PackageDetailsRequest = components['schemas']['packagesApi.PackageDetailRequest']
-type PackageDetailsResponse = components['schemas']['packagesApi.PackageDetailResponse']
-type PackageDetailsPath = operations['getPackage']['parameters']['path']
+type PackageDetailsRequest = PackagesApiPackageDetailRequest
+type PackageDetailsResponse = PackagesApiPackageDetailResponse
+type PackageDetailsPath = GetPackageData['path']
 type PackageDetailsError = {
     code: string
     message: string
@@ -33,7 +37,7 @@ export async function getPackageDetailsFetch(params: GetPackageDetailsFetchParam
             `/api/packages/${encodedName}`,
             body,
             {
-                tags: [packageDetailsRevalidateTags.all, packageDetailsRevalidateTags.package(body.ecosystem, name)],
+                tags: [packageDetailsRevalidateTags.all, packageDetailsRevalidateTags.package(body.ecosystem ?? 'npm', name)],
                 revalidate: HALF_HOUR_IN_SECONDS
             }
         )

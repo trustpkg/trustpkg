@@ -3,16 +3,18 @@ import {
   type PackageStatusBadgeStatus,
   type PackageStatusBadgeTooltip,
 } from "@/components/PackageStatusBadge/StatusBadge.types";
-import type { components } from "@/api/api.types";
+import type {
+  PackagesApiPackageCurrentStatus,
+  PackagesApiPackageListDocument,
+  PackagesApiVulnerability,
+} from "@/api/generated";
 import { createElement } from "react";
 import type { PackageListItemProps } from "../../PackageList.types";
 import { getLastMonths } from "../../PackageList.utils";
 
-type PackageListDocument =
-  components["schemas"]["packagesApi.PackageListDocument"];
-type PackageCurrentStatus =
-  components["schemas"]["packagesApi.PackageCurrentStatus"];
-type PackageVulnerability = components["schemas"]["packagesApi.Vulnerability"];
+type PackageListDocument = PackagesApiPackageListDocument;
+type PackageCurrentStatus = PackagesApiPackageCurrentStatus;
+type PackageVulnerability = PackagesApiVulnerability;
 
 const PREVIOUS_MONTH_LOOKBACK_DAYS = 7;
 

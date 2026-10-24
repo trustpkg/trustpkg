@@ -3,12 +3,12 @@ import {
     ListPackagesParametersSchema,
     type ListPackagesParameters,
 } from "@/api/parameters";
-import type { components } from "@/api/api.types";
+import type { PackagesApiListResponse } from "@/api/generated";
 import { hashString } from "@/utils/hashString";
 
 const HALF_DAY_IN_SECONDS = 60 * 60 * 12;
 const ALL_PACKAGES_REVALIDATION_TAG = "packages-list:all";
-type ListPackagesResponse = components["schemas"]["packagesApi.ListResponse"];
+type ListPackagesResponse = PackagesApiListResponse;
 
 function getListPackagesQuery(request: NextRequest): ListPackagesParameters {
     const searchParams = request.nextUrl.searchParams;

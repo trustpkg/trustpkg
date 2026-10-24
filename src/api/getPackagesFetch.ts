@@ -1,9 +1,9 @@
 import { ApiClient, isApiClientError } from "@/utils/api"
-import { components, operations } from "./api.types"
+import type { ListPackagesData, PackagesApiListResponse } from "./generated"
 import type { ListPackagesParameters } from "./parameters"
 
-type PackagesListParams = operations['listPackages']['parameters']['query']
-type PackagesResponse = components['schemas']['packagesApi.ListResponse']
+type PackagesListParams = ListPackagesData['query']
+type PackagesResponse = PackagesApiListResponse
 type PackagesError = {
     code: string
     message: string

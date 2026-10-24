@@ -6,12 +6,7 @@ import { pxToRem } from "@/utils/pxToRem";
 
 export function HomeHero() {
   return (
-    <PageLayout.Overview.Hero
-      goToContentButtonConfig={{
-        shouldRender: true,
-        href: "#first-section",
-      }}
-    >
+    <PageLayout.Overview.Hero>
       <Base as="h1" fontSize={pxToRem(48)} fontWeight={700}>
         trustpkg.dev
       </Base>

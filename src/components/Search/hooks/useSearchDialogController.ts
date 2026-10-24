@@ -1,14 +1,13 @@
 "use client";
 
-import type { components } from "@/api/api.types";
+import type { PackagesApiSearchDocument } from "@/api/generated";
 import { normalizedPackage } from "@/utils/normalizePackage";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { SearchContext } from "../Search.context";
 import { useSearch } from "./useSearch";
 
-export type SearchDocument =
-  components["schemas"]["packagesApi.SearchDocument"];
+export type SearchDocument = PackagesApiSearchDocument;
 
 export interface SearchDialogController {
   isOpen: boolean;

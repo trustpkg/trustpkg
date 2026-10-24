@@ -4,6 +4,7 @@ import { primaryTheme } from "@/theme/generated/themes.generated.const";
 import type { CurrentTheme } from "@/theme/generated/themes.generated.types";
 import { ApiClient } from "@/utils/api";
 import { cookies } from "next/headers";
+import { unstable_rethrow } from "next/navigation";
 
 function resolveDomainUrl(): string | null {
   const rawDomain = process.env.NEXT_PUBLIC_DOMAIN_URL?.trim();
@@ -44,6 +45,7 @@ export async function getTheme(): Promise<CurrentTheme> {
 
     return response?.theme ?? primaryTheme;
   } catch (error) {
+    unstable_rethrow(error);
     console.error("Failed to get theme:", error);
 
     return primaryTheme;

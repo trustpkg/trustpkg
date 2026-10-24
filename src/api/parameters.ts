@@ -1,28 +1,15 @@
-import { z } from "zod";
+import type { z } from "zod";
+import {
+  zGetPackagePath,
+  zListPackagesQuery,
+  zSearchPackagesQuery,
+} from "./generated/zod.gen";
 
-export const GetPackageParametersSchema = z.object({
-  name: z.string()
-});
-
+export const GetPackageParametersSchema = zGetPackagePath;
 export type GetPackageParameters = z.infer<typeof GetPackageParametersSchema>;
 
-export const ListPackagesParametersSchema = z.object({
-  page: z.number().int().gte(1).optional().default(1),
-  limit: z.number().int().gte(1).lte(50).optional().default(10),
-  sortBy: z.string().optional().default("popularity"),
-  order: z.string().optional().default("desc"),
-  ecosystem: z.string().optional().default("npm"),
-  includeVulnerabilities: z.boolean().optional().default(false),
-  onlyWithVulnerabilities: z.boolean().optional().default(false),
-  vulnerabilityMonths: z.number().int().gte(0).lte(12).optional().default(0),
-  withCurrentStatus: z.boolean().optional().default(false)
-});
-
+export const ListPackagesParametersSchema = zListPackagesQuery;
 export type ListPackagesParameters = z.infer<typeof ListPackagesParametersSchema>;
 
-export const SearchPackagesParametersSchema = z.object({
-  query: z.string().min(1).max(214),
-  limit: z.number().int().gte(1).lte(20).optional().default(10)
-});
-
+export const SearchPackagesParametersSchema = zSearchPackagesQuery;
 export type SearchPackagesParameters = z.infer<typeof SearchPackagesParametersSchema>;

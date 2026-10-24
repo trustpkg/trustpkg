@@ -17,7 +17,7 @@ jobs:
       packages: write
     env:
       NODE_VERSION: "26.12.1"
-      PNPM_VERSION: "11.17.0"
+      PNPM_VERSION: "12.15.0"
       IS_BETA_VERSION: ${{ inputs.is_beta_version }}
     steps:
       - name: Checkout repository

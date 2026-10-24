@@ -17,7 +17,7 @@ FROM base AS builder
 
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-COPY next.config.ts next-env.d.ts svgr.d.ts tsconfig.json ./
+COPY next.config.ts tsconfig.json ./
 COPY src ./src
 COPY public ./public
 

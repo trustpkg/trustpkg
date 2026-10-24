@@ -1,0 +1,506 @@
+@use "../../styles/pxToRem.scss" as pxToRem;
+@use "../../styles/breakpoints.scss" as breakpoints;
+@use "../../theme/generated/colors.generated.variables.scss" as colors;
+
+@keyframes vulnerabilitiesRowIn {
+  from {
+    opacity: 0;
+    transform: translateY(pxToRem.pxToRem(6));
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes vulnerabilitiesPulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+$table-min-width: 900px;
+
+@mixin table-layout {
+  @container (min-width: #{$table-min-width}) {
+    @content;
+  }
+}
+
+@mixin focus-ring {
+  &:focus-visible {
+    outline: solid pxToRem.pxToRem(2) colors.$color-border-focus;
+    outline-offset: pxToRem.pxToRem(2);
+  }
+}
+
+.vulnerabilitiesTable {
+  display: flex;
+  flex-direction: column;
+  gap: pxToRem.pxToRem(16);
+  width: 100%;
+  padding: pxToRem.pxToRem(16);
+  border: solid pxToRem.pxToRem(1) colors.$color-border-primary;
+  border-radius: pxToRem.pxToRem(8);
+  background-color: colors.$color-background-surface-primary;
+  color: colors.$color-text-primary;
+  // Layout switches on the component width (the page has a side menu), not on the viewport.
+  container-type: inline-size;
+
+  &_srOnly {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  &_header {
+    display: flex;
+    flex-direction: column;
+    gap: pxToRem.pxToRem(16);
+
+    @include table-layout {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+  }
+
+  &_title {
+    margin: 0;
+    font-size: pxToRem.pxToRem(22);
+    font-weight: 700;
+
+    span {
+      font-weight: 400;
+      color: colors.$color-text-tertiary;
+    }
+  }
+
+  &_subtitle {
+    margin: pxToRem.pxToRem(4) 0 0;
+    font-size: pxToRem.pxToRem(14);
+    color: colors.$color-text-tertiary;
+
+    strong {
+      color: colors.$color-text-primary;
+    }
+  }
+
+  &_controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: pxToRem.pxToRem(12);
+
+    @include table-layout {
+      display: flex;
+    }
+  }
+
+  &_field {
+    position: relative;
+    display: block;
+    min-width: 0;
+
+    select {
+      width: 100%;
+      padding: pxToRem.pxToRem(10) pxToRem.pxToRem(36) pxToRem.pxToRem(10) pxToRem.pxToRem(12);
+      border: solid pxToRem.pxToRem(1) colors.$color-border-primary;
+      border-radius: pxToRem.pxToRem(8);
+      background-color: colors.$color-background-surface-primary;
+      color: colors.$color-text-secondary;
+      font: inherit;
+      font-size: pxToRem.pxToRem(14);
+      text-overflow: ellipsis;
+      appearance: none;
+      cursor: pointer;
+
+      @include focus-ring;
+    }
+
+    svg {
+      position: absolute;
+      top: 50%;
+      right: pxToRem.pxToRem(12);
+      width: pxToRem.pxToRem(16);
+      height: pxToRem.pxToRem(16);
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+  }
+
+  &_id {
+    display: inline-flex;
+    align-items: center;
+    gap: pxToRem.pxToRem(6);
+    color: colors.$color-text-accent;
+    font-weight: 600;
+    word-break: break-all;
+  }
+
+  &_table &_id {
+    word-break: normal;
+    white-space: nowrap;
+  }
+
+  &_copy {
+    display: inline-flex;
+    flex-shrink: 0;
+    padding: pxToRem.pxToRem(2);
+    border: 0;
+    border-radius: pxToRem.pxToRem(4);
+    background: transparent;
+    color: colors.$color-text-tertiary;
+    cursor: pointer;
+    transition: color 0.2s;
+
+    svg {
+      width: pxToRem.pxToRem(16);
+      height: pxToRem.pxToRem(16);
+    }
+
+    &:hover,
+    &[data-copied="true"] {
+      color: colors.$color-text-accent;
+    }
+
+    @include focus-ring;
+  }
+
+  &_severity {
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  &_versions {
+    display: inline-block;
+    padding: pxToRem.pxToRem(2) pxToRem.pxToRem(8);
+    border-radius: pxToRem.pxToRem(4);
+    background-color: colors.$color-background-surface-tertiary;
+    color: colors.$color-text-secondary;
+    font-size: pxToRem.pxToRem(13);
+    white-space: nowrap;
+  }
+
+  &_versionList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: pxToRem.pxToRem(4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    @include table-layout {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  &_versionsMore {
+    align-self: center;
+    font-size: pxToRem.pxToRem(12);
+    color: colors.$color-text-tertiary;
+  }
+
+  &_source {
+    display: inline-flex;
+    align-items: center;
+    gap: pxToRem.pxToRem(4);
+    color: colors.$color-text-primary;
+    text-decoration: none;
+    white-space: nowrap;
+
+    svg {
+      width: pxToRem.pxToRem(14);
+      height: pxToRem.pxToRem(14);
+      color: colors.$color-text-accent;
+    }
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    @include focus-ring;
+  }
+
+  &_empty {
+    margin: 0;
+    padding: pxToRem.pxToRem(32) 0;
+    text-align: center;
+    color: colors.$color-text-tertiary;
+  }
+
+  // Desktop table (lg and up)
+  &_tableWrapper {
+    display: none;
+
+    @include table-layout {
+      display: block;
+      overflow-x: auto;
+    }
+  }
+
+  &_table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: pxToRem.pxToRem(14);
+    text-align: left;
+
+    th {
+      padding: pxToRem.pxToRem(12) pxToRem.pxToRem(8);
+      border-bottom: solid pxToRem.pxToRem(1) colors.$color-border-primary;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    td {
+      padding: pxToRem.pxToRem(12) pxToRem.pxToRem(8);
+      border-bottom: solid pxToRem.pxToRem(1) colors.$color-border-primary;
+      vertical-align: top;
+    }
+
+    tbody tr {
+      animation: vulnerabilitiesRowIn 0.3s ease-out both;
+      animation-delay: calc(var(--index, 0) * 30ms);
+      transition: background-color 0.15s;
+
+      &:hover {
+        background-color: colors.$color-background-surface-tertiary;
+      }
+    }
+
+    td:nth-child(3) {
+      min-width: pxToRem.pxToRem(280);
+      max-width: pxToRem.pxToRem(420);
+    }
+  }
+
+  &_summary {
+    display: block;
+    font-weight: 600;
+  }
+
+  &_description {
+    display: -webkit-box;
+    margin-top: pxToRem.pxToRem(2);
+    overflow: hidden;
+    color: colors.$color-text-tertiary;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
+
+  // Mobile list (below lg)
+  &_list {
+    display: flex;
+    flex-direction: column;
+    gap: pxToRem.pxToRem(8);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    @include table-layout {
+      display: none;
+    }
+
+    li {
+      animation: vulnerabilitiesRowIn 0.3s ease-out both;
+      animation-delay: calc(var(--index, 0) * 30ms);
+    }
+  }
+
+  &_card {
+    border: solid pxToRem.pxToRem(1) colors.$color-border-primary;
+    border-radius: pxToRem.pxToRem(8);
+
+    summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: pxToRem.pxToRem(12);
+      padding: pxToRem.pxToRem(12);
+      list-style: none;
+      cursor: pointer;
+
+      &::-webkit-details-marker {
+        display: none;
+      }
+
+      @include focus-ring;
+    }
+
+    &[open] .vulnerabilitiesTable_chevron {
+      transform: rotate(180deg);
+    }
+  }
+
+  &_cardMain {
+    display: flex;
+    flex-direction: column;
+    gap: pxToRem.pxToRem(6);
+    min-width: 0;
+    flex: 1;
+  }
+
+  &_cardHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: pxToRem.pxToRem(8);
+  }
+
+  &_cardSummary {
+    overflow: hidden;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &_cardMeta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: pxToRem.pxToRem(8) pxToRem.pxToRem(12);
+    font-size: pxToRem.pxToRem(13);
+    color: colors.$color-text-secondary;
+  }
+
+  &_chevron {
+    flex-shrink: 0;
+    width: pxToRem.pxToRem(20);
+    height: pxToRem.pxToRem(20);
+    color: colors.$color-text-tertiary;
+    transition: transform 0.2s;
+  }
+
+  &_cardDetails {
+    display: flex;
+    flex-direction: column;
+    gap: pxToRem.pxToRem(8);
+    padding: 0 pxToRem.pxToRem(12) pxToRem.pxToRem(12);
+    font-size: pxToRem.pxToRem(14);
+    color: colors.$color-text-secondary;
+
+    p {
+      margin: 0;
+      overflow-wrap: anywhere;
+    }
+  }
+
+  &_footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: pxToRem.pxToRem(12);
+    font-size: pxToRem.pxToRem(14);
+    color: colors.$color-text-tertiary;
+
+    p {
+      margin: 0;
+    }
+
+    @include breakpoints.sm {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  &_pagination {
+    display: flex;
+    gap: pxToRem.pxToRem(8);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    button {
+      min-width: pxToRem.pxToRem(36);
+      height: pxToRem.pxToRem(36);
+      padding: 0 pxToRem.pxToRem(8);
+      border: solid pxToRem.pxToRem(1) colors.$color-border-primary;
+      border-radius: pxToRem.pxToRem(8);
+      background-color: colors.$color-background-surface-primary;
+      color: colors.$color-text-secondary;
+      font: inherit;
+      cursor: pointer;
+      transition: background-color 0.15s;
+
+      &:hover:not(:disabled) {
+        background-color: colors.$color-background-surface-tertiary;
+      }
+
+      &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+
+      &[aria-current="page"] {
+        background-color: colors.$color-background-surface-tertiary;
+        color: colors.$color-text-accent;
+        font-weight: 700;
+      }
+
+      @include focus-ring;
+    }
+  }
+
+  // Skeleton
+  &_skeleton {
+    display: block;
+    border-radius: pxToRem.pxToRem(8);
+    background-color: colors.$color-border-primary;
+    animation: vulnerabilitiesPulse 1.6s ease-in-out infinite;
+  }
+
+  &_skeletonHeading {
+    display: flex;
+    flex-direction: column;
+    gap: pxToRem.pxToRem(8);
+  }
+
+  &_skeletonTitle {
+    width: pxToRem.pxToRem(180);
+    height: pxToRem.pxToRem(28);
+  }
+
+  &_skeletonSubtitle {
+    width: pxToRem.pxToRem(260);
+    max-width: 100%;
+    height: pxToRem.pxToRem(16);
+  }
+
+  &_skeletonControl {
+    height: pxToRem.pxToRem(40);
+
+    @include table-layout {
+      width: pxToRem.pxToRem(170);
+    }
+  }
+
+  &_skeletonRows {
+    display: flex;
+    flex-direction: column;
+    gap: pxToRem.pxToRem(8);
+  }
+
+  &_skeletonRow {
+    height: pxToRem.pxToRem(96);
+
+    @include table-layout {
+      height: pxToRem.pxToRem(56);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vulnerabilitiesTable_table tbody tr,
+  .vulnerabilitiesTable_list li,
+  .vulnerabilitiesTable_skeleton {
+    animation: none;
+  }
+
+  .vulnerabilitiesTable_chevron {
+    transition: none;
+  }
+}

@@ -302,11 +302,13 @@
     display: flex;
     align-items: center;
     gap: pxToRem.pxToRem(16);
+    width: 100%;
     padding: pxToRem.pxToRem(16) pxToRem.pxToRem(24);
     border: none;
     border-left: solid pxToRem.pxToRem(3) transparent;
     outline: none;
     color: colors.$color-text-primary;
+    text-decoration: none;
     font-weight: 600;
     font-size: pxToRem.pxToRem(18);
     border-radius: pxToRem.pxToRem(8);

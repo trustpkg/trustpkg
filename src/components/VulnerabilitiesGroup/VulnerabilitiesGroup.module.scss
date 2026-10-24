@@ -1,0 +1,122 @@
+@use "../../styles/pxToRem.scss" as pxToRem;
+@use "../../styles/breakpoints.scss" as breakpoints;
+@use "../../theme/generated/colors.generated.variables.scss" as colors;
+
+.vulnerabilitiesGroup {
+  display: flex;
+  flex-direction: column;
+  gap: pxToRem.pxToRem(16);
+  width: 100%;
+
+  &_filter {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: flex;
+    flex-direction: column;
+    gap: pxToRem.pxToRem(16);
+    min-width: 0;
+  }
+
+  &_label {
+    padding: 0;
+    margin-bottom: pxToRem.pxToRem(8);
+    font-size: pxToRem.pxToRem(16);
+    color: colors.$color-text-tertiary;
+  }
+
+  &_toggleGroup {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    border: solid pxToRem.pxToRem(1) colors.$color-border-primary;
+    border-radius: pxToRem.pxToRem(8);
+    background-color: colors.$color-background-surface-primary;
+    overflow: hidden;
+
+    @include breakpoints.sm {
+      width: fit-content;
+    }
+  }
+
+  &_toggle,
+  &_input {
+    padding: pxToRem.pxToRem(10) pxToRem.pxToRem(8);
+    border: 0;
+    border-right: solid pxToRem.pxToRem(1) colors.$color-border-primary;
+    background-color: transparent;
+    color: colors.$color-text-secondary;
+    font-size: pxToRem.pxToRem(16);
+    font-family: inherit;
+
+    @include breakpoints.sm {
+      padding: pxToRem.pxToRem(12) pxToRem.pxToRem(24);
+      font-size: pxToRem.pxToRem(18);
+    }
+
+    &:focus-visible {
+      outline: solid pxToRem.pxToRem(2) colors.$color-border-focus;
+      outline-offset: pxToRem.pxToRem(-2);
+    }
+  }
+
+  &_toggle {
+    flex: 1 1 0;
+    min-width: 0;
+    cursor: pointer;
+
+    @include breakpoints.sm {
+      flex: 0 0 auto;
+      min-width: pxToRem.pxToRem(64);
+    }
+
+    &[data-state="on"] {
+      background-color: colors.$color-background-surface-tertiary;
+      color: colors.$color-text-accent;
+    }
+  }
+
+  &_input {
+    flex: 1.5 1 0;
+    width: 0;
+    min-width: 0;
+
+    border-right: 0;
+    text-align: center;
+
+    @include breakpoints.sm {
+      flex: 0 0 auto;
+      width: pxToRem.pxToRem(88);
+    }
+
+    &::placeholder {
+      color: colors.$color-text-tertiary;
+    }
+
+    &[data-active="true"] {
+      background-color: colors.$color-background-surface-tertiary;
+      color: colors.$color-text-accent;
+    }
+
+    &[aria-invalid="true"] {
+      color: colors.$color-text-error;
+    }
+  }
+
+  &_content {
+    display: flex;
+    flex-direction: column;
+    gap: pxToRem.pxToRem(16);
+    transition: opacity 0.2s;
+
+    &[data-pending="true"] {
+      opacity: 0.5;
+    }
+  }
+
+  &_charts {
+    display: flex;
+    flex-direction: column;
+    gap: pxToRem.pxToRem(16);
+  }
+}

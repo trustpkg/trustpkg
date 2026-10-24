@@ -2,7 +2,7 @@ import { colors } from "@/theme/generated/colors.generated";
 import { Base } from "../Base/Base";
 import { pxToRem } from "@/utils/pxToRem";
 
-type AvailableEcosystem = "npm" | "go" | "PyPi" | "Docker";
+export type AvailableEcosystem = "npm" | "go" | "PyPi" | "Docker";
 
 interface EcosystemBadgeProps {
   ecosystemName: AvailableEcosystem;

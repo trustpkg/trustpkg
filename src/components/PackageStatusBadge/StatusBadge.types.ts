@@ -1,21 +1,23 @@
 import { ValueOf } from "@/types/valueOf";
+import type { ReactNode } from "react";
 
 export const PACKAGE_STATUS_BADGE_STATUS = {
   NO_VULNERABILITIES: "no-vulnerabilities",
   VULNERABLE: "vulnerable",
   UNKNOWN: "unknown",
-  RECENTLY_VULNERABLE: "recently-vulnerable",
+  VULNERABILITY_WITH_FIXES: "vulnerability-with-fixes",
 } as const;
 
 export type PackageStatusBadgeStatus = ValueOf<
   typeof PACKAGE_STATUS_BADGE_STATUS
 >;
-interface PackageStatusBadgeTooltip {
-  title: string;
-  description?: string;
+export interface PackageStatusBadgeTooltip {
+  title: ReactNode;
+  description?: ReactNode;
 }
 
 export interface PackageStatusBadgeProps {
   status: ValueOf<typeof PACKAGE_STATUS_BADGE_STATUS>;
+  severity?: string;
   tooltip?: PackageStatusBadgeTooltip;
 }

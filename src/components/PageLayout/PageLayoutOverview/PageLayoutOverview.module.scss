@@ -157,11 +157,27 @@
       border-color: colors.$color-border-primary;
     }
 
+    &__nonePadding {
+      padding: pxToRem.pxToRem(0);
+
+      @include breakpoints.lg {
+        padding: pxToRem.pxToRem(0);
+      }
+    }
+
     &__smallPadding {
       padding: pxToRem.pxToRem(16);
 
       @include breakpoints.lg {
         padding: pxToRem.pxToRem(32);
+      }
+    }
+
+    &__fullRight {
+      width: calc(100% + pxToRem.pxToRem(32));
+
+      @include breakpoints.lg {
+        width: 100%;
       }
     }
   }

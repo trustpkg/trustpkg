@@ -20,6 +20,7 @@
     @include breakpoints.md {
       max-width: pxToRem.pxToRem(1200);
       height: pxToRem.pxToRem(800);
+      margin-top: pxToRem.pxToRem(40);
     }
   }
 }

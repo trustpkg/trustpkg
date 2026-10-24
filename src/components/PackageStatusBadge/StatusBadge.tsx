@@ -9,9 +9,10 @@ import { ValueOf } from "@/types/valueOf";
 import { Tooltip } from "@ark-ui/react";
 import InfoIcon from "@/assets/info.svg";
 import styles from "./StatusBadge.module.scss";
+import Hidden from "../Hidden";
 
 export function PackageStatusBadge(props: PackageStatusBadgeProps) {
-  const { status, tooltip } = props;
+  const { status, severity, tooltip } = props;
 
   const colorByStatus: Record<
     ValueOf<typeof PACKAGE_STATUS_BADGE_STATUS>,
@@ -20,18 +21,29 @@ export function PackageStatusBadge(props: PackageStatusBadgeProps) {
     [PACKAGE_STATUS_BADGE_STATUS.NO_VULNERABILITIES]: colors.text.success,
     [PACKAGE_STATUS_BADGE_STATUS.VULNERABLE]: colors.text.error,
     [PACKAGE_STATUS_BADGE_STATUS.UNKNOWN]: colors.text.warning,
-    [PACKAGE_STATUS_BADGE_STATUS.RECENTLY_VULNERABLE]: colors.text.warning,
+    [PACKAGE_STATUS_BADGE_STATUS.VULNERABILITY_WITH_FIXES]: colors.text.warning,
   };
 
   const textByStatus: Record<
     ValueOf<typeof PACKAGE_STATUS_BADGE_STATUS>,
     string
   > = {
-    [PACKAGE_STATUS_BADGE_STATUS.NO_VULNERABILITIES]: "No Vulnerabilities",
+    [PACKAGE_STATUS_BADGE_STATUS.NO_VULNERABILITIES]: "Clear",
     [PACKAGE_STATUS_BADGE_STATUS.VULNERABLE]: "Vulnerable",
     [PACKAGE_STATUS_BADGE_STATUS.UNKNOWN]: "Unknown",
-    [PACKAGE_STATUS_BADGE_STATUS.RECENTLY_VULNERABLE]: "Recently Vulnerable",
+    [PACKAGE_STATUS_BADGE_STATUS.VULNERABILITY_WITH_FIXES]: "Fix Available",
   };
+
+  const normalizedSeverity = severity?.trim().toLowerCase();
+  const colorBySeverity: Record<string, string> = {
+    critical: colors.text.error,
+    high: colors.text.error,
+    medium: colors.text.warning,
+    moderate: colors.text.warning,
+    low: colors.text.info,
+  };
+  const statusColor =
+    colorBySeverity[normalizedSeverity ?? ""] ?? colorByStatus[status];
 
   return (
     <div className={styles.statusBadge}>
@@ -48,10 +60,10 @@ export function PackageStatusBadge(props: PackageStatusBadgeProps) {
           gap={pxToRem(4)}
           width="fit-content"
           padding={`0 ${pxToRem(16)}`}
-          color={colorByStatus[status]}
+          color={statusColor}
           borderRadius={pxToRem(8)}
-          backgroundColor={`${colorByStatus[status]}1A`}
-          border={`${pxToRem(2)} solid ${colorByStatus[status]}`}
+          backgroundColor={`${statusColor}1A`}
+          border={`${pxToRem(2)} solid ${statusColor}`}
           fontSize={pxToRem(14)}
           textTransform="uppercase"
           fontWeight={700}
@@ -65,14 +77,16 @@ export function PackageStatusBadge(props: PackageStatusBadgeProps) {
       </Base>
 
       {tooltip && (
-        <Tooltip.Root openDelay={100} closeDelay={100}>
+        <Tooltip.Root
+          openDelay={100}
+          closeDelay={100}
+          lazyMount
+          unmountOnExit
+        >
           <Tooltip.Trigger asChild>
-            <button
-              type="button"
-              className={styles.tooltip}
-              aria-label={`show details`}
-            >
-              <InfoIcon className={styles.tooltip_icon} />
+            <button type="button" className={styles.tooltip}>
+              <Hidden>Show details</Hidden>
+              <InfoIcon className={styles.tooltip_icon} aria-hidden="true" />
             </button>
           </Tooltip.Trigger>
           <Tooltip.Positioner className={styles.tooltip_positioner}>
@@ -81,7 +95,7 @@ export function PackageStatusBadge(props: PackageStatusBadgeProps) {
                 {tooltip.title}
               </Base>
               {tooltip.description && (
-                <Base as="p" fontSize={pxToRem(12)}>
+                <Base as="div" fontSize={pxToRem(12)}>
                   {tooltip.description}
                 </Base>
               )}

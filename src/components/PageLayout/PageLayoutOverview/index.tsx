@@ -1,10 +1,10 @@
+import { PageLayoutOverviewCommonSection } from "./components/CommonSection/PageLayoutOverviewCommonSection";
+import { PageLayoutOverviewHero } from "./components/Hero/PageLayoutOverviewHero";
 import {
-  PageLayoutOverviewCommonSection,
-  PageLayoutOverviewHero,
   PageLayoutOverviewMainColumn,
-  PageLayoutOverviewRoot,
   PageLayoutOverviewSideColumn,
-} from "./PageLayoutOverview";
+} from "./components/Columns/PageLayoutOverviewColumns";
+import { PageLayoutOverviewRoot } from "./PageLayoutOverview";
 
 interface PageLayoutOverviewComponent {
   Hero: typeof PageLayoutOverviewHero;

@@ -3,7 +3,7 @@ import { debounce } from "@/utils/debounce";
 import React from "react";
 import { useSearchMutation } from "../api/useSearchMutation";
 
-const DEBOUNCE_DELAY = 400;
+const DEBOUNCE_DELAY = 250;
 const LOADING_HIDE_DELAY = 100;
 
 export function useSearch() {

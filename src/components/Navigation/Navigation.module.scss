@@ -2,6 +2,18 @@
 @use "../../styles/breakpoints.scss" as breakpoints;
 @use "../../theme/generated/colors.generated.variables.scss" as colors;
 
+@keyframes navigationLogoSkeletonPulse {
+
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+}
+
 .navigation {
   display: flex;
   justify-content: space-between;
@@ -36,6 +48,15 @@
     &[data-theme="light"] {
       filter: invert(1);
     }
+  }
+
+  &_logoSkeleton {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: colors.$color-border-primary;
+    border-radius: 50%;
+    animation: navigationLogoSkeletonPulse 1.6s ease-in-out infinite;
   }
 
   &_actions {

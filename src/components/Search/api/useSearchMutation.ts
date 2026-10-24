@@ -1,8 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { components, operations } from "@/api/api.types";
+import type {
+  PackagesApiSearchResponse,
+  SearchPackagesData,
+} from "@/api/generated";
 
-type SearchParams = operations["searchPackages"]["parameters"]["query"];
-type SearchResponse = components["schemas"]["packagesApi.SearchResponse"];
+type SearchParams = SearchPackagesData["query"];
+type SearchResponse = PackagesApiSearchResponse;
 
 export const searchQueryKey = (params: SearchParams) => ["search", params?.query, params?.limit]
 

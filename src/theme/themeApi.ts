@@ -20,9 +20,8 @@ interface SetThemeErrorResponse {
 export async function setTheme(
   theme: string,
 ): Promise<SetThemeResponse | SetThemeErrorResponse> {
-  return apiClient.post<
-    SetThemeRequestBody,
-    SetThemeErrorResponse,
-    SetThemeResponse
-  >("/api/theme/set", { theme });
+  return apiClient.post<SetThemeRequestBody, SetThemeResponse, SetThemeErrorResponse>(
+    "/api/theme/set",
+    { theme },
+  );
 }

@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   experimental: {
     useTypeScriptCli: true,
   },
+  output: process.env.IS_PRODUCTION_BUILD ? 'standalone' : undefined,
   turbopack: {
     rules: {
       "*.svg": {

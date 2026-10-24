@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   experimental: {
     useTypeScriptCli: true,
   },
-  output: process.env.IS_PRODUCTION_BUILD ? 'standalone' : undefined,
+  output: process.env.IS_PRODUCTION_BUILD === "true" ? 'standalone' : undefined,
   images: {
     minimumCacheTTL: 60 * 60 * 24,
     qualities: [25, 50, 75, 85, 100]

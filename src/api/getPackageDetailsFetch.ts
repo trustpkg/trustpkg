@@ -31,7 +31,13 @@ export async function getPackageDetailsFetch(params: GetPackageDetailsFetchParam
 
     try {
         const encodedName = name.split('/').map(encodeURIComponent).join('/')
-        const apiClient = new ApiClient(process.env.NEXT_PUBLIC_BE_URL ?? '')
+        const backendUrl = process.env.BE_URL
+
+        if (!backendUrl) {
+            throw new Error("BE_URL is not defined.")
+        }
+
+        const apiClient = new ApiClient(backendUrl)
 
         return await apiClient.post<PackageDetailsRequest, PackageDetailsResponse, PackageDetailsError>(
             `/api/packages/${encodedName}`,

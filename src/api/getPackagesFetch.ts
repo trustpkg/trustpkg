@@ -67,7 +67,13 @@ export async function getPackagesFetch(params: GetPackagesFetchParams): Promise<
 
         const queryString = searchParams.toString()
         const packagesUrl = queryString ? `/api/packages/list?${queryString}` : '/api/packages/list'
-        const apiClient = new ApiClient(process.env.NEXT_PUBLIC_BE_URL ?? '')
+        const backendUrl = process.env.BE_URL
+
+        if (!backendUrl) {
+            throw new Error("BE_URL is not defined.")
+        }
+
+        const apiClient = new ApiClient(backendUrl)
 
         const response = await apiClient.get<PackagesResponse, PackagesError>(packagesUrl,
             {

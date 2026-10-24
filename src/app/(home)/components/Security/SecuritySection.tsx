@@ -44,7 +44,7 @@ export function SecuritySection() {
       </SecurityQuestion>
 
       <Button.AsNextLink
-        href="/understanding-package-security"
+        href="/blog/understanding-package-security"
         width="100%"
         variant="outlined"
         EndIconSlot={<ArrowRightIcon />}

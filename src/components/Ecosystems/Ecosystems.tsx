@@ -14,7 +14,7 @@ import InfoIcon from "@/assets/info.svg";
 import { useResponsiveProp } from "@/responsive/hooks/useResponsive";
 import { colors } from "@/theme/generated/colors.generated";
 
-interface EcosystemsRootProps extends React.PropsWithChildren {}
+interface EcosystemsRootProps extends React.PropsWithChildren { }
 
 export function EcosystemsRoot(props: EcosystemsRootProps) {
   const { children } = props;
@@ -58,7 +58,7 @@ function BaseItemComponent(props: BaseItemComponentProps) {
       {!isAvailableAlready && (
         <Base
           as="p"
-          fontSize={pxToRem(12)}
+          fontSize={pxToRem(14)}
           position={"absolute"}
           bottom={pxToRem(8)}
         >
@@ -79,7 +79,7 @@ function BaseItemComponent(props: BaseItemComponentProps) {
           </Tooltip.Trigger>
           <Tooltip.Positioner className={styles.ecosystems_tooltipPositioner}>
             <Tooltip.Content className={styles.ecosystems_tooltipContent}>
-              <Base as="p" fontSize={pxToRem(12)}>
+              <Base as="p" fontSize={pxToRem(14)}>
                 {`TrustPkg is an independent project and is not affiliated with or endorsed by the owners of ${packageName}. ${packageName} and its logo are trademarks of their respective owners`}
               </Base>
             </Tooltip.Content>

@@ -95,7 +95,7 @@ export function PackageStatusBadge(props: PackageStatusBadgeProps) {
                 {tooltip.title}
               </Base>
               {tooltip.description && (
-                <Base as="div" fontSize={pxToRem(12)}>
+                <Base as="div" fontSize={pxToRem(14)}>
                   {tooltip.description}
                 </Base>
               )}

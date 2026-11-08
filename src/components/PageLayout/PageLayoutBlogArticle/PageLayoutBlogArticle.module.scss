@@ -36,7 +36,7 @@
     align-items: center;
     gap: pxToRem.pxToRem(10);
     color: colors.$color-text-tertiary;
-    font-size: pxToRem.pxToRem(12);
+    font-size: pxToRem.pxToRem(14);
 
     a {
       color: inherit;
@@ -69,13 +69,13 @@
     align-items: center;
     gap: pxToRem.pxToRem(10);
     color: colors.$color-text-tertiary;
-    font-size: pxToRem.pxToRem(12);
+    font-size: pxToRem.pxToRem(14);
   }
 
   &_category,
   &_relatedCategory {
     color: colors.$color-text-accent;
-    font-size: pxToRem.pxToRem(10);
+    font-size: pxToRem.pxToRem(14);
     font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -97,7 +97,7 @@
   &_excerpt {
     margin: 0;
     color: colors.$color-text-secondary;
-    font-size: pxToRem.pxToRem(16);
+    font-size: pxToRem.pxToRem(18);
     line-height: 1.55;
   }
 
@@ -106,15 +106,15 @@
     align-items: center;
     gap: pxToRem.pxToRem(10);
     margin-top: pxToRem.pxToRem(2);
-    font-size: pxToRem.pxToRem(12);
+    font-size: pxToRem.pxToRem(14);
 
-    > span {
+    >span {
       display: flex;
       flex-direction: column;
       gap: pxToRem.pxToRem(2);
     }
 
-    > span > span {
+    >span>span {
       color: colors.$color-text-tertiary;
     }
   }
@@ -153,7 +153,7 @@
       display: block;
       padding: pxToRem.pxToRem(5) 0;
       color: colors.$color-text-secondary;
-      font-size: pxToRem.pxToRem(12);
+      font-size: pxToRem.pxToRem(14);
       line-height: 1.35;
       text-decoration: none;
 
@@ -212,7 +212,7 @@
     p {
       margin: 0;
       color: colors.$color-text-secondary;
-      font-size: pxToRem.pxToRem(14);
+      font-size: pxToRem.pxToRem(18);
       line-height: 1.75;
     }
 
@@ -224,7 +224,7 @@
       margin: 0;
       padding-left: pxToRem.pxToRem(22);
       color: colors.$color-text-secondary;
-      font-size: pxToRem.pxToRem(14);
+      font-size: pxToRem.pxToRem(16);
       line-height: 1.7;
     }
   }
@@ -261,14 +261,14 @@
     padding: 0;
     list-style: none;
 
-    li > span {
+    li>span {
       display: flex;
       justify-content: space-between;
-      gap: pxToRem.pxToRem(10);
+      gap: pxToRem.pxToRem(14);
       padding: pxToRem.pxToRem(8);
       border-radius: pxToRem.pxToRem(5);
       color: colors.$color-text-secondary;
-      font-size: pxToRem.pxToRem(12);
+      font-size: pxToRem.pxToRem(14);
     }
   }
 
@@ -284,8 +284,9 @@
   }
 
   &_relatedArticle {
-    > a,
-    > span {
+
+    >a,
+    >span {
       display: grid;
       grid-template-columns: pxToRem.pxToRem(72) minmax(0, 1fr);
       gap: pxToRem.pxToRem(10);
@@ -293,7 +294,7 @@
       text-decoration: none;
     }
 
-    > a:hover strong {
+    >a:hover strong {
       color: colors.$color-text-accent;
     }
   }
@@ -312,14 +313,14 @@
     min-width: 0;
 
     strong {
-      font-size: pxToRem.pxToRem(12);
+      font-size: pxToRem.pxToRem(14);
       line-height: 1.35;
     }
   }
 
   &_relatedMeta {
     color: colors.$color-text-tertiary;
-    font-size: pxToRem.pxToRem(10);
+    font-size: pxToRem.pxToRem(14);
   }
 
   &_callout {

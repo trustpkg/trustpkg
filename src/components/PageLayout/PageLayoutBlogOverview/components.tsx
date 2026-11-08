@@ -2,8 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import type React from "react";
 import styles from "./PageLayoutBlogOverview.module.scss";
+import { Base } from "@/components/Base/Base";
+import { pxToRem } from "@/utils/pxToRem";
 
-interface ChildrenProps extends React.PropsWithChildren {}
+interface ChildrenProps extends React.PropsWithChildren { }
 
 interface BlogOverviewHeaderProps extends ChildrenProps {
   title: string;
@@ -54,10 +56,10 @@ export function PageLayoutBlogOverviewHeader(props: BlogOverviewHeaderProps) {
 
   return (
     <header className={styles.blogOverview_header}>
-      <div>
+      <Base as="div" display="flex" flexDirection="column" gap={pxToRem(8)}>
         <h1 className={styles.blogOverview_title}>{title}</h1>
         <p className={styles.blogOverview_description}>{description}</p>
-      </div>
+      </Base>
       {children}
     </header>
   );

@@ -48,8 +48,25 @@
   &_footerInnerContainer {
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
     gap: pxToRem.pxToRem(8);
     width: 100%;
     max-width: pxToRem.pxToRem(1900);
+  }
+
+  &_footerLink {
+    color: colors.$color-text-accent;
+    font-size: pxToRem.pxToRem(12);
+
+    &:hover {
+      text-decoration: underline;
+      text-underline-offset: pxToRem.pxToRem(3);
+    }
+
+    &:focus-visible {
+      outline: pxToRem.pxToRem(2) solid colors.$color-text-accent;
+      outline-offset: pxToRem.pxToRem(3);
+    }
   }
 }

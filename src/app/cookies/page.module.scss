@@ -1,0 +1,53 @@
+@use "../../styles/pxToRem.scss" as pxToRem;
+@use "../../theme/generated/colors.generated.variables.scss" as colors;
+
+.cookiePolicy {
+  display: flex;
+  flex-direction: column;
+  gap: pxToRem.pxToRem(32);
+  max-width: pxToRem.pxToRem(900);
+  margin: 0 auto;
+  color: colors.$color-text-primary;
+  line-height: 1.7;
+
+  &_header {
+    display: flex;
+    flex-direction: column;
+    gap: pxToRem.pxToRem(8);
+
+    p {
+      color: colors.$color-text-secondary;
+      font-size: pxToRem.pxToRem(14);
+    }
+  }
+
+  h1,
+  h2 {
+    line-height: 1.25;
+  }
+
+  h1 {
+    font-size: clamp(pxToRem.pxToRem(30), 5vw, pxToRem.pxToRem(44));
+  }
+
+  h2 {
+    margin-bottom: pxToRem.pxToRem(12);
+    font-size: pxToRem.pxToRem(22);
+  }
+
+  p,
+  li {
+    color: colors.$color-text-secondary;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: pxToRem.pxToRem(12);
+    padding-left: pxToRem.pxToRem(24);
+  }
+
+  strong {
+    color: colors.$color-text-primary;
+  }
+}

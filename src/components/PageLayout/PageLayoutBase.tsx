@@ -1,6 +1,7 @@
 import { BasePaddingProps } from "@/responsive/responsiveStyleProps.types";
 import { pxToRem } from "@/utils/pxToRem";
 import React from "react";
+import Link from "next/link";
 import { Base } from "../Base/Base";
 import styles from "./PageLayout.module.scss";
 import { colors } from "@/theme/generated/colors.generated";
@@ -54,6 +55,9 @@ export function PageLayoutRootComponent(props: PageLayoutComponentProps) {
             <Base as="p" fontSize={pxToRem(12)} opacity={0.9}>
               © 2026 trustpkg.dev. All rights reserved.
             </Base>
+            <Link href="/cookies" className={styles.pageLayout_footerLink}>
+              Cookie Policy
+            </Link>
           </footer>
         </div>
       </div>

@@ -1,0 +1,57 @@
+@use "../../styles/pxToRem.scss" as pxToRem;
+@use "../../styles/breakpoints.scss" as breakpoints;
+@use "../../theme/generated/colors.generated.variables.scss" as colors;
+
+.cookieBanner {
+  position: fixed;
+  z-index: 1000;
+  right: pxToRem.pxToRem(16);
+  bottom: pxToRem.pxToRem(16);
+  left: pxToRem.pxToRem(16);
+  display: flex;
+  justify-content: center;
+  padding: pxToRem.pxToRem(16);
+  background: colors.$color-background-surface-primary;
+  border: pxToRem.pxToRem(1) solid colors.$color-border-primary;
+  border-radius: pxToRem.pxToRem(12);
+  box-shadow: 0 pxToRem.pxToRem(12) pxToRem.pxToRem(40) rgb(0 0 0 / 22%);
+
+  @include breakpoints.md {
+    right: pxToRem.pxToRem(24);
+    bottom: pxToRem.pxToRem(24);
+    left: auto;
+    width: min(100% - pxToRem.pxToRem(48), pxToRem.pxToRem(760));
+    padding: pxToRem.pxToRem(20);
+  }
+
+  &_content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: pxToRem.pxToRem(16);
+    width: 100%;
+    color: colors.$color-text-primary;
+    line-height: 1.5;
+
+    @include breakpoints.md {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  &_link {
+    color: colors.$color-text-accent;
+    text-decoration: underline;
+    text-underline-offset: pxToRem.pxToRem(3);
+
+    &:focus-visible {
+      outline: pxToRem.pxToRem(2) solid colors.$color-text-accent;
+      outline-offset: pxToRem.pxToRem(3);
+    }
+  }
+
+  &_button {
+    flex-shrink: 0;
+  }
+}

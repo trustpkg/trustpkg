@@ -20,7 +20,7 @@ const omittedPathChunk: string[] = [
 ]
 
 const home: PathChunk = {
-    label: 'home',
+    label: 'Home',
     isLabelVisible: false,
     isActive: true,
     href: '/',

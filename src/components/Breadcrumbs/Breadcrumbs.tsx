@@ -4,7 +4,6 @@ import styles from './Breadcrumbs.module.scss'
 import Link from "next/link"
 import { Base } from "../Base/Base"
 import { pxToRem } from "@/utils/pxToRem"
-import clsx from "clsx"
 import { colors } from "@/theme/generated/colors.generated"
 
 
@@ -18,7 +17,7 @@ export function BreadcrumbsRoot(props: BreadcrumbsRootProps) {
     const resolvedPathname = resolvePathName(pathName)
 
     return (
-        <nav className={styles.breadcrumbs}>
+        <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
             <ul className={styles.breadcrumbs_list}>
                 {resolvedPathname
                     .map((chunk, index, array) => {
@@ -37,7 +36,7 @@ export function BreadcrumbsRoot(props: BreadcrumbsRootProps) {
                             return (
                                 <React.Fragment key={label}>
                                     <li className={styles.breadcrumbs_item}>
-                                        <Link className={styles.breadcrumbs_link} href={href}>
+                                        <Link className={styles.breadcrumbs_link} href={href} aria-label={isLabelVisible ? undefined : label}>
                                             {Icon && (
                                                 <Base {...iconProps} fill={colors.text.primary}>
                                                     <Icon />
@@ -56,7 +55,7 @@ export function BreadcrumbsRoot(props: BreadcrumbsRootProps) {
                                     </li>
 
                                     {!isLast && (
-                                        <li className={styles.breadcrumbs_dotSeparator} role='none' />
+                                        <li className={styles.breadcrumbs_dotSeparator} aria-hidden="true" />
                                     )}
                                 </React.Fragment>
                             )
@@ -83,7 +82,7 @@ export function BreadcrumbsRoot(props: BreadcrumbsRootProps) {
                                 </li>
 
                                 {!isLast && (
-                                    <li className={styles.breadcrumbs_dotSeparator} role='none' />
+                                    <li className={styles.breadcrumbs_dotSeparator} aria-hidden="true" />
                                 )}
                             </React.Fragment>
                         )

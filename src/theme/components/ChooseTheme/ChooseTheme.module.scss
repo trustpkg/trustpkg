@@ -13,14 +13,6 @@
   border-radius: pxToRem.pxToRem(8);
   color: colors.$color-text-primary;
 
-  &_indicator {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-  }
-
   &_icon {
     width: pxToRem.pxToRem(18);
     height: pxToRem.pxToRem(18);

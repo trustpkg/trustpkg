@@ -34,14 +34,13 @@ export function ChooseTheme() {
         onSelect={(value) => context.setTheme(value.value as CurrentTheme)}
       >
         <Menu.Trigger className={styles.chooseThemeTrigger} asChild>
-          <Menu.Indicator className={styles.chooseThemeTrigger_indicator}>
-            <IconButton.AsButton
-              label={`Change theme`}
-              aria-description={`Current theme: ${context.theme}`}
-            >
-              <CurrentThemeIcon className={styles.chooseThemeTrigger_icon} />
-            </IconButton.AsButton>
-          </Menu.Indicator>
+          <IconButton.AsButton
+            type="button"
+            label="Change theme"
+            aria-description={`Current theme: ${context.theme}`}
+          >
+            <CurrentThemeIcon className={styles.chooseThemeTrigger_icon} />
+          </IconButton.AsButton>
         </Menu.Trigger>
         <Menu.Positioner>
           <Menu.Content className={styles.chooseThemeContent}>

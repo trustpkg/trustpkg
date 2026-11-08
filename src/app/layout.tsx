@@ -1,4 +1,5 @@
 import { getTheme } from "@/api/getTheme";
+import { CookieBanner } from "@/components/CookieBanner";
 import { QueryClientProvider } from "@/providers/QueryClientProvider";
 import { ResponsiveProvider } from "@/responsive/Responsive.Provider";
 import { parseUABreakpoint } from "@/responsive/utils/parseUABreakpoint";
@@ -41,6 +42,7 @@ export default async function RootLayout({
           <ThemeProvider theme={theme}>
             <ResponsiveProvider ssrBreakpoint={ssrBreakpoint}>
               <main>{children}</main>
+              <CookieBanner />
             </ResponsiveProvider>
           </ThemeProvider>
         </QueryClientProvider>

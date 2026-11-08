@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../Button";
 import styles from "./CookieBanner.module.scss";
@@ -67,6 +68,14 @@ export function CookieBanner() {
 
   return (
     <aside className={styles.cookieBanner} aria-label="Cookie notice">
+      <Image
+        src="/cookie-dream.png"
+        alt=""
+        className={styles.cookieBanner_image}
+        width={1536}
+        height={1024}
+      />
+
       <div className={styles.cookieBanner_content}>
         <p>
           TrustPkg uses essential browser storage to remember your theme and

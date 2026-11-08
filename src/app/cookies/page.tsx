@@ -1,5 +1,6 @@
 import PageLayout from "@/components/PageLayout";
 import styles from "./page.module.scss";
+import Image from "next/image";
 
 export const metadata = {
   title: "Cookie Policy | trustpkg.dev",
@@ -10,7 +11,14 @@ export const metadata = {
 export default function CookiePolicyPage() {
   return (
     <PageLayout>
-      <article className={styles.cookiePolicy}>
+      <div className={styles.cookiePolicy}>
+        <Image
+          src="/cookies-page.png"
+          alt=""
+          className={styles.cookiePolicy_image}
+          width={1536}
+          height={1024}
+        />
         <header className={styles.cookiePolicy_header}>
           <h1>Cookie Policy</h1>
           <p>Last updated: November 8, 2026</p>
@@ -55,7 +63,7 @@ export default function CookiePolicyPage() {
             packages, and this notice preference.
           </p>
         </section>
-      </article>
+      </div>
     </PageLayout>
   );
 }

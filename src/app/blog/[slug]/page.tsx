@@ -82,14 +82,16 @@ export default async function BlogArticlePage(props: BlogArticlePageProps) {
               title={section.title}
             >
               {section.paragraphs.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
+                <PageLayout.BlogArticle.Paragraph key={paragraph}>
+                  {paragraph}
+                </PageLayout.BlogArticle.Paragraph>
               ))}
               {section.points && (
-                <ul>
+                <PageLayout.BlogArticle.List>
                   {section.points.map((point) => (
                     <li key={point}>{point}</li>
                   ))}
-                </ul>
+                </PageLayout.BlogArticle.List>
               )}
               {section.callout && (
                 <PageLayout.BlogArticle.Callout>

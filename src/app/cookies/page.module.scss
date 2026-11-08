@@ -10,6 +10,14 @@
   color: colors.$color-text-primary;
   line-height: 1.7;
 
+  &_image {
+    width: 100%;
+    max-width: pxToRem.pxToRem(800);
+    height: auto;
+    object-fit: cover;
+    margin: 0 auto;
+  }
+
   &_header {
     display: flex;
     flex-direction: column;

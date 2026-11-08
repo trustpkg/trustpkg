@@ -34,6 +34,8 @@ interface SectionProps extends ChildrenProps {
   title: string;
 }
 
+interface SectionContentProps extends ChildrenProps {}
+
 interface CategoriesProps {
   categories: { name: string; count: number }[];
   activeCategory?: string;
@@ -54,11 +56,19 @@ export function PageLayoutBlogArticleBreadcrumbs(props: BreadcrumbsProps) {
 
   return (
     <nav className={styles.blogArticle_breadcrumbs} aria-label="Breadcrumb">
-      <Link href="/">Home</Link>
+      <Link href="/" className={styles.blogArticle_breadcrumbLink}>
+        Home
+      </Link>
       {items.map(({ label, href }) => (
         <span key={label} className={styles.blogArticle_breadcrumbItem}>
           <span aria-hidden="true">›</span>
-          {href ? <Link href={href}>{label}</Link> : <span>{label}</span>}
+          {href ? (
+            <Link href={href} className={styles.blogArticle_breadcrumbLink}>
+              {label}
+            </Link>
+          ) : (
+            <span>{label}</span>
+          )}
         </span>
       ))}
     </nav>
@@ -86,9 +96,9 @@ export function PageLayoutBlogArticleHeader(props: ArticleHeaderProps) {
           height={40}
           className={styles.blogArticle_authorAvatar}
         />
-        <span>
+        <span className={styles.blogArticle_authorDetails}>
           <strong>{author}</strong>
-          <span>{authorTitle}</span>
+          <span className={styles.blogArticle_authorTitle}>{authorTitle}</span>
         </span>
       </div>
     </header>
@@ -101,15 +111,20 @@ export function PageLayoutBlogArticleTableOfContents(
   const { items, activeItem } = props;
 
   return (
-    <nav className={styles.blogArticle_tableOfContents} aria-label="On this page">
-      <h2>On this page</h2>
-      <ol>
+    <nav
+      className={styles.blogArticle_tableOfContents}
+      aria-label="On this page"
+    >
+      <h2 className={styles.blogArticle_tocTitle}>On this page</h2>
+      <ol className={styles.blogArticle_tocList}>
         {items.map(({ id, title }) => (
           <li key={id}>
             <a
               href={`#${id}`}
               className={
-                id === activeItem ? styles.blogArticle_tocActive : undefined
+                id === activeItem
+                  ? `${styles.blogArticle_tocLink} ${styles.blogArticle_tocActive}`
+                  : styles.blogArticle_tocLink
               }
             >
               {title}
@@ -130,7 +145,14 @@ export function PageLayoutBlogArticleCover(props: CoverProps) {
 
   return (
     <figure className={styles.blogArticle_cover}>
-      <Image src={src} alt={alt} width={1200} height={520} priority />
+      <Image
+        src={src}
+        alt={alt}
+        width={1200}
+        height={520}
+        priority
+        className={styles.blogArticle_coverImage}
+      />
     </figure>
   );
 }
@@ -140,10 +162,20 @@ export function PageLayoutBlogArticleSection(props: SectionProps) {
 
   return (
     <section className={styles.blogArticle_section} id={id}>
-      <h2>{title}</h2>
+      <h2 className={styles.blogArticle_sectionTitle}>{title}</h2>
       {children}
     </section>
   );
+}
+
+export function PageLayoutBlogArticleParagraph(props: SectionContentProps) {
+  return (
+    <p className={styles.blogArticle_sectionParagraph}>{props.children}</p>
+  );
+}
+
+export function PageLayoutBlogArticleList(props: SectionContentProps) {
+  return <ul className={styles.blogArticle_sectionList}>{props.children}</ul>;
 }
 
 export function PageLayoutBlogArticleSideColumn(props: ChildrenProps) {
@@ -159,15 +191,15 @@ export function PageLayoutBlogArticleCategories(props: CategoriesProps) {
 
   return (
     <section className={styles.blogArticle_panel}>
-      <h2>Categories</h2>
+      <h2 className={styles.blogArticle_panelTitle}>Categories</h2>
       <ul className={styles.blogArticle_categoryList}>
         {categories.map(({ name, count }) => (
           <li key={name}>
             <span
               className={
                 name === activeCategory
-                  ? styles.blogArticle_categoryActive
-                  : undefined
+                  ? `${styles.blogArticle_categoryItem} ${styles.blogArticle_categoryActive}`
+                  : styles.blogArticle_categoryItem
               }
             >
               <span>{name}</span>
@@ -183,7 +215,7 @@ export function PageLayoutBlogArticleCategories(props: CategoriesProps) {
 export function PageLayoutBlogArticleRelatedArticles(props: ChildrenProps) {
   return (
     <section className={styles.blogArticle_panel}>
-      <h2>Related articles</h2>
+      <h2 className={styles.blogArticle_panelTitle}>Related articles</h2>
       <div className={styles.blogArticle_relatedList}>{props.children}</div>
     </section>
   );
@@ -192,7 +224,8 @@ export function PageLayoutBlogArticleRelatedArticles(props: ChildrenProps) {
 export function PageLayoutBlogArticleRelatedArticle(
   props: RelatedArticleProps,
 ) {
-  const { href, imageSrc, imageAlt, category, title, date, readingTime } = props;
+  const { href, imageSrc, imageAlt, category, title, date, readingTime } =
+    props;
   const content = (
     <>
       <Image
@@ -204,7 +237,7 @@ export function PageLayoutBlogArticleRelatedArticle(
       />
       <span className={styles.blogArticle_relatedContent}>
         <span className={styles.blogArticle_relatedCategory}>{category}</span>
-        <strong>{title}</strong>
+        <strong className={styles.blogArticle_relatedTitle}>{title}</strong>
         <span className={styles.blogArticle_relatedMeta}>
           {date} · {readingTime}
         </span>
@@ -214,7 +247,13 @@ export function PageLayoutBlogArticleRelatedArticle(
 
   return (
     <div className={styles.blogArticle_relatedArticle}>
-      {href ? <Link href={href}>{content}</Link> : content}
+      {href ? (
+        <Link href={href} className={styles.blogArticle_relatedArticleLink}>
+          {content}
+        </Link>
+      ) : (
+        <div className={styles.blogArticle_relatedArticleLink}>{content}</div>
+      )}
     </div>
   );
 }

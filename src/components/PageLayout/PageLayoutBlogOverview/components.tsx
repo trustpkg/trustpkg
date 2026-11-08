@@ -5,11 +5,15 @@ import styles from "./PageLayoutBlogOverview.module.scss";
 import { Base } from "@/components/Base/Base";
 import { pxToRem } from "@/utils/pxToRem";
 
-interface ChildrenProps extends React.PropsWithChildren { }
+interface ChildrenProps extends React.PropsWithChildren {}
 
 interface BlogOverviewHeaderProps extends ChildrenProps {
   title: string;
   description: string;
+}
+
+interface SectionHeadingProps {
+  title: string;
 }
 
 interface FeaturedArticleProps {
@@ -70,7 +74,9 @@ export function PageLayoutBlogOverviewMainColumn(props: ChildrenProps) {
 }
 
 export function PageLayoutBlogOverviewSideColumn(props: ChildrenProps) {
-  return <aside className={styles.blogOverview_sidebar}>{props.children}</aside>;
+  return (
+    <aside className={styles.blogOverview_sidebar}>{props.children}</aside>
+  );
 }
 
 export function PageLayoutBlogOverviewSearchSlot(props: ChildrenProps) {
@@ -94,43 +100,51 @@ export function PageLayoutBlogOverviewFeaturedArticle(
 
   return (
     <article className={styles.blogOverview_featured}>
-      <Link href={href} className={styles.blogOverview_featuredImageLink}>
-        <Image
-          className={styles.blogOverview_featuredImage}
-          src={imageSrc}
-          alt={imageAlt}
-          width={900}
-          height={520}
-          priority
-        />
+      <Link href={href} className={styles.blogOverview_featuredLink}>
+        <div className={styles.blogOverview_featuredImageFrame}>
+          <Image
+            className={styles.blogOverview_featuredImage}
+            src={imageSrc}
+            alt={imageAlt}
+            width={900}
+            height={520}
+            priority
+          />
+        </div>
+        <div className={styles.blogOverview_featuredContent}>
+          <div className={styles.blogOverview_articleMeta}>
+            <span className={styles.blogOverview_category}>{category}</span>
+            <span>{date}</span>
+            <span>{readingTime}</span>
+          </div>
+          <h2 className={styles.blogOverview_featuredTitle}>{title}</h2>
+          <p className={styles.blogOverview_excerpt}>{excerpt}</p>
+          <div className={styles.blogOverview_featuredFooter}>
+            <span className={styles.blogOverview_author}>{author}</span>
+            <span className={styles.blogOverview_readLink}>
+              Read article <span aria-hidden="true">→</span>
+            </span>
+          </div>
+        </div>
       </Link>
-      <div className={styles.blogOverview_featuredContent}>
-        <div className={styles.blogOverview_articleMeta}>
-          <span className={styles.blogOverview_category}>{category}</span>
-          <span>{date}</span>
-          <span>{readingTime}</span>
-        </div>
-        <h2 className={styles.blogOverview_featuredTitle}>
-          <Link href={href}>{title}</Link>
-        </h2>
-        <p className={styles.blogOverview_excerpt}>{excerpt}</p>
-        <div className={styles.blogOverview_featuredFooter}>
-          <span className={styles.blogOverview_author}>{author}</span>
-          <Link href={href} className={styles.blogOverview_readLink}>
-            Read article <span aria-hidden="true">→</span>
-          </Link>
-        </div>
-      </div>
     </article>
   );
 }
 
-export function PageLayoutBlogOverviewSectionHeading(props: ChildrenProps) {
-  return <div className={styles.blogOverview_sectionHeading}>{props.children}</div>;
+export function PageLayoutBlogOverviewSectionHeading(
+  props: SectionHeadingProps,
+) {
+  return (
+    <div className={styles.blogOverview_sectionHeading}>
+      <h2 className={styles.blogOverview_sectionHeadingTitle}>{props.title}</h2>
+    </div>
+  );
 }
 
 export function PageLayoutBlogOverviewArticleGrid(props: ChildrenProps) {
-  return <div className={styles.blogOverview_articleGrid}>{props.children}</div>;
+  return (
+    <div className={styles.blogOverview_articleGrid}>{props.children}</div>
+  );
 }
 
 export function PageLayoutBlogOverviewArticleCard(props: ArticleCardProps) {
@@ -201,8 +215,8 @@ export function PageLayoutBlogOverviewCategories(props: CategoriesProps) {
             <span
               className={
                 name === activeCategory
-                  ? styles.blogOverview_categoryActive
-                  : undefined
+                  ? `${styles.blogOverview_categoryItem} ${styles.blogOverview_categoryActive}`
+                  : styles.blogOverview_categoryItem
               }
             >
               <span>{name}</span>
@@ -224,7 +238,9 @@ export function PageLayoutBlogOverviewSortTabs(props: LabelListProps) {
         <span
           key={item}
           className={
-            item === activeItem ? styles.blogOverview_sortActive : undefined
+            item === activeItem
+              ? `${styles.blogOverview_sortTab} ${styles.blogOverview_sortActive}`
+              : styles.blogOverview_sortTab
           }
         >
           {item}
@@ -240,19 +256,25 @@ export function PageLayoutBlogOverviewPagination(props: PaginationProps) {
 
   return (
     <nav className={styles.blogOverview_pagination} aria-label="Article pages">
-      <span className={styles.blogOverview_pageDisabled}>Previous</span>
+      <span
+        className={`${styles.blogOverview_pageItem} ${styles.blogOverview_pageDisabled}`}
+      >
+        Previous
+      </span>
       {pages.map((page) => (
         <span
           key={page}
           aria-current={page === currentPage ? "page" : undefined}
           className={
-            page === currentPage ? styles.blogOverview_pageActive : undefined
+            page === currentPage
+              ? `${styles.blogOverview_pageItem} ${styles.blogOverview_pageActive}`
+              : styles.blogOverview_pageItem
           }
         >
           {page}
         </span>
       ))}
-      <span>Next</span>
+      <span className={styles.blogOverview_pageItem}>Next</span>
     </nav>
   );
 }

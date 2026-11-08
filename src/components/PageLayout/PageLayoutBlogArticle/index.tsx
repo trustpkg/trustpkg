@@ -4,7 +4,9 @@ import {
   PageLayoutBlogArticleCategories,
   PageLayoutBlogArticleCover,
   PageLayoutBlogArticleHeader,
+  PageLayoutBlogArticleList,
   PageLayoutBlogArticleMainContent,
+  PageLayoutBlogArticleParagraph,
   PageLayoutBlogArticleRelatedArticle,
   PageLayoutBlogArticleRelatedArticles,
   PageLayoutBlogArticleSearchSlot,
@@ -21,6 +23,8 @@ interface PageLayoutBlogArticleSubcomponents {
   MainContent: typeof PageLayoutBlogArticleMainContent;
   Cover: typeof PageLayoutBlogArticleCover;
   Section: typeof PageLayoutBlogArticleSection;
+  Paragraph: typeof PageLayoutBlogArticleParagraph;
+  List: typeof PageLayoutBlogArticleList;
   SideColumn: typeof PageLayoutBlogArticleSideColumn;
   SearchSlot: typeof PageLayoutBlogArticleSearchSlot;
   Categories: typeof PageLayoutBlogArticleCategories;
@@ -39,6 +43,8 @@ PageLayoutBlogArticle.TableOfContents = PageLayoutBlogArticleTableOfContents;
 PageLayoutBlogArticle.MainContent = PageLayoutBlogArticleMainContent;
 PageLayoutBlogArticle.Cover = PageLayoutBlogArticleCover;
 PageLayoutBlogArticle.Section = PageLayoutBlogArticleSection;
+PageLayoutBlogArticle.Paragraph = PageLayoutBlogArticleParagraph;
+PageLayoutBlogArticle.List = PageLayoutBlogArticleList;
 PageLayoutBlogArticle.SideColumn = PageLayoutBlogArticleSideColumn;
 PageLayoutBlogArticle.SearchSlot = PageLayoutBlogArticleSearchSlot;
 PageLayoutBlogArticle.Categories = PageLayoutBlogArticleCategories;

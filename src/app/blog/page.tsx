@@ -32,9 +32,7 @@ export default function BlogOverviewPage() {
             excerpt={UNDERSTANDING_PACKAGE_SECURITY.excerpt}
             author={UNDERSTANDING_PACKAGE_SECURITY.author}
           />
-          <PageLayout.BlogOverview.SectionHeading>
-            <h2>More articles</h2>
-          </PageLayout.BlogOverview.SectionHeading>
+          <PageLayout.BlogOverview.SectionHeading title="More articles" />
           <PageLayout.BlogOverview.ArticleCard
             href={`/blog/${PRACTICAL_CODE_SECURITY.slug}`}
             imageSrc={PRACTICAL_CODE_SECURITY.imageSrc}

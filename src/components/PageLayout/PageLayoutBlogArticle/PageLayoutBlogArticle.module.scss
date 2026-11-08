@@ -19,7 +19,9 @@
   color: colors.$color-text-primary;
 
   @include breakpoints.lg {
-    grid-template-columns: minmax(pxToRem.pxToRem(150), 0.7fr) minmax(0, 2fr) minmax(pxToRem.pxToRem(220), 0.9fr);
+    grid-template-columns:
+      minmax(pxToRem.pxToRem(150), 0.7fr) minmax(0, 2fr)
+      minmax(pxToRem.pxToRem(220), 0.9fr);
     grid-template-areas:
       "breadcrumbs breadcrumbs breadcrumbs"
       ". header sidebar"
@@ -37,14 +39,14 @@
     gap: pxToRem.pxToRem(10);
     color: colors.$color-text-tertiary;
     font-size: pxToRem.pxToRem(14);
+  }
 
-    a {
-      color: inherit;
-      text-decoration: none;
+  &_breadcrumbLink {
+    color: inherit;
+    text-decoration: none;
 
-      &:hover {
-        color: colors.$color-text-accent;
-      }
+    &:hover {
+      color: colors.$color-text-accent;
     }
   }
 
@@ -107,16 +109,16 @@
     gap: pxToRem.pxToRem(10);
     margin-top: pxToRem.pxToRem(2);
     font-size: pxToRem.pxToRem(14);
+  }
 
-    >span {
-      display: flex;
-      flex-direction: column;
-      gap: pxToRem.pxToRem(2);
-    }
+  &_authorDetails {
+    display: flex;
+    flex-direction: column;
+    gap: pxToRem.pxToRem(2);
+  }
 
-    >span>span {
-      color: colors.$color-text-tertiary;
-    }
+  &_authorTitle {
+    color: colors.$color-text-tertiary;
   }
 
   &_authorAvatar {
@@ -134,32 +136,32 @@
       position: sticky;
       top: pxToRem.pxToRem(20);
     }
+  }
 
-    h2 {
-      margin: 0 0 pxToRem.pxToRem(10);
-      font-size: pxToRem.pxToRem(13);
-    }
+  &_tocTitle {
+    margin: 0 0 pxToRem.pxToRem(10);
+    font-size: pxToRem.pxToRem(13);
+  }
 
-    ol {
-      display: flex;
-      flex-direction: column;
-      gap: pxToRem.pxToRem(4);
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
+  &_tocList {
+    display: flex;
+    flex-direction: column;
+    gap: pxToRem.pxToRem(4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
 
-    a {
-      display: block;
-      padding: pxToRem.pxToRem(5) 0;
-      color: colors.$color-text-secondary;
-      font-size: pxToRem.pxToRem(14);
-      line-height: 1.35;
-      text-decoration: none;
+  &_tocLink {
+    display: block;
+    padding: pxToRem.pxToRem(5) 0;
+    color: colors.$color-text-secondary;
+    font-size: pxToRem.pxToRem(14);
+    line-height: 1.35;
+    text-decoration: none;
 
-      &:hover {
-        color: colors.$color-text-accent;
-      }
+    &:hover {
+      color: colors.$color-text-accent;
     }
   }
 
@@ -181,14 +183,14 @@
     border: pxToRem.pxToRem(1) solid colors.$color-border-primary;
     border-radius: pxToRem.pxToRem(8);
     background: colors.$color-background-surface-primary;
+  }
 
-    img {
-      display: block;
-      width: 100%;
-      height: auto;
-      max-height: pxToRem.pxToRem(360);
-      object-fit: cover;
-    }
+  &_coverImage {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: pxToRem.pxToRem(360);
+    object-fit: cover;
   }
 
   &_section {
@@ -196,37 +198,30 @@
     flex-direction: column;
     gap: pxToRem.pxToRem(12);
     scroll-margin-top: pxToRem.pxToRem(24);
+  }
 
-    h2 {
-      margin: 0;
-      font-size: pxToRem.pxToRem(23);
-      line-height: 1.25;
-    }
+  &_sectionTitle {
+    margin: 0;
+    font-size: pxToRem.pxToRem(23);
+    line-height: 1.25;
+  }
 
-    h3 {
-      margin: pxToRem.pxToRem(6) 0 0;
-      font-size: pxToRem.pxToRem(17);
-      line-height: 1.35;
-    }
+  &_sectionParagraph {
+    margin: 0;
+    color: colors.$color-text-secondary;
+    font-size: pxToRem.pxToRem(18);
+    line-height: 1.75;
+  }
 
-    p {
-      margin: 0;
-      color: colors.$color-text-secondary;
-      font-size: pxToRem.pxToRem(18);
-      line-height: 1.75;
-    }
-
-    ul,
-    ol {
-      display: flex;
-      flex-direction: column;
-      gap: pxToRem.pxToRem(8);
-      margin: 0;
-      padding-left: pxToRem.pxToRem(22);
-      color: colors.$color-text-secondary;
-      font-size: pxToRem.pxToRem(16);
-      line-height: 1.7;
-    }
+  &_sectionList {
+    display: flex;
+    flex-direction: column;
+    gap: pxToRem.pxToRem(8);
+    margin: 0;
+    padding-left: pxToRem.pxToRem(22);
+    color: colors.$color-text-secondary;
+    font-size: pxToRem.pxToRem(16);
+    line-height: 1.7;
   }
 
   &_sidebar {
@@ -246,11 +241,11 @@
     border: pxToRem.pxToRem(1) solid colors.$color-border-primary;
     border-radius: pxToRem.pxToRem(8);
     background: colors.$color-background-surface-primary;
+  }
 
-    h2 {
-      margin: 0 0 pxToRem.pxToRem(14);
-      font-size: pxToRem.pxToRem(18);
-    }
+  &_panelTitle {
+    margin: 0 0 pxToRem.pxToRem(14);
+    font-size: pxToRem.pxToRem(18);
   }
 
   &_categoryList {
@@ -260,16 +255,16 @@
     margin: 0;
     padding: 0;
     list-style: none;
+  }
 
-    li>span {
-      display: flex;
-      justify-content: space-between;
-      gap: pxToRem.pxToRem(14);
-      padding: pxToRem.pxToRem(8);
-      border-radius: pxToRem.pxToRem(5);
-      color: colors.$color-text-secondary;
-      font-size: pxToRem.pxToRem(14);
-    }
+  &_categoryItem {
+    display: flex;
+    justify-content: space-between;
+    gap: pxToRem.pxToRem(14);
+    padding: pxToRem.pxToRem(8);
+    border-radius: pxToRem.pxToRem(5);
+    color: colors.$color-text-secondary;
+    font-size: pxToRem.pxToRem(14);
   }
 
   &_categoryActive {
@@ -284,17 +279,17 @@
   }
 
   &_relatedArticle {
+    min-width: 0;
+  }
 
-    >a,
-    >span {
-      display: grid;
-      grid-template-columns: pxToRem.pxToRem(72) minmax(0, 1fr);
-      gap: pxToRem.pxToRem(10);
-      color: inherit;
-      text-decoration: none;
-    }
+  &_relatedArticleLink {
+    display: grid;
+    grid-template-columns: pxToRem.pxToRem(72) minmax(0, 1fr);
+    gap: pxToRem.pxToRem(10);
+    color: inherit;
+    text-decoration: none;
 
-    >a:hover strong {
+    &:hover .blogArticle_relatedTitle {
       color: colors.$color-text-accent;
     }
   }
@@ -311,11 +306,11 @@
     flex-direction: column;
     gap: pxToRem.pxToRem(3);
     min-width: 0;
+  }
 
-    strong {
-      font-size: pxToRem.pxToRem(14);
-      line-height: 1.35;
-    }
+  &_relatedTitle {
+    font-size: pxToRem.pxToRem(14);
+    line-height: 1.35;
   }
 
   &_relatedMeta {

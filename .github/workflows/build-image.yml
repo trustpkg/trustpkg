@@ -58,6 +58,8 @@ jobs:
           } >> "$GITHUB_OUTPUT"
 
           podman build \
+            --platform linux/arm64 \
+            --platform linux/amd64 \
             --build-arg "NODE_VERSION=$NODE_VERSION" \
             --build-arg "PNPM_VERSION=$PNPM_VERSION" \
             --label "org.opencontainers.image.source=https://github.com/trustpkg/$GITHUB_REPOSITORY" \

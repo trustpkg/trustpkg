@@ -53,9 +53,9 @@ export function PageLayoutOverviewHero(props: PageLayoutOverviewHeroProps) {
 
             <Image
               className={styles.pageOverview_heroImage}
-              width={300}
-              height={300}
-              src="/trustpkg-coin.png"
+              width={1254}
+              height={1254}
+              src="/hero.png"
               priority
               alt=""
             />

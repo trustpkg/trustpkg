@@ -41,13 +41,18 @@
     width: 100%;
 
     &Image {
-      width: pxToRem.pxToRem(300);
-      height: pxToRem.pxToRem(300);
+      width: pxToRem.pxToRem(260);
+      height: pxToRem.pxToRem(260);
       object-fit: cover;
     }
 
     @include breakpoints.rwd(400px) {
       align-items: center;
+
+      &Image {
+        width: pxToRem.pxToRem(300);
+        height: pxToRem.pxToRem(300);
+      }
     }
 
     @include breakpoints.sm {

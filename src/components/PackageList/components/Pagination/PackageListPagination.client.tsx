@@ -19,6 +19,7 @@ export function PackageListFooter(props: PackageListFooterProps) {
     paginationPath = "/",
   } = props;
   const [pendingPage, setPendingPage] = React.useState<number | null>(null);
+  const pagesRef = React.useRef<HTMLDivElement>(null);
 
   const getHref = (page: number) => getPaginationHref(paginationPath, page);
 
@@ -26,27 +27,39 @@ export function PackageListFooter(props: PackageListFooterProps) {
     default: false,
     md: true,
   });
-  const responsiveSiblingCount = useResponsiveProp({
-    default: 0,
-    lg: siblingCount,
-  });
-  const isCompactPagination = useResponsiveProp({
-    default: true,
-    md: false,
-  });
-
   const pagination = usePagination({
     type: "link",
     count,
     page: currentPage,
     pageSize,
-    siblingCount: responsiveSiblingCount,
+    siblingCount,
     getPageUrl: ({ page }) => getHref(page),
   });
 
   const isNavigating = pendingPage !== null && pendingPage !== currentPage;
   const isPreviousDisabled = isNavigating || pagination.previousPage === null;
   const isNextDisabled = isNavigating || pagination.nextPage === null;
+
+  React.useEffect(
+    function revealCurrentPage() {
+      const container = pagesRef.current;
+      const selected = container?.querySelector<HTMLElement>(
+        '[aria-current="page"]',
+      );
+
+      if (!container || !selected) {
+        return;
+      }
+
+      const containerRect = container.getBoundingClientRect();
+      const selectedRect = selected.getBoundingClientRect();
+      container.scrollLeft +=
+        selectedRect.left -
+        containerRect.left -
+        (containerRect.width - selectedRect.width) / 2;
+    },
+    [currentPage, count, pageSize, siblingCount],
+  );
 
   const handleNavigation = (
     event: React.MouseEvent<HTMLAnchorElement>,
@@ -70,97 +83,72 @@ export function PackageListFooter(props: PackageListFooterProps) {
           </div>
         )}
 
-        <nav
+        <Pagination.RootProvider
+          value={pagination}
           className={styles.packageListPagination_navigation}
           aria-label="Package list pagination"
         >
-          <Pagination.RootProvider value={pagination}>
-            <Pagination.PrevTrigger asChild>
-              <Link
-                className={styles.packageListPagination_control}
-                href={getHref(pagination.previousPage ?? pagination.page)}
-                prefetch
-                aria-disabled={isPreviousDisabled}
-                tabIndex={isPreviousDisabled ? -1 : undefined}
-                onClick={(event) =>
-                  handleNavigation(
-                    event,
-                    pagination.previousPage ?? pagination.page,
-                    isPreviousDisabled,
-                  )
-                }
-              >
-                Previous
-              </Link>
-            </Pagination.PrevTrigger>
+          <Pagination.PrevTrigger asChild>
+            <Link
+              className={styles.packageListPagination_control}
+              href={getHref(pagination.previousPage ?? pagination.page)}
+              prefetch
+              aria-disabled={isPreviousDisabled}
+              tabIndex={isPreviousDisabled ? -1 : undefined}
+              onClick={(event) =>
+                handleNavigation(
+                  event,
+                  pagination.previousPage ?? pagination.page,
+                  isPreviousDisabled,
+                )
+              }
+            >
+              Previous
+            </Link>
+          </Pagination.PrevTrigger>
 
-            <Pagination.Context>
-              {(pagination) => {
-                const pageValues = pagination.pages.flatMap((page) =>
-                  page.type === "page" ? [page.value] : [],
-                );
-                const lastPage = pageValues[pageValues.length - 1] ?? 1;
-                const firstCompactPage = Math.max(
-                  1,
-                  Math.min(pagination.page - 1, lastPage - 2),
-                );
-                const compactPageValues = new Set(
-                  Array.from(
-                    { length: Math.min(3, lastPage) },
-                    (_, index) => firstCompactPage + index,
-                  ),
-                );
-                const pages = isCompactPagination
-                  ? pagination.pages.filter(
-                      (page) =>
-                        page.type === "page" &&
-                        compactPageValues.has(page.value),
-                    )
-                  : pagination.pages;
+          <div className={styles.packageListPagination_pages} ref={pagesRef}>
+            {pagination.pages.map((page, index) =>
+              page.type === "page" ? (
+                <PackageListPaginationPageLink
+                  key={page.value}
+                  page={page}
+                  currentPage={pagination.page}
+                  pendingPage={pendingPage}
+                  getHref={getHref}
+                  onNavigate={handleNavigation}
+                />
+              ) : (
+                <Pagination.Ellipsis
+                  key={`ellipsis-${index}`}
+                  index={index}
+                  className={styles.packageListPagination_ellipsis}
+                >
+                  &#8230;
+                </Pagination.Ellipsis>
+              ),
+            )}
+          </div>
 
-                return pages.map((page, index) =>
-                  page.type === "page" ? (
-                    <PackageListPaginationPageLink
-                      key={index}
-                      page={page}
-                      currentPage={pagination.page}
-                      pendingPage={pendingPage}
-                      getHref={getHref}
-                      onNavigate={handleNavigation}
-                    />
-                  ) : (
-                    <Pagination.Ellipsis
-                      key={index}
-                      index={index}
-                      className={styles.packageListPagination_ellipsis}
-                    >
-                      &#8230;
-                    </Pagination.Ellipsis>
-                  ),
-                );
-              }}
-            </Pagination.Context>
-
-            <Pagination.NextTrigger asChild>
-              <Link
-                className={styles.packageListPagination_control}
-                href={getHref(pagination.nextPage ?? pagination.page)}
-                prefetch
-                aria-disabled={isNextDisabled}
-                tabIndex={isNextDisabled ? -1 : undefined}
-                onClick={(event) =>
-                  handleNavigation(
-                    event,
-                    pagination.nextPage ?? pagination.page,
-                    isNextDisabled,
-                  )
-                }
-              >
-                Next
-              </Link>
-            </Pagination.NextTrigger>
-          </Pagination.RootProvider>
-        </nav>
+          <Pagination.NextTrigger asChild>
+            <Link
+              className={styles.packageListPagination_control}
+              href={getHref(pagination.nextPage ?? pagination.page)}
+              prefetch
+              aria-disabled={isNextDisabled}
+              tabIndex={isNextDisabled ? -1 : undefined}
+              onClick={(event) =>
+                handleNavigation(
+                  event,
+                  pagination.nextPage ?? pagination.page,
+                  isNextDisabled,
+                )
+              }
+            >
+              Next
+            </Link>
+          </Pagination.NextTrigger>
+        </Pagination.RootProvider>
       </div>
     </div>
   );

@@ -82,11 +82,7 @@ function NavigationView(props: NavigationViewProps) {
         </li>
 
         <li className={styles.navigation_actionsItem}>
-          <NavigationDrawer
-            logoSrc={logoSrcByTheme[theme]}
-            theme={theme}
-            config={config}
-          />
+          <NavigationDrawer config={config} />
         </li>
       </ul>
     </nav>

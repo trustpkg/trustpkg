@@ -86,12 +86,13 @@ export async function NavigationPackageList(props: NavigationPackageListProps) {
                             return (
                                 <li key={item.id}>
                                     <Component {...propsByComponent}>
-                                        <span>
+                                        <span className={styles.navigationPackageList_name} title={item.name}>
                                             {item.name}
                                         </span>
 
                                         <Base
                                             as='span'
+                                            className={styles.navigationPackageList_metadata}
                                             display='flex'
                                             alignItems='center'
                                             gap={pxToRem(4)}

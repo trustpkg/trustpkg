@@ -1,0 +1,23 @@
+@use "../../styles/pxToRem.scss" as pxToRem;
+@use "../../theme/generated/colors.generated.variables.scss" as colors;
+
+.navigationListGroup {
+  &_title {
+    display: block;
+    padding: pxToRem.pxToRem(8) pxToRem.pxToRem(16);
+    color: colors.$color-text-primary;
+    font-size: pxToRem.pxToRem(18);
+    font-weight: 600;
+
+    &__nested {
+      color: colors.$color-text-secondary;
+      font-size: pxToRem.pxToRem(16);
+    }
+  }
+
+  &_items {
+    margin-left: pxToRem.pxToRem(16);
+    padding-left: pxToRem.pxToRem(8);
+    list-style: none;
+  }
+}

@@ -1,0 +1,35 @@
+@use "../../styles/pxToRem.scss" as pxToRem;
+@use "../../theme/generated/colors.generated.variables.scss" as colors;
+
+.navigationListLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: pxToRem.pxToRem(8);
+  width: 100%;
+  min-height: pxToRem.pxToRem(34);
+  padding: pxToRem.pxToRem(8) pxToRem.pxToRem(16);
+  border-radius: pxToRem.pxToRem(8);
+  color: colors.$color-text-primary;
+  font-size: pxToRem.pxToRem(16);
+  text-decoration: none;
+
+  &:hover {
+    background: colors.$color-background-surface-secondary;
+    color: colors.$color-text-accent;
+  }
+
+  &:focus-visible {
+    outline: pxToRem.pxToRem(2) solid colors.$color-border-focus;
+    outline-offset: pxToRem.pxToRem(2);
+  }
+
+  &__active {
+    background: color-mix(
+      in srgb,
+      colors.$color-background-surface-tertiary 10%,
+      colors.$color-text-accent 5%
+    );
+    color: colors.$color-text-accent;
+  }
+}

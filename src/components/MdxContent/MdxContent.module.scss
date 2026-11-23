@@ -1,0 +1,93 @@
+@use "../../styles/pxToRem.scss" as pxToRem;
+@use "../../theme/generated/colors.generated.variables.scss" as colors;
+
+.mdxContent {
+  min-width: 0;
+  color: colors.$color-text-primary;
+  font-size: pxToRem.pxToRem(18);
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+
+  > .mdxContent_block + .mdxContent_block {
+    margin-top: pxToRem.pxToRem(16);
+  }
+
+  &_heading {
+    color: colors.$color-text-primary;
+    line-height: 1.25;
+    scroll-margin-top: pxToRem.pxToRem(80);
+
+    &__h1 {
+      font-size: clamp(pxToRem.pxToRem(32), 5vw, pxToRem.pxToRem(44));
+    }
+
+    &__h2 {
+      font-size: pxToRem.pxToRem(24);
+    }
+
+    &__h3 {
+      font-size: pxToRem.pxToRem(20);
+    }
+  }
+
+  &_paragraph,
+  &_list {
+    color: colors.$color-text-secondary;
+  }
+
+  &_nextPage {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &_link {
+    color: colors.$color-text-accent;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
+  &_list {
+    padding-left: pxToRem.pxToRem(24);
+  }
+
+  &_blockquote {
+    padding: pxToRem.pxToRem(12) pxToRem.pxToRem(16);
+    border-left: pxToRem.pxToRem(3) solid colors.$color-border-info;
+    border-radius: pxToRem.pxToRem(4);
+    background: colors.$color-background-info;
+  }
+
+  &_inlineCode {
+    padding: 0.1em 0.3em;
+    border-radius: pxToRem.pxToRem(4);
+    background: colors.$color-background-surface-tertiary;
+    font-family: var(--font-geist-mono), monospace;
+    font-size: 0.9em;
+  }
+
+  &_codeToken {
+    color: var(--shiki-light, inherit);
+  }
+
+  &_divider {
+    border: 0;
+    border-top: pxToRem.pxToRem(1) solid colors.$color-border-primary;
+  }
+
+  &_table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+  }
+
+  &_tableCell {
+    padding: pxToRem.pxToRem(8) pxToRem.pxToRem(12);
+    border: pxToRem.pxToRem(1) solid colors.$color-border-primary;
+    text-align: left;
+  }
+}
+
+:global([data-theme="dark"]) .mdxContent_codeToken {
+  color: var(--shiki-dark, inherit);
+}

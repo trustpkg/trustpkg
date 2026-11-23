@@ -1,0 +1,31 @@
+@use "../../styles/pxToRem.scss" as pxToRem;
+@use "../../theme/generated/colors.generated.variables.scss" as colors;
+
+.documentationNavigation {
+  list-style: none;
+
+  &_folder {
+    min-width: 0;
+  }
+
+  &_separator {
+    display: block;
+    padding: pxToRem.pxToRem(8) pxToRem.pxToRem(16);
+    color: colors.$color-text-primary;
+    font-size: pxToRem.pxToRem(18);
+    font-weight: 600;
+  }
+
+  &_folder__separated,
+  &_separator__separated {
+    margin-top: pxToRem.pxToRem(16);
+    padding-top: pxToRem.pxToRem(16);
+    border-top: pxToRem.pxToRem(1) solid colors.$color-border-primary;
+  }
+
+  &_separator__nested {
+    color: colors.$color-text-secondary;
+    font-size: pxToRem.pxToRem(16);
+    font-weight: 600;
+  }
+}

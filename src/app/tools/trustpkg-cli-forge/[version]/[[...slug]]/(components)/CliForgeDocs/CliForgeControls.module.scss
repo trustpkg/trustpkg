@@ -1,0 +1,46 @@
+@use "../../../../../../../styles/pxToRem.scss" as pxToRem;
+@use "../../../../../../../theme/generated/colors.generated.variables.scss" as colors;
+
+.cliForgeControls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: pxToRem.pxToRem(16);
+
+  &_field {
+    display: flex;
+    flex-direction: column;
+    gap: pxToRem.pxToRem(8);
+    min-width: 0;
+  }
+
+  &_label {
+    color: colors.$color-text-secondary;
+    font-size: pxToRem.pxToRem(16);
+    font-weight: 500;
+  }
+
+  &_input {
+    width: 100%;
+    min-height: pxToRem.pxToRem(40);
+    padding: pxToRem.pxToRem(8) pxToRem.pxToRem(12);
+    border: pxToRem.pxToRem(1) solid colors.$color-border-primary;
+    border-radius: pxToRem.pxToRem(8);
+    background: colors.$color-background-surface-primary;
+    color: colors.$color-text-primary;
+    font: inherit;
+    font-size: pxToRem.pxToRem(16);
+
+    &:hover {
+      border-color: colors.$color-border-secondary;
+    }
+
+    &:focus-visible {
+      outline: pxToRem.pxToRem(2) solid colors.$color-border-focus;
+      outline-offset: pxToRem.pxToRem(2);
+    }
+  }
+
+  &_search {
+    flex: 1 1 pxToRem.pxToRem(280);
+  }
+}

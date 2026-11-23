@@ -1,0 +1,37 @@
+import type { MDXComponents } from "mdx/types";
+import {
+  MdxBlockquote,
+  MdxCode,
+  MdxCodeBlock,
+  MdxCodeToken,
+  MdxDivider,
+  MdxHeading,
+  MdxLink,
+  MdxOrderedList,
+  MdxParagraph,
+  MdxTable,
+  MdxTableCell,
+  MdxTableHeading,
+  MdxUnorderedList,
+} from "./MdxContent.components";
+
+export const mdxComponents: MDXComponents = {
+  h1: (props) => <MdxHeading {...props} as="h1" />,
+  h2: (props) => <MdxHeading {...props} as="h2" />,
+  h3: (props) => <MdxHeading {...props} as="h3" />,
+  h4: (props) => <MdxHeading {...props} as="h4" />,
+  h5: (props) => <MdxHeading {...props} as="h5" />,
+  h6: (props) => <MdxHeading {...props} as="h6" />,
+  p: MdxParagraph,
+  a: MdxLink,
+  ul: MdxUnorderedList,
+  ol: MdxOrderedList,
+  blockquote: MdxBlockquote,
+  code: MdxCode,
+  span: MdxCodeToken,
+  pre: MdxCodeBlock,
+  hr: MdxDivider,
+  table: MdxTable,
+  th: MdxTableHeading,
+  td: MdxTableCell,
+};

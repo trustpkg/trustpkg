@@ -301,19 +301,32 @@
 
   &_navigation {
     display: flex;
-    justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
     gap: pxToRem.pxToRem(4);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    width: fit-content;
+    max-width: 100%;
+    min-width: 0;
+    min-height: pxToRem.pxToRem(40);
+    margin-inline: auto;
+  }
+
+  &_pages {
+    display: flex;
+    align-items: center;
+    flex: 0 1 auto;
+    gap: pxToRem.pxToRem(4);
+    min-width: 0;
+    padding: pxToRem.pxToRem(4) pxToRem.pxToRem(2);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    scrollbar-color: colors.$color-border-secondary transparent;
   }
 
   &_control,
   &_item {
     display: inline-flex;
+    flex: 0 0 auto;
     justify-content: center;
     align-items: center;
     min-width: pxToRem.pxToRem(32);
@@ -346,15 +359,15 @@
       outline-offset: pxToRem.pxToRem(2);
     }
 
-    &[data-selected="true"] {
+    &[data-selected] {
       border-color: colors.$color-background-button-primary;
       background-color: colors.$color-background-button-primary;
       color: colors.$color-text-button-primary;
       font-weight: 700;
     }
 
-    &[data-disabled="true"],
-    &[aria-disabled="true"]:not([data-selected="true"]) {
+    &[data-disabled],
+    &[aria-disabled="true"]:not([data-selected]) {
       pointer-events: none;
       color: colors.$color-text-disabled;
       opacity: 0.65;
@@ -370,11 +383,18 @@
     justify-content: center;
     align-items: center;
     width: pxToRem.pxToRem(32);
+    flex: 0 0 auto;
     height: pxToRem.pxToRem(40);
     color: colors.$color-text-tertiary;
     font-size: pxToRem.pxToRem(14);
     font-weight: 500;
     user-select: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .packageListPagination_navigation {
+    max-width: calc(100% - pxToRem.pxToRem(64));
   }
 }
 
@@ -384,22 +404,6 @@
 
     &_spinner {
       min-height: 0;
-    }
-
-    &_navigation {
-      position: static;
-      width: 100%;
-      transform: none;
-      flex-wrap: nowrap;
-
-      >nav {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: nowrap;
-        gap: pxToRem.pxToRem(4);
-        width: 100%;
-      }
     }
 
     &_control {

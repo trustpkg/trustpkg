@@ -35,12 +35,13 @@ export function LastVisitedPackages(props: LastVisitedPackagesProps) {
             {recentPages.map((item) => (
                 <li key={item.url}>
                     <a href={item.url} className={styles.navigationPackageList_link}>
-                        <span>
+                        <span className={styles.navigationPackageList_name} title={item.name}>
                             {item.name}
                         </span>
 
                         <Base
                             as='span'
+                            className={styles.navigationPackageList_metadata}
                             display='flex'
                             alignItems='center'
                             gap={pxToRem(4)}

@@ -30,7 +30,20 @@
     }
 
     &_list {
+        min-width: 0;
         list-style: none;
+    }
+
+    &_name {
+        flex: 1 1 auto;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &_metadata {
+        flex: 0 0 auto;
     }
 
     &_skeletonItem {

@@ -1,4 +1,4 @@
-import DocumentationNavigation from "@/components/DocumentationNavigation";
+import DocumentationNavigation, { DocumentationNavigationDrawer } from "@/components/DocumentationNavigation";
 import DocumentationTableOfContents from "@/components/DocumentationTableOfContents";
 import MdxContent from "@/components/MdxContent";
 import PageLayout from "@/components/PageLayout";
@@ -35,6 +35,10 @@ export function CliForgeDocs(props: CliForgeDocsProps) {
         </PageLayout.List.SideMenu>
 
         <PageLayout.List.Details>
+          <DocumentationNavigationDrawer>
+            <DocumentationNavigation nodes={nodes} current={current} />
+          </DocumentationNavigationDrawer>
+
           <CliForgeControls versions={versions} version={version} />
 
           <DocumentationTableOfContents items={toc} />

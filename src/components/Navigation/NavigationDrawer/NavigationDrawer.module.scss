@@ -23,7 +23,7 @@
 
 @keyframes drawerSlideIn {
   from {
-    transform: translateX(100%);
+    transform: translateX(var(--drawer-slide-offset, 100%));
   }
 
   to {
@@ -37,7 +37,7 @@
   }
 
   to {
-    transform: translateX(100%);
+    transform: translateX(var(--drawer-slide-offset, 100%));
   }
 }
 
@@ -81,12 +81,9 @@
     display: none;
   }
 
-  &[data-state="open"] {
-    visibility: visible;
-  }
-
-  &[data-state="closed"] {
-    visibility: hidden;
+  &__left {
+    --drawer-slide-offset: -100%;
+    justify-content: flex-start;
   }
 
   &_backdrop {
@@ -124,12 +121,18 @@
     animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
     animation-fill-mode: both;
 
+    &__left {
+      border-right: pxToRem.pxToRem(1) solid colors.$color-border-primary;
+      border-left: 0;
+    }
+
     &[data-state="open"] {
       animation-name: drawerSlideIn;
     }
 
     &[data-state="closed"] {
       animation-name: drawerSlideOut;
+      pointer-events: none;
     }
   }
 

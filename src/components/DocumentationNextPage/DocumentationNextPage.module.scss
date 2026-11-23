@@ -1,0 +1,60 @@
+@use "../../styles/pxToRem.scss" as pxToRem;
+@use "../../theme/generated/colors.generated.variables.scss" as colors;
+@use "../../styles/breakpoints.scss" as breakpoints;
+
+.documentationNextPage {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: pxToRem.pxToRem(4);
+  width: 100%;
+  padding: pxToRem.pxToRem(16);
+  border: pxToRem.pxToRem(1) solid colors.$color-border-primary;
+  border-radius: pxToRem.pxToRem(8);
+  background: colors.$color-background-surface-primary;
+  color: colors.$color-text-primary;
+  text-align: right;
+  text-decoration: none;
+
+  @include breakpoints.lg {
+    width: min(100%, #{pxToRem.pxToRem(368)});
+  }
+
+
+  &:hover {
+    border-color: colors.$color-border-secondary;
+
+    &>.documentationNextPage {
+
+      &_label,
+      &_title {
+        color: colors.$color-text-accent;
+      }
+    }
+  }
+
+  &:focus-visible {
+    outline: pxToRem.pxToRem(2) solid colors.$color-border-focus;
+    outline-offset: pxToRem.pxToRem(2);
+  }
+
+  &_label {
+    display: inline-flex;
+    align-items: center;
+    gap: pxToRem.pxToRem(8);
+    color: colors.$color-text-tertiary;
+    font-size: pxToRem.pxToRem(14);
+  }
+
+  &_icon {
+    width: pxToRem.pxToRem(16);
+    height: pxToRem.pxToRem(16);
+    flex-shrink: 0;
+  }
+
+  &_title {
+    font-size: pxToRem.pxToRem(14);
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+}

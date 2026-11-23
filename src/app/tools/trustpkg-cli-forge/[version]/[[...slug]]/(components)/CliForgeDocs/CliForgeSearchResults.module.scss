@@ -1,0 +1,167 @@
+@use "../../../../../../../styles/pxToRem.scss" as pxToRem;
+@use "../../../../../../../styles/breakpoints.scss" as breakpoints;
+@use "../../../../../../../theme/generated/colors.generated.variables.scss" as colors;
+
+@keyframes searchSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.cliForgeSearchResults {
+  margin-top: pxToRem.pxToRem(8);
+  overflow: hidden;
+  border: pxToRem.pxToRem(1) solid colors.$color-border-primary;
+  border-radius: pxToRem.pxToRem(8);
+  background: colors.$color-background-surface-primary;
+  color: colors.$color-text-secondary;
+
+  &_header {
+    display: flex;
+    justify-content: space-between;
+    gap: pxToRem.pxToRem(12);
+    padding: pxToRem.pxToRem(12) pxToRem.pxToRem(16);
+    border-bottom: pxToRem.pxToRem(1) solid colors.$color-border-primary;
+    color: colors.$color-text-accent;
+    font-size: pxToRem.pxToRem(16);
+    font-weight: 600;
+  }
+
+  &_list {
+    list-style: none;
+  }
+
+  &_group {
+    display: grid;
+    gap: pxToRem.pxToRem(4);
+    padding: pxToRem.pxToRem(12);
+
+    & + & {
+      border-top: pxToRem.pxToRem(1) solid colors.$color-border-primary;
+    }
+
+    @include breakpoints.md {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+      gap: pxToRem.pxToRem(12);
+    }
+  }
+
+  &_page,
+  &_match {
+    display: block;
+    min-width: 0;
+    padding: pxToRem.pxToRem(8) pxToRem.pxToRem(12);
+    border-left: pxToRem.pxToRem(3) solid transparent;
+    border-radius: pxToRem.pxToRem(8);
+    overflow-wrap: anywhere;
+    transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+
+    &:hover,
+    &:focus-visible {
+      border-left-color: colors.$color-text-accent;
+      background: color-mix(in srgb, colors.$color-text-accent 8%, colors.$color-background-surface-primary);
+      color: colors.$color-text-primary;
+    }
+
+    &:focus-visible {
+      outline: pxToRem.pxToRem(2) solid colors.$color-border-focus;
+      outline-offset: pxToRem.pxToRem(-2);
+    }
+  }
+
+  &_page {
+    align-self: start;
+    color: colors.$color-text-accent;
+    font-weight: 600;
+  }
+
+  &_match {
+    font-size: pxToRem.pxToRem(16);
+    line-height: 1.55;
+  }
+
+  &_matches {
+    display: grid;
+    gap: pxToRem.pxToRem(2);
+    min-width: 0;
+    list-style: none;
+  }
+
+  &_markdown {
+    min-width: 0;
+    overflow-x: auto;
+  }
+
+  &_markdownCode {
+    padding: 0.1em 0.3em;
+    border-radius: pxToRem.pxToRem(4);
+    background: colors.$color-background-surface-tertiary;
+    font-family: var(--font-geist-mono), monospace;
+    font-size: 1em;
+  }
+
+  &_markdownPre {
+    overflow-x: auto;
+  }
+
+  &_markdownList {
+    padding-left: pxToRem.pxToRem(20);
+  }
+
+  &_markdownCell {
+    padding: pxToRem.pxToRem(4) pxToRem.pxToRem(8);
+    border: pxToRem.pxToRem(1) solid colors.$color-border-primary;
+    text-align: left;
+  }
+
+  &_markdownTable {
+    border-collapse: collapse;
+  }
+
+  &_status,
+  &_empty {
+    display: flex;
+    align-items: center;
+    gap: pxToRem.pxToRem(12);
+    padding: pxToRem.pxToRem(16);
+    font-size: pxToRem.pxToRem(16);
+  }
+
+  &_emptyImage {
+    width: pxToRem.pxToRem(100);
+    height: auto;
+  }
+
+  &_emptyTitle {
+    margin-bottom: pxToRem.pxToRem(4);
+    color: colors.$color-text-accent;
+    font-size: pxToRem.pxToRem(16);
+    font-weight: 600;
+  }
+
+  &_spinner {
+    width: pxToRem.pxToRem(20);
+    height: pxToRem.pxToRem(20);
+    flex: 0 0 auto;
+    border: pxToRem.pxToRem(2) solid colors.$color-border-secondary;
+    border-top-color: colors.$color-text-accent;
+    border-radius: 50%;
+    animation: searchSpin 0.8s linear infinite;
+  }
+}
+
+::highlight(fd-search) {
+  background: color-mix(in srgb, colors.$color-text-accent 35%, transparent);
+  color: colors.$color-text-primary;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cliForgeSearchResults_spinner {
+    animation-duration: 2s;
+  }
+
+  .cliForgeSearchResults_page,
+  .cliForgeSearchResults_match {
+    transition: none;
+  }
+}

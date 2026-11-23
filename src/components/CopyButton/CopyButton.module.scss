@@ -1,0 +1,51 @@
+@use "../../styles/pxToRem.scss" as pxToRem;
+@use "../../theme/generated/colors.generated.variables.scss" as colors;
+
+.copyButton {
+  display: inline-flex;
+  align-items: center;
+
+  &_button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: pxToRem.pxToRem(6);
+    min-height: pxToRem.pxToRem(40);
+    padding: pxToRem.pxToRem(8) pxToRem.pxToRem(12);
+    border: 0;
+    border-radius: pxToRem.pxToRem(4);
+    background: transparent;
+    color: colors.$color-text-secondary;
+    cursor: pointer;
+    font: inherit;
+    font-size: pxToRem.pxToRem(14);
+    line-height: 1;
+
+    &:hover {
+      background: colors.$color-background-surface-tertiary;
+    }
+
+    &:focus-visible {
+      outline: pxToRem.pxToRem(2) solid colors.$color-border-focus;
+      outline-offset: pxToRem.pxToRem(2);
+    }
+  }
+
+  &_icon {
+    display: block;
+    flex-shrink: 0;
+    width: pxToRem.pxToRem(18);
+    height: pxToRem.pxToRem(18);
+
+    &__success {
+      color: colors.$color-text-success;
+    }
+  }
+
+  &_status {
+    &__error {
+      margin-inline-start: pxToRem.pxToRem(8);
+      color: colors.$color-text-error;
+    }
+  }
+}

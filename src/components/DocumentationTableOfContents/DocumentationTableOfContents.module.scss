@@ -1,0 +1,52 @@
+@use "../../styles/pxToRem.scss" as pxToRem;
+@use "../../theme/generated/colors.generated.variables.scss" as colors;
+
+.documentationToc {
+  display: flex;
+  flex-direction: column;
+  gap: pxToRem.pxToRem(12);
+  margin-bottom: pxToRem.pxToRem(24);
+  padding: pxToRem.pxToRem(16);
+  border: pxToRem.pxToRem(1) solid colors.$color-border-primary;
+  border-radius: pxToRem.pxToRem(8);
+  background: colors.$color-background-surface-primary;
+  color: colors.$color-text-secondary;
+
+  &_title {
+    color: colors.$color-text-accent;
+    font-size: pxToRem.pxToRem(16);
+    font-weight: 600;
+  }
+
+  &_list {
+    display: grid;
+    gap: pxToRem.pxToRem(2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &_link {
+    display: block;
+    padding: pxToRem.pxToRem(6) pxToRem.pxToRem(10);
+    border-left: pxToRem.pxToRem(2) solid transparent;
+    border-radius: pxToRem.pxToRem(4);
+    color: colors.$color-text-secondary;
+    text-decoration: none;
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease,
+      color 150ms ease;
+
+    &:hover {
+      border-left-color: colors.$color-text-accent;
+      background: color-mix(in srgb, colors.$color-text-accent 8%, colors.$color-background-surface-primary);
+      color: colors.$color-text-accent;
+    }
+
+    &:focus-visible {
+      outline: pxToRem.pxToRem(2) solid colors.$color-border-focus;
+      outline-offset: pxToRem.pxToRem(2);
+    }
+  }
+}

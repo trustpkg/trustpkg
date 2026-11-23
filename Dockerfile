@@ -7,7 +7,7 @@ WORKDIR /app
 
 ARG PNPM_VERSION
 RUN npm install --global pnpm@${PNPM_VERSION}
-
+secondaryBase
 FROM base AS dependencies
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
@@ -20,6 +20,7 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY next.config.ts tsconfig.json ./
 COPY src ./src
 COPY public ./public
+COPY scripts ./scripts
 
 RUN pnpm build:prod
 

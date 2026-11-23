@@ -19,6 +19,9 @@
 
 # production
 /build
+/.generated/
+/.source/
+/public/generated/cli-forge/
 
 # misc
 .DS_Store

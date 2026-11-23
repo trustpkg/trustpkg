@@ -10,10 +10,10 @@
 
     @include breakpoints.lg {
         display: grid;
-        grid-template-columns: pxToRem.pxToRem(300) auto;
+        grid-template-columns: pxToRem.pxToRem(300) minmax(0, 1fr);
     }
 
     @include breakpoints.xl {
-        grid-template-columns: pxToRem.pxToRem(400) auto;
+        grid-template-columns: pxToRem.pxToRem(400) minmax(0, 1fr);
     }
 }

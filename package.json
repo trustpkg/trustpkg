@@ -14,7 +14,7 @@
     "start:prod": "node .next/standalone/server.js",
     "lint": "eslint",
     "initialize": "bash scripts/init.sh",
-    "typecheck": "npx tsc --noEmit --strict",
+    "typecheck": "pnpm docs:prepare && npx tsc --noEmit --strict",
     "themes:generate": "bash scripts/generateThemes.sh",
     "api:generate": "set -a && . ./.env && set +a && openapi-ts",
     "docs:prepare": "tsx scripts/prepareCliForgeDocs.ts"

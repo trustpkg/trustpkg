@@ -34,8 +34,8 @@ pnpm install
 
 ### CLI Forge documentation
 
-`pnpm dev` and `pnpm build` fetch documentation from the tags of published,
-stable [CLI Forge releases](https://github.com/trustpkg/trustpkg-cli-forge/releases).
+`pnpm dev`, `pnpm build`, and `pnpm typecheck` fetch documentation from the tags
+of published, stable [CLI Forge releases](https://github.com/trustpkg/trustpkg-cli-forge/releases).
 Only releases containing a `docs` directory are included. The generated
 documentation and search index are built locally and are not fetched at runtime.
 Network or GitHub API errors fail the build; set `GITHUB_TOKEN` if API rate

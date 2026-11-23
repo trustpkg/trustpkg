@@ -1,4 +1,5 @@
 import NavigationListLink from "@/components/NavigationListLink";
+import groupStyles from "@/components/NavigationListGroup/NavigationListGroup.module.scss";
 import clsx from "clsx";
 import type { Node } from "fumadocs-core/page-tree";
 import styles from "./DocumentationNavigation.module.scss";
@@ -15,7 +16,7 @@ function NavigationGroup(props: DocumentationNavigationProps & { nested?: boolea
 
   return (
     <ul className={clsx(styles.documentationNavigation, {
-      [styles.documentationNavigation__nested]: nested,
+      [groupStyles.navigationListGroup_items]: nested,
     })}>
       {nodes.map((node, index) => {
         const separated = !nested && index > 0 && index !== firstGroupIndex;
@@ -51,8 +52,8 @@ function NavigationGroup(props: DocumentationNavigationProps & { nested?: boolea
               [styles.documentationNavigation_folder__separated]: separated,
             })}
           >
-            <span className={clsx(styles.documentationNavigation_folderTitle, {
-              [styles.documentationNavigation_folderTitle__nested]: nested,
+            <span className={clsx(groupStyles.navigationListGroup_title, {
+              [groupStyles.navigationListGroup_title__nested]: nested,
             })}>
               {node.name}
             </span>

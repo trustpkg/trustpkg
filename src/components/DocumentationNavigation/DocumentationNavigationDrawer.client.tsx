@@ -1,14 +1,15 @@
 "use client";
 
 import BookIcon from "@/assets/book.svg";
-import CloseIcon from "@/assets/x.svg";
 import { IconButton } from "@/components/Button";
 import { NavigationDrawerPanel } from "@/components/Navigation/NavigationDrawer/NavigationDrawerPanel";
+import { isNavigationClick } from "@/components/Navigation/NavigationDrawer/NavigationDrawer.utils";
+import { NavigationDrawerHeader } from "@/components/Navigation/NavigationDrawer/components/Header/NavigationDrawerHeader";
+import styles from "@/components/Navigation/NavigationDrawer/NavigationDrawer.module.scss";
 import { useResponsiveProp } from "@/responsive/hooks/useResponsive";
 import { Drawer } from "@ark-ui/react";
 import type { DrawerOpenChangeDetails } from "@ark-ui/react";
 import React from "react";
-import styles from "./DocumentationNavigationDrawer.module.scss";
 
 interface DocumentationNavigationDrawerProps {
   children: React.ReactNode;
@@ -24,11 +25,7 @@ export function DocumentationNavigationDrawer(props: DocumentationNavigationDraw
   }
 
   function handleNavigationClick(event: React.MouseEvent<HTMLElement>) {
-    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
-      return;
-    }
-
-    if (event.target instanceof Element && event.target.closest("a[href]")) {
+    if (isNavigationClick(event)) {
       setIsOpen(false);
     }
   }
@@ -46,20 +43,13 @@ export function DocumentationNavigationDrawer(props: DocumentationNavigationDraw
       </Drawer.Trigger>
 
       <NavigationDrawerPanel side="left">
-        <header className={styles.documentationDrawer_header}>
-          <Drawer.Title className={styles.documentationDrawer_title}>
-            Documentation
-          </Drawer.Title>
-
-          <Drawer.CloseTrigger asChild>
-            <IconButton.AsButton type="button" label="Close documentation navigation">
-              <CloseIcon aria-hidden="true" />
-            </IconButton.AsButton>
-          </Drawer.CloseTrigger>
-        </header>
+        <NavigationDrawerHeader
+          title="Documentation"
+          closeLabel="Close documentation navigation"
+        />
 
         <nav
-          className={styles.documentationDrawer_navigation}
+          className={styles.drawer_navigation}
           aria-label="Documentation navigation"
           onClick={handleNavigationClick}
         >
